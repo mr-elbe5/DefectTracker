@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<fop version="1.0">
+
+  <base>.</base>
+  
+  <source-resolution>72</source-resolution>
+  <target-resolution>72</target-resolution>
+  
+  <default-page-settings height="29.7cm" width="21cm"/>
+  
+  <renderers>
+    <renderer mime="application/pdf">
+      <filterList>
+        <value>flate</value>
+      </filterList>
+
+      <fonts>
+        <auto-detect/>
+      </fonts>
+
+    </renderer>
+
+    <renderer mime="application/x-afp">
+      <images mode="b+w" bits-per-pixel="8"/>
+      <renderer-resolution>240</renderer-resolution>
+      <line-width-correction>2.5</line-width-correction>
+      <resource-group-file>resources.afp</resource-group-file>
+
+      <fonts>
+
+      </fonts>
+    </renderer>
+
+    <renderer mime="application/postscript">
+
+    </renderer>
+
+    <renderer mime="image/svg+xml">
+      <format type="paginated"/>
+      <link value="true"/>
+      <strokeText value="false"/>
+    </renderer>
+
+    <renderer mime="image/png">
+      <transparent-page-background>true</transparent-page-background>
+    </renderer>
+
+    <renderer mime="text/xml">
+    </renderer>
+
+  </renderers>
+
+</fop>

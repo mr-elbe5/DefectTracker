@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+    <Parameter name="salt" value="V3xfgDrxdl8=" override="false" />
+    <Parameter name="mailHost" value="localhost" override="false" />
+    <Parameter name="mailPort" value="25" override="false" />
+    <Parameter name="mailConnectionType" value="plain" override="false" />
+    <Parameter name="mailUser" value="" override="false" />
+    <Parameter name="mailPassword" value="" override="false" />
+    <Parameter name="mailSender" value="me@myhost.tld" override="false" />
+    <Parameter name="mailReceiver" value="me@myhost.tld" override="false" />
+    <Parameter name="timerInterval" value="30" override="false" />
+    <Parameter name="defaultLanguage" value="de" override="false" />
+    
+    <Resource 
+				name="jdbc/defecttracker"
+				auth="Container" 
+				type="javax.sql.DataSource" 
+				driverClassName="org.postgresql.Driver" 
+				url="jdbc:postgresql://127.0.0.1:5432/defecttracker"
+				username="elbe5"
+				password="xxx"
+				maxActive="20" 
+				maxIdle="10"
+				maxWait="-1"
+				validationQuery="select 1"
+				testOnBorrow="true"
+			/>
+
+</Context>

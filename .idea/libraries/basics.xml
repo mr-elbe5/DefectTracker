@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="basics">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/javalibs/activation-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/javalibs/junit-4.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/javalibs/log4j-1.2.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/javalibs/mail.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
