@@ -11,11 +11,12 @@ package de.elbe5.application;
 import de.elbe5.base.mail.Mailer;
 
 import javax.servlet.ServletContext;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Configuration {
 
-    public static String ENCODING = "UTF-8";
+    public static String ENCODING = String.valueOf(StandardCharsets.UTF_8);
 
     private static String appTitle = "";
     private static String salt = "";

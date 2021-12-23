@@ -1,18 +1,15 @@
 package de.elbe5.base.json;
 
-import io.jsonwebtoken.io.DeserializationException;
-import io.jsonwebtoken.io.Deserializer;
-import io.jsonwebtoken.lang.Assert;
-import io.jsonwebtoken.lang.Strings;
 import org.json.simple.parser.JSONParser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
-public class JsonDeserializer implements Deserializer {
+public class JsonDeserializer {
 
-    public Object deserialize(InputStream in) throws DeserializationException {
+    public Object deserialize(InputStream in) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         byte[] buffer = new byte[0x4000];
         int len;
@@ -21,26 +18,25 @@ public class JsonDeserializer implements Deserializer {
                 outputStream.write(buffer, 0, len);
             }
         } catch (IOException e){
-            throw new DeserializationException(e.getMessage());
+            throw new IOException(e.getMessage());
         }
         return deserialize(outputStream.toByteArray());
     }
 
-    @Override
-    public Object deserialize(byte[] bytes) throws DeserializationException {
+    public Object deserialize(byte[] bytes) throws IOException {
 
-        Assert.notNull(bytes, "JSON byte array cannot be null");
-
-        if (bytes.length == 0) {
-            throw new DeserializationException("Invalid JSON: zero length byte array.");
+        if (bytes==null){
+            throw new IOException("JSON byte array cannot be null");
         }
-
+        if (bytes.length == 0) {
+            throw new IOException("Invalid JSON: zero length byte array.");
+        }
         try {
-            String s = new String(bytes, Strings.UTF_8);
+            String s = new String(bytes, StandardCharsets.UTF_8);
             return new JSONParser().parse(s);
         } catch (Exception e) {
             String msg = "Invalid JSON: " + e.getMessage();
-            throw new DeserializationException(msg, e);
+            throw new IOException(msg, e);
         }
     }
 

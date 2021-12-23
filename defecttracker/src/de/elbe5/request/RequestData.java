@@ -28,7 +28,6 @@ public abstract class RequestData extends KeyValueMap {
     public static final String KEY_CLIPBOARD = "$CLIPBOARD";
     public static final String KEY_TITLE = "$TITLE";
     public static final String KEY_LOGIN = "$LOGIN";
-    public static final String KEY_CAPTCHA = "$CAPTCHA";
     public static final String KEY_CONTENT = "contentData";
     public static final String KEY_DOCUMENT = "documentData";
     public static final String KEY_IMAGE = "imageData";
@@ -145,10 +144,10 @@ public abstract class RequestData extends KeyValueMap {
             String type = request.getContentType();
             if (type != null && type.toLowerCase().startsWith("multipart/form-data")) {
                 getMultiPartParams();
-            } else if (type != null && type.toLowerCase().equals("application/octet-stream")) {
+            } else if (type != null && type.equalsIgnoreCase("application/octet-stream")) {
                 getSinglePartParams();
                 getByteStream();
-            } else if (type != null && type.toLowerCase().equals("application/json")) {
+            } else if (type != null && type.equalsIgnoreCase("application/json")) {
                 getSinglePartParams();
                 getJsonStream();
             } else {
