@@ -24,7 +24,6 @@ import de.elbe5.servlet.ApiControllerCache;
 import de.elbe5.user.UserData;
 import de.elbe5.view.*;
 
-
 public class DefectApiController extends BaseApiController {
 
     public static final String KEY = "defect";
