@@ -1,7 +1,6 @@
 package de.elbe5.base.json;
 
 import de.elbe5.base.log.Log;
-import de.elbe5.request.ApiRequestData;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
