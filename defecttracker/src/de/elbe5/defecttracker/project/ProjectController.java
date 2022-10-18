@@ -80,4 +80,11 @@ public class ProjectController extends DefectBaseController {
         return view;
     }
 
+    public IView sort(SessionRequestData rdata) {
+        int sortType = rdata.getInt("sortType");
+        ViewFilter filter = ViewFilter.getFilter(rdata);
+        filter.setSortType(sortType);
+        return show(rdata);
+    }
+
 }

@@ -14,6 +14,7 @@ import de.elbe5.defecttracker.DefectBaseController;
 import de.elbe5.defecttracker.ViewFilter;
 import de.elbe5.defecttracker.defect.DefectData;
 import de.elbe5.content.ContentCache;
+import de.elbe5.defecttracker.project.ProjectData;
 import de.elbe5.file.ImageBean;
 import de.elbe5.request.*;
 import de.elbe5.servlet.ControllerCache;
@@ -71,6 +72,13 @@ public class LocationController extends DefectBaseController {
         BinaryFileView view=new BinaryFileView(file);
         view.setForceDownload(true);
         return view;
+    }
+
+    public IView sort(SessionRequestData rdata) {
+        int sortType = rdata.getInt("sortType");
+        ViewFilter filter = ViewFilter.getFilter(rdata);
+        filter.setSortType(sortType);
+        return show(rdata);
     }
 
 }

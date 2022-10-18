@@ -71,7 +71,7 @@ public class ProjectBean extends ContentBean {
         }
     }
 
-    private static final String UPDATE_CONTENT_EXTRAS_SQL = "update t_project set group_id=? where id=?";
+    private static final String UPDATE_CONTENT_EXTRAS_SQL = "update t_project set group_id=?, phase=? where id=?";
 
     @Override
     public void updateContentExtras(Connection con, ContentData contentData) throws SQLException {
@@ -83,6 +83,7 @@ public class ProjectBean extends ContentBean {
             pst = con.prepareStatement(UPDATE_CONTENT_EXTRAS_SQL);
             int i=1;
             pst.setInt(i++, data.getGroupId());
+            pst.setString(i++, data.getPhase());
             pst.setInt(i, data.getId());
             pst.executeUpdate();
             pst.close();

@@ -123,7 +123,7 @@ public class ViewFilter implements Comparator<DefectData> {
                 result = compareLocalDates(o1.getCloseDate(),o2.getCloseDate());
                 break;
             case TYPE_LOCATION:
-                result = o1.getLocationName().compareTo(o2.getLocationName());
+                result = o1.getLocationName().toLowerCase().compareTo(o2.getLocationName().toLowerCase());
                 break;
             case TYPE_STATE:
                 result = o1.getState().compareTo(o2.getState());
@@ -136,11 +136,11 @@ public class ViewFilter implements Comparator<DefectData> {
                 else if (o2.getAssignedId()== currentUserId)
                     result =  1;
                 else
-                    result = o1.getAssignedName().compareTo(o2.getAssignedName());
+                    result = o1.getAssignedName().toLowerCase().compareTo(o2.getAssignedName().toLowerCase());
                 break;
             }
             case TYPE_DESCRIPTION:
-                result = o1.getDescription().compareTo(o2.getDescription());
+                result = o1.getDescription().toLowerCase().compareTo(o2.getDescription().toLowerCase());
                 break;
         }
         return ascending ? result : -result;
