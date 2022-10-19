@@ -31,6 +31,7 @@
     assert(project!=null);
     GroupData group= GroupBean.getInstance().getGroup(project.getGroupId());
     String url = "/ctrl/defect/saveContentFrontend/" + defect.getId();
+    String notifiedString = defect.isNotified() ? "true" : "false";
     if (defect.hasUserAnyEditRight(rdata)){
 %>
 <form:message/>
@@ -44,6 +45,7 @@
         <form:formerror/>
         <form:line label="_id" padded="true"><%=Integer.toString(defect.getDisplayId())%></form:line>
         <form:line label="_description" padded="true"><%=$HML(defect.getDescription())%></form:line>
+        <form:line label="_editedBy" padded="true"><%=$H(defect.getChangerName())%> (<%=$DT(defect.getChangeDate(),locale)%>)</form:line>
         <form:select name="assigned" label="_assigned" required="true">
             <option value="0" <%=defect.getAssignedId()==0 ? "selected" : ""%>><%=$SH("_pleaseSelect", locale)%></option>
             <% for (int userId : group.getUserIds()){
@@ -52,6 +54,7 @@
             <option value="<%=userId%>" <%=defect.getAssignedId()==user.getId() ? "selected" : ""%>><%=$H(user.getName())%></option>
             <%}%>
         </form:select>
+        <form:line label="_notified" padded = "true"><form:check name="notified" value="true" checked="<%=defect.isNotified()%>"/></form:line>
         <form:text name="lot" label="_lot" value="<%=$H(defect.getLot())%>" />
         <form:text name="costs" label="_costs" value="<%=defect.getCostsString()%>" />
         <form:date name="dueDate2" label="_dueDate2" value="<%=$D(defect.getDueDate2(),locale)%>" required="true"/>

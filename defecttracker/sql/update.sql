@@ -41,3 +41,7 @@ alter table t_user drop column email_verified;
 
 drop table t_company;
 drop sequence s_company_id;
+
+--
+
+alter table t_defect add notified BOOLEAN NOT NULL DEFAULT FALSE;

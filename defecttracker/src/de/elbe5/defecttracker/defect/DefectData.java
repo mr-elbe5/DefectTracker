@@ -52,6 +52,8 @@ public class DefectData extends ContentData {
     protected int projectId = 0;
     protected int planId = 0;
     protected int assignedId = 0;
+
+    protected boolean notified = false;
     protected String lot = "";
     protected String phase = ProjectData.PHASE_PREAPPROVE;
     protected String state = STATE_OPEN;
@@ -71,13 +73,6 @@ public class DefectData extends ContentData {
     protected String locationName="";
 
     // base data
-
-    public String getCreatorName(){
-        UserData user=UserCache.getUser(getCreatorId());
-        if (user!=null)
-            return user.getName();
-        return "";
-    }
 
     @Override
     public String getName(){
@@ -127,6 +122,14 @@ public class DefectData extends ContentData {
 
     public void setAssignedId(int assignedId) {
         this.assignedId = assignedId;
+    }
+
+    public boolean isNotified() {
+        return notified;
+    }
+
+    public void setNotified(boolean notified) {
+        this.notified = notified;
     }
 
     public String getLot() {
@@ -360,6 +363,7 @@ public class DefectData extends ContentData {
 
     public void readCommonRequestData(SessionRequestData rdata) {
         setAssignedId(rdata.getInt("assigned"));
+        setNotified(rdata.getBoolean("notified"));
         setLot(rdata.getString("lot"));
         setCosts(rdata.getInt("costs"));
         List<BinaryFile> newFiles = rdata.getFileList("files");

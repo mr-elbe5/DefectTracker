@@ -54,7 +54,7 @@ _captchaHint;As result please enter the numbers of blue, yellow and red lines an
 _captchaRenew;Load a different captcha;Ein anderes Captcha laden
 _captchaError;Your captcha solution was not correct. Please try again.;Ihr Captcha-Ergebnis war nicht korrekt. Bitte versuchen Sie es noch einmal.
 _change;Change;Ändern
-_changeDate;Change Date;Änderungsdatum
+_changeDate;Changed on;Bearbeitet am
 _changePassword;Change Password;Passwort ändern
 _changeProfile;Change Profile;Profil ändern
 _city;City;Stadt
@@ -84,7 +84,7 @@ _copy;Copy;Kopieren
 _copyright;© 2019 Elbe 5;© 2019 Elbe 5
 _country;Country;Land
 _creation;Creation;Erstellung
-_creationDate;Creation Date;Erstellungsdatum
+_creationDate;Created on;Erstellt am
 _creator;Creator;Ersteller
 _cssClass;CSS Class;CSS Klasse
 _cssClasses;Css Classes;Css-Klassen
@@ -107,6 +107,7 @@ _documents;Documents;Dokumente
 _down;Down;Nach unten
 _download;Download;Download
 _edit;Edit;Bearbeiten
+_editedBy;Edited by;Bearbeitet von
 _editCompany;Company Data;Firmendaten
 _editDocument;Edit Document;Dokument bearbeiten
 _editImage;Edit Image;Bild bearbeiten
@@ -224,6 +225,7 @@ _newPage;New Page;Neue Seite
 _newPart;New part;Neuer Abschnitt
 _newPassword;New Password;Neues Passwort
 _newRankingSaved;New ranking saved;Neue Reihenfolge gespeichert
+_no;no;nein
 _noData;Session data missing. Maybe your session timed out.;Es liegen keine Daten vor
 _noResults;No results;Keine Ergebnisse
 _notComplete;Please fill all mandatory fields (*);Füllen Sie bitte alle Pflichtfelder (*) aus.
@@ -351,5 +353,6 @@ _userIds;User Ids;Benutzer Ids
 _userSaved;User saved;Benutzer gespeichert
 _users;Users;Benutzer
 _view;View;Ansicht
+_yes;yes;ja
 _zipCode;Zip Code;Postleitzahl
 

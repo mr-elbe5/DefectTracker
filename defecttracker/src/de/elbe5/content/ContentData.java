@@ -20,6 +20,7 @@ import de.elbe5.request.RequestData;
 import de.elbe5.request.SessionRequestData;
 import de.elbe5.rights.Right;
 import de.elbe5.rights.SystemZone;
+import de.elbe5.user.UserCache;
 import de.elbe5.user.UserData;
 import de.elbe5.view.IView;
 import de.elbe5.view.ContentView;
@@ -77,6 +78,20 @@ public class ContentData extends BaseData implements Comparable<ContentData> {
     }
 
     //base data
+
+    public String getCreatorName(){
+        UserData user= UserCache.getUser(getCreatorId());
+        if (user!=null)
+            return user.getName();
+        return "";
+    }
+
+    public String getChangerName(){
+        UserData user=UserCache.getUser(getChangerId());
+        if (user!=null)
+            return user.getName();
+        return "";
+    }
 
     public String getName() {
         return name;

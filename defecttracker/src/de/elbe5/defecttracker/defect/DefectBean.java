@@ -35,7 +35,7 @@ public class DefectBean extends ContentBean {
         return getNextId("s_defect_id");
     }
 
-    private static String GET_CONTENT_EXTRAS_SQL = "SELECT display_id,location_id,project_id,plan_id, assigned_id, lot, phase, state, " +
+    private static String GET_CONTENT_EXTRAS_SQL = "SELECT display_id,location_id,project_id,plan_id, assigned_id, notified, lot, phase, state, " +
             "costs, position_x, position_y, position_comment, " +
             "due_date1, due_date2, close_date  " +
             "FROM t_defect  WHERE id=?";
@@ -63,6 +63,7 @@ public class DefectBean extends ContentBean {
                     data.setProjectId(rs.getInt(i++));
                     data.setPlanId(rs.getInt(i++));
                     data.setAssignedId(rs.getInt(i++));
+                    data.setNotified(rs.getBoolean(i++));
                     data.setLot(rs.getString(i++));
                     data.setPhase(rs.getString(i++));
                     data.setState(rs.getString(i++));
@@ -85,7 +86,7 @@ public class DefectBean extends ContentBean {
     }
 
     private static String INSERT_CONTENT_EXTRAS_SQL = "insert into t_defect (" +
-            "display_id,location_id,project_id,plan_id, assigned_id, lot, phase, " +
+            "display_id,location_id,project_id,plan_id, assigned_id, notified, lot, phase, " +
             "due_date1, state, costs, " +
             "position_x, position_y,position_comment,id) " +
             "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -104,6 +105,7 @@ public class DefectBean extends ContentBean {
             pst.setInt(i++,data.getProjectId());
             pst.setInt(i++, data.getPlanId());
             pst.setInt(i++, data.getAssignedId());
+            pst.setBoolean(i++, data.isNotified());
             pst.setString(i++, data.getLot());
             pst.setString(i++, data.getPhase());
             LocalDate date=data.getDueDate1();
@@ -128,7 +130,7 @@ public class DefectBean extends ContentBean {
     }
 
     private static String UPDATE_CONTENT_EXTRAS_SQL = "update t_defect " +
-            "set assigned_id=?, lot=?, due_date2=?, costs=? where id=? ";
+            "set assigned_id=?, notified=?, lot=?, due_date2=?, costs=? where id=? ";
 
     @Override
     public void updateContentExtras(Connection con, ContentData contentData) throws SQLException {
@@ -140,6 +142,7 @@ public class DefectBean extends ContentBean {
             pst = con.prepareStatement(UPDATE_CONTENT_EXTRAS_SQL);
             int i = 1;
             pst.setInt(i++, data.getAssignedId());
+            pst.setBoolean(i++, data.isNotified());
             pst.setString(i++, data.getLot());
             LocalDate date=data.getDueDate2();
             if (date==null)

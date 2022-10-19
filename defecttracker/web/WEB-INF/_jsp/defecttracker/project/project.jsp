@@ -15,6 +15,7 @@
 <%@ page import="de.elbe5.defecttracker.project.ProjectData" %>
 <%@ page import="de.elbe5.defecttracker.ViewFilter" %>
 <%@ page import="de.elbe5.defecttracker.defect.DefectData" %>
+<%@ page import="de.elbe5.user.UserCache" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
@@ -43,7 +44,12 @@
                 <div style="flex:2"><%=$SH("_creationDate",locale)%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_CREATION%>");>&nbsp;</a>
                 </div>
-
+                <div style="flex:2"><%=$SH("_editedBy",locale)%>
+                    <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_CHANGER%>");>&nbsp;</a>
+                </div>
+                <div style="flex:2"><%=$SH("_changeDate",locale)%>
+                    <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_CHANGE%>");>&nbsp;</a>
+                </div>
                 <div style="flex:2"><%=$SH("_dueDate",locale)%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_DUE_DATE%>");>&nbsp;</a>
                 </div>
@@ -56,6 +62,9 @@
                 <div style="flex:2"><%=$SH("_assigned",locale)%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_ASSIGNED%>");>&nbsp;</a>
                 </div>
+                <div style="flex:2"><%=$SH("_notified",locale)%>
+                    <a class="fa fa-sort" onclick=linkTo("/ctrl/location/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_NOTIFIED%>");>&nbsp;</a>
+                </div>
                 <div style="flex:1"></div>
             </div>
         </div>
@@ -66,10 +75,13 @@
                 <div><%=StringUtil.toHtml(defect.getDescription())%></div>
                 <div><%=$H(defect.getLocationName())%></div>
                 <div><%=StringUtil.toHtmlDate(defect.getCreationDate(),locale)%></div>
+                <div><%=StringUtil.toHtml(defect.getChangerName())%></div>
+                <div><%=StringUtil.toHtmlDate(defect.getChangeDate(),locale)%></div>
                 <div><%=StringUtil.toHtmlDate(defect.getDueDate(),locale)%></div>
                 <div><%=StringUtil.toHtmlDate(defect.getCloseDate(),locale)%></div>
                 <div><%=$SH(defect.getState(),locale)%></div>
                 <div><%=$H(defect.getAssignedName())%></div>
+                <div><%=$SH(defect.isNotified() ? "_yes" : "_no", locale)%></div>
                 <div>
                     <a href="" class="fa fa-eye" title="<%=$SH("_show",locale)%>" onclick="return linkTo('/ctrl/content/show/<%=defect.getId()%>',null);"></a>
                 </div>

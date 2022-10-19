@@ -53,12 +53,24 @@
                 <div class="boxText"><%=StringUtil.toHtmlDateTime(defect.getCreationDate(),locale)%></div>
             </div>
             <div class="box">
+                <div class="boxTitle"><%=$SH("_editedBy",locale)%></div>
+                <div class="boxText"><%=$H(defect.getChangerName())%></div>
+            </div>
+            <div class="box">
+                <div class="boxTitle"><%=$SH("_changeDate",locale)%></div>
+                <div class="boxText"><%=StringUtil.toHtmlDateTime(defect.getChangeDate(),locale)%></div>
+            </div>
+            <div class="box">
                 <div class="boxTitle"><%=$SH("_phase",locale)%></div>
                 <div class="boxText"><%=$SH(defect.getPhase(),locale)%></div>
             </div>
             <div class="box">
                 <div class="boxTitle"><%=$SH("_assigned",locale)%></div>
                 <div class="boxText"><%=$H(assignedName)%></div>
+            </div>
+            <div class="box">
+                <div class="boxTitle"><%=$SH("_notified",locale)%></div>
+                <div class="boxText"><%=$SH(defect.isNotified() ? "_yes" : "_no", locale)%></div>
             </div>
             <div class="box">
                 <div class="boxTitle"><%=$SH("_lot",locale)%></div>

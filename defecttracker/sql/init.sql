@@ -184,6 +184,7 @@ CREATE TABLE IF NOT EXISTS t_defect
     location_id      INTEGER       NOT NULL,
     project_id       INTEGER       NOT NULL,
     assigned_id      INTEGER       NOT NULL,
+    notified         BOOLEAN       NOT NULL DEFAULT FALSE,
     lot              VARCHAR(255)  NOT NULL DEFAULT '',
     phase            VARCHAR(20)   NOT NULL,
     state            VARCHAR(20)   NOT NULL,

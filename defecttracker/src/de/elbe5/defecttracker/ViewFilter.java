@@ -22,12 +22,15 @@ public class ViewFilter implements Comparator<DefectData> {
 
     public static final int TYPE_MY = 0;
     public static final int TYPE_CREATION = 1;
-    public static final int TYPE_DUE_DATE = 2;
-    public static final int TYPE_CLOSE_DATE = 3;
-    public static final int TYPE_LOCATION = 4;
-    public static final int TYPE_STATE = 5;
-    public static final int TYPE_ASSIGNED = 6;
-    public static final int TYPE_DESCRIPTION = 7;
+    public static final int TYPE_CHANGER = 2;
+    public static final int TYPE_CHANGE = 3;
+    public static final int TYPE_DUE_DATE = 4;
+    public static final int TYPE_CLOSE_DATE = 5;
+    public static final int TYPE_LOCATION = 6;
+    public static final int TYPE_STATE = 7;
+    public static final int TYPE_ASSIGNED = 8;
+    public static final int TYPE_DESCRIPTION = 9;
+    public static final int TYPE_NOTIFIED = 10;
 
     public static ViewFilter getFilter(SessionRequestData rdata){
         ViewFilter filter=rdata.getSessionObject("$filterData", ViewFilter.class);
@@ -116,6 +119,12 @@ public class ViewFilter implements Comparator<DefectData> {
             case TYPE_CREATION:
                 result = o1.getCreationDate().compareTo(o2.getCreationDate());
                 break;
+            case TYPE_CHANGER:
+                result = o1.getChangerName().toLowerCase().compareTo(o2.getChangerName().toLowerCase());
+                break;
+            case TYPE_CHANGE:
+                result = o1.getChangeDate().compareTo(o2.getChangeDate());
+                break;
             case TYPE_DUE_DATE:
                 result = compareLocalDates(o1.getDueDate(),o2.getDueDate());
                 break;
@@ -139,6 +148,12 @@ public class ViewFilter implements Comparator<DefectData> {
                     result = o1.getAssignedName().toLowerCase().compareTo(o2.getAssignedName().toLowerCase());
                 break;
             }
+            case TYPE_NOTIFIED:
+                if (o1.isNotified() == o2.isNotified())
+                    result = 0;
+                else
+                    result = o1.isNotified() ? 1 : -1;
+                break;
             case TYPE_DESCRIPTION:
                 result = o1.getDescription().toLowerCase().compareTo(o2.getDescription().toLowerCase());
                 break;

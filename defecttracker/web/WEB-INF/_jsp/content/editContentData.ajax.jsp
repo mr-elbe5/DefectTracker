@@ -37,9 +37,9 @@
                 </h3>
                 <form:line label="_idAndUrl"><%=$I(contentData.getId())%> - <%=$H(contentData.getUrl())%>
                 </form:line>
-                <form:line label="_creation"><%=$DT(contentData.getCreationDate(), locale)%> - <%=$H(UserCache.getUser(contentData.getCreatorId()).getName())%>
+                <form:line label="_creation"><%=$DT(contentData.getCreationDate(), locale)%> - <%=$H(contentData.getCreatorName())%>
                 </form:line>
-                <form:line label="_lastChange"><%=$DT(contentData.getChangeDate(), locale)%> - <%=$H(UserCache.getUser(contentData.getChangerId()).getName())%>
+                <form:line label="_lastChange"><%=$DT(contentData.getChangeDate(), locale)%> - <%=$H(contentData.getChangerName())%>
                 </form:line>
 
                 <form:text name="displayName" label="_name" required="true" value="<%=$H(contentData.getDisplayName())%>"/>

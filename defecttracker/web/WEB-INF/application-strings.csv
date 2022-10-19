@@ -69,6 +69,7 @@ _locationPlans;Plans;Pläne
 _locationPlanDeleted;Plan deleted;Plan gelöscht
 _locationPlanSaved;Plan saved;Plan gespeichert
 _lot;Lot;Gewerk
+_notified;Notified;Benachrichtigt
 _noProject;You are not assigned to any project.;Sie sind keinem Projekt zugeordnet.
 _num;Number;Nummer
 _phase;Phase;Phase
@@ -100,4 +101,5 @@ _showClosedDefects;Show also closed defects;Auch abgeschlossene Mängel anzeigen
 _showUserDefects;Show defects for;Mängel anzeigen für
 _state;State;Status
 _uploadHint;Hint: The maximum size for uploadable images is 1 MB.;Hinweis: Die maximale Größe für hochzugeladende Bilder beträgt 1 MB.
+
 
