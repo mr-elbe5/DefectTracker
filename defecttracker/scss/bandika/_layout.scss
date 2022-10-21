@@ -397,11 +397,12 @@ div.projectSelector{
   cursor: crosshair;
 }
 
-table.defect-table, div.defect-table{
+table.defect-table{
   font-size: 0.8em;
 
-  th, div.tableHead > div.tableRow > div {
+  th {
     white-space: nowrap;
+    position: sticky;
 
     a.fa{
       font-size: 0.8em;

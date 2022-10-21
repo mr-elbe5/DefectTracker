@@ -12717,25 +12717,26 @@ div.projectSelector h1, div.projectSelector .h1, div.projectSelector div {
   cursor: crosshair;
 }
 
-table.defect-table, div.defect-table {
+table.defect-table {
   font-size: 0.8em;
 }
-table.defect-table th, table.defect-table div.tableHead > div.tableRow > div, div.defect-table th, div.defect-table div.tableHead > div.tableRow > div {
+table.defect-table th {
   white-space: nowrap;
+  position: sticky;
 }
-table.defect-table th a.fa, table.defect-table div.tableHead > div.tableRow > div a.fa, div.defect-table th a.fa, div.defect-table div.tableHead > div.tableRow > div a.fa {
+table.defect-table th a.fa {
   font-size: 0.8em;
   margin-left: 0.5em;
   cursor: pointer;
 }
-table.defect-table th div.dropdown-menu, table.defect-table div.tableHead > div.tableRow > div div.dropdown-menu, div.defect-table th div.dropdown-menu, div.defect-table div.tableHead > div.tableRow > div div.dropdown-menu {
+table.defect-table th div.dropdown-menu {
   padding: 0.25em 0;
   font-size: 1em;
 }
-table.defect-table th div.dropdown-menu label, table.defect-table div.tableHead > div.tableRow > div div.dropdown-menu label, div.defect-table th div.dropdown-menu label, div.defect-table div.tableHead > div.tableRow > div div.dropdown-menu label {
+table.defect-table th div.dropdown-menu label {
   margin: 0;
 }
-table.defect-table th div.dropdown-menu a, table.defect-table div.tableHead > div.tableRow > div div.dropdown-menu a, div.defect-table th div.dropdown-menu a, div.defect-table div.tableHead > div.tableRow > div div.dropdown-menu a {
+table.defect-table th div.dropdown-menu a {
   cursor: pointer;
 }
 

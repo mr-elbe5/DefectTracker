@@ -37,60 +37,62 @@
         </a>
     </div>
     <%}%>
-    <div id="defectTable" class="flexTable defect-table">
-        <div class="tableHead">
-            <div class="tableRow">
-                <div style="flex:1"><%=$SH("_id")%>
-                </div>
-                <div style="flex:6"><%=$SH("_description")%>
+    <table id="defectTable" class="defect-table">
+        <thead class="tableHead">
+            <tr>
+                <th style="width:5%"><%=$SH("_id")%>
+                </th>
+                <th style="width:18%"><%=$SH("_description")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/location/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_DESCRIPTION%>");>&nbsp;</a>
-                </div>
-                <div style="flex:2"><%=$SH("_creationDate")%>
+                </th>
+                <th style="width:9%"><%=$SH("_creationDate")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/location/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_CREATION%>");>&nbsp;</a>
-                </div>
-                <div style="flex:2"><%=$SH("_editedBy")%>
+                </th>
+                <th style="width:9%"><%=$SH("_editedBy")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_CHANGER%>");>&nbsp;</a>
-                </div>
-                <div style="flex:2"><%=$SH("_changeDate")%>
+                </th>
+                <th style="width:9%"><%=$SH("_changeDate")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_CHANGE%>");>&nbsp;</a>
-                </div>
-                <div style="flex:2"><%=$SH("_due")%>
+                </th>
+                <th style="width:9%"><%=$SH("_due")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/location/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_DUE_DATE%>");>&nbsp;</a>
-                </div>
-                <div style="flex:2"><%=$SH("_closed")%>
+                </th>
+                <th style="width:9%"><%=$SH("_closed")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/location/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_CLOSE_DATE%>");>&nbsp;</a>
-                </div>
-                <div style="flex:2"><%=$SH("_state")%>
+                </th>
+                <th style="width:9%"><%=$SH("_state")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/location/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_STATE%>");>&nbsp;</a>
-                </div>
-                <div style="flex:2"><%=$SH("_assigned")%>
+                </th>
+                <th style="width:9%"><%=$SH("_assigned")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/location/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_ASSIGNED%>");>&nbsp;</a>
-                </div>
-                <div style="flex:2"><%=$SH("_notified")%>
+                </th>
+                <th style="width:9%"><%=$SH("_notified")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/location/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_NOTIFIED%>");>&nbsp;</a>
-                </div>
-                <div style="flex:1"></div>
-            </div>
-        </div>
-        <div class="tableBody">
+                </th>
+                <th style="width:5%"></th>
+            </tr>
+        </thead>
+        <tbody class="tableBody">
         <% for (DefectData defect : defects){%>
-        <div class="tableRow">
-            <div><%=defect.getDisplayId()%></div>
-            <div><%=StringUtil.toHtml(defect.getDescription())%></div>
-            <div><%=StringUtil.toHtmlDate(defect.getCreationDate())%></div>
-            <div><%=StringUtil.toHtmlDate(defect.getDueDate())%></div>
-            <div><%=StringUtil.toHtmlDate(defect.getCloseDate())%></div>
-            <div><%=$SH(defect.getState())%></div>
-            <div><%=$H(defect.getAssignedName())%></div>
-            <div><%=$SH(defect.isNotified() ? "_yes" : "_no")%></div>
-            <div>
-                <a href="" class="fa fa-eye" title="<%=$SH("_show")%>" onclick="return linkTo('/ctrl/content/show/<%=defect.getId()%>',null);"></a>
-            </div>
-        </div>
+            <tr class="tableRow">
+                <td><%=defect.getDisplayId()%></td>
+                <td><%=StringUtil.toHtml(defect.getDescription())%></td>
+                <td><%=StringUtil.toHtmlDate(defect.getCreationDate())%></td>
+                <td><%=StringUtil.toHtml(defect.getChangerName())%></td>
+                <td><%=StringUtil.toHtmlDate(defect.getChangeDate())%></td>
+                <td><%=StringUtil.toHtmlDate(defect.getDueDate())%></td>
+                <td><%=StringUtil.toHtmlDate(defect.getCloseDate())%></td>
+                <td><%=$SH(defect.getState())%></td>
+                <td><%=$H(defect.getAssignedName())%></td>
+                <td><%=$SH(defect.isNotified() ? "_yes" : "_no")%></td>
+                <td>
+                    <a href="" class="fa fa-eye" title="<%=$SH("_show")%>" onclick="return linkTo('/ctrl/content/show/<%=defect.getId()%>',null);"></a>
+                </td>
+            </tr>
         <%
             }%>
-        </div>
-    </div>
+        </tbody>
+    </table>
     <% if (location.getPlan()!=null){%>
     <div class="imageBox">
         <img src="/ctrl/location/showDefectPlan/<%=location.getId()%>?planId=<%=location.getPlan().getId()%>" alt="" />
