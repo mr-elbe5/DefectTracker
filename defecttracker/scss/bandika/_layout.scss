@@ -137,6 +137,8 @@ header{
           border-color: $dark;
           border-width: 0 1px 1px 1px;
           border-radius: 0;
+          max-height: 30em;
+          overflow-y: scroll;
 
           .dropdown-item:focus, .dropdown-item:active, .dropdown-item:hover{
             background: rgba(255,255,255,0.2);

@@ -12512,6 +12512,8 @@ header div.menu section.menu nav.navbar .dropdown-menu {
   border-color: #343a40;
   border-width: 0 1px 1px 1px;
   border-radius: 0;
+  max-height: 30em;
+  overflow-y: scroll;
 }
 header div.menu section.menu nav.navbar .dropdown-menu .dropdown-item:focus, header div.menu section.menu nav.navbar .dropdown-menu .dropdown-item:active, header div.menu section.menu nav.navbar .dropdown-menu .dropdown-item:hover {
   background: rgba(255, 255, 255, 0.2);
