@@ -45,3 +45,24 @@ drop sequence s_company_id;
 --
 
 alter table t_defect add notified BOOLEAN NOT NULL DEFAULT FALSE;
+
+update t_system_right set name = 'CONTENTADMINISTRATION' where name = 'CONTENTEDIT';
+update t_system_right set name = 'CONTENTEDIT' where name = 'SPECIFICCONTENTEDIT';
+
+INSERT INTO t_group (id,name)
+VALUES (2,'Project Editors');
+INSERT INTO t_system_right (name,group_id)
+VALUES ('CONTENTEDIT',2);
+INSERT INTO t_system_right (name,group_id)
+VALUES ('CONTENTREAD',2);
+
+INSERT INTO t_user (id,first_name,last_name,email,login,pwd)
+VALUES (2,'System','Editor','editor@localhost','sysedit','');
+INSERT INTO t_user2group (user_id, group_id)
+VALUES(2,1);
+
+
+--- set pwd 'pass' dependent on salt jB8FPa3E6h4=
+-- root user
+update t_user set pwd='UniSdEEc7IcDa38/ph/LND4yBSk=' where id=1;
+update t_user set pwd='UniSdEEc7IcDa38/ph/LND4yBSk=' where id=2;

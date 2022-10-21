@@ -87,7 +87,7 @@ public class ProjectData extends ContentData {
 
     @Override
     public boolean hasUserEditRight(SessionRequestData rdata) {
-        return rdata.hasSystemRight(SystemZone.CONTENTEDIT);
+        return rdata.hasSystemRight(SystemZone.CONTENTADMINISTRATION);
     }
     // view
 

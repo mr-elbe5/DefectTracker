@@ -17,14 +17,12 @@ import de.elbe5.defecttracker.defect.DefectData;
 import de.elbe5.file.ImageBean;
 import de.elbe5.request.ApiRequestData;
 import de.elbe5.request.ResponseCode;
-import de.elbe5.rights.Right;
 import de.elbe5.rights.SystemZone;
 import de.elbe5.servlet.ApiControllerCache;
 import de.elbe5.user.UserData;
 import de.elbe5.view.ApiBinaryFileView;
 import de.elbe5.view.ApiResponseCodeView;
 import de.elbe5.view.IApiView;
-import de.elbe5.view.JsonView;
 
 import java.util.List;
 
@@ -59,7 +57,7 @@ public class LocationApiController extends BaseApiController {
             return new ApiResponseCodeView(ResponseCode.UNAUTHORIZED);
         Log.info("loading location defect plan");
         int scalePercent = rdata.getInt("scale", 100);
-        boolean isEditor = user.hasSystemRight(SystemZone.CONTENTEDIT);
+        boolean isEditor = user.hasSystemRight(SystemZone.CONTENTADMINISTRATION);
         int id = rdata.getId();
         LocationData data= (LocationData) ContentCache.getContent(id);
         ViewFilter filter = new ViewFilter();

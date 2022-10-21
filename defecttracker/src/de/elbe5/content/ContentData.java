@@ -232,7 +232,7 @@ public class ContentData extends BaseData implements Comparable<ContentData> {
 
     public boolean hasUserEditRight(SessionRequestData rdata) {
         UserData user=rdata.getLoginUser();
-        return (user!=null && (user.hasSystemRight(SystemZone.CONTENTEDIT) || hasUserRight(user,Right.EDIT)));
+        return (user!=null && (user.hasSystemRight(SystemZone.CONTENTADMINISTRATION) || user.hasSystemRight(SystemZone.CONTENTEDIT) || hasUserRight(user,Right.EDIT)));
     }
 
     // tree data

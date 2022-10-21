@@ -164,7 +164,7 @@
     <%
     }
     if (!defect.isClosed()){
-        if (rdata.hasSystemRight(SystemZone.CONTENTEDIT)) {%>
+        if (rdata.hasSystemRight(SystemZone.CONTENTADMINISTRATION)) {%>
     <div class=buttonLine>
         <button type="button" class="btn btn-outline-secondary" onclick="return openModalDialog('/ctrl/defect/openEditContentFrontend/<%=defect.getId()%>',null);"><%=$SH("_edit",locale)%>
         </button>

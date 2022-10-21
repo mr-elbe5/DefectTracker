@@ -13,11 +13,9 @@ import de.elbe5.file.BinaryFileCache;
 import de.elbe5.base.cache.Strings;
 import de.elbe5.base.log.Log;
 import de.elbe5.base.util.FileUtil;
-import de.elbe5.database.DbConnector;
 import de.elbe5.servlet.CmsAuthorizationException;
 import de.elbe5.servlet.ControllerCache;
 import de.elbe5.user.UserCache;
-import de.elbe5.view.CloseDialogView;
 import de.elbe5.request.SessionRequestData;
 import de.elbe5.rights.SystemZone;
 import de.elbe5.servlet.Controller;
@@ -52,7 +50,7 @@ public class AdminController extends Controller {
     }
 
     public IView openAdministration(SessionRequestData rdata){
-        if (rdata.hasSystemRight(SystemZone.CONTENTEDIT))
+        if (rdata.hasSystemRight(SystemZone.CONTENTADMINISTRATION))
             return openContentAdministration(rdata);
         if (rdata.hasSystemRight(SystemZone.APPLICATION))
             return openSystemAdministration(rdata);
@@ -72,7 +70,7 @@ public class AdminController extends Controller {
     }
 
     public IView openContentAdministration(SessionRequestData rdata) {
-        checkRights(rdata.hasAnyContentRight());
+        checkRights(rdata.hasGlobalContentEditRight());
         return showContentAdministration(rdata);
     }
 
@@ -113,7 +111,7 @@ public class AdminController extends Controller {
     }
 
     public IView toggleInactiveContent(SessionRequestData rdata) {
-        checkRights(rdata.hasSystemRight(SystemZone.CONTENTEDIT));
+        checkRights(rdata.hasSystemRight(SystemZone.CONTENTADMINISTRATION));
         Configuration.setShowInactiveContent(!Configuration.isShowInactiveContent());
         return openContentAdministration(rdata);
     }

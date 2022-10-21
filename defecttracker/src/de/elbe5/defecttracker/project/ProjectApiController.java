@@ -68,7 +68,7 @@ public class ProjectApiController extends BaseApiController {
 
     @SuppressWarnings("unchecked")
     private JSONObject getProjectsJson(UserData user) {
-        boolean isEditor = user.hasSystemRight(SystemZone.CONTENTEDIT);
+        boolean isEditor = user.hasSystemRight(SystemZone.CONTENTADMINISTRATION);
         ViewFilter filter = new ViewFilter();
         filter.setEditor(isEditor);
         filter.setCurrentUserId(user.getId());

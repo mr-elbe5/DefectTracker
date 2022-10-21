@@ -38,7 +38,7 @@ public class DefectUserController extends UserController {
             return openLogin(rdata);
         }
         ViewFilter filter = ViewFilter.getFilter(rdata);
-        boolean isEditor = data.hasSystemRight(SystemZone.CONTENTEDIT);
+        boolean isEditor = data.hasSystemRight(SystemZone.CONTENTADMINISTRATION);
         filter.setEditor(isEditor);
         filter.setCurrentUserId(data.getId());
         Map<String,String> cookieValues = rdata.readLoginCookies();

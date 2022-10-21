@@ -71,7 +71,7 @@
                                 </a>
                             </li>
                             <%}%>
-                            <% if (rdata.hasSystemRight(SystemZone.CONTENTEDIT)){%>
+                            <% if (rdata.hasSystemRight(SystemZone.CONTENTADMINISTRATION)){%>
                             <li class="nav-item">
                                 <a class="nav-link" href="/ctrl/admin/openContentAdministration"><%=$SH("_contentAdministration",locale)%>
                                 </a>

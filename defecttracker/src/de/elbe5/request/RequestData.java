@@ -96,9 +96,9 @@ public abstract class RequestData extends KeyValueMap {
         return data != null && (data.hasAnyElevatedSystemRight());
     }
 
-    public boolean hasAnyContentRight() {
+    public boolean hasGlobalContentEditRight() {
         UserData data = getLoginUser();
-        return data != null && (data.isRoot() || data.hasAnyContentRight());
+        return data != null && (data.isRoot() || data.hasGlobalContentEditRight());
     }
 
     public boolean hasSystemRight(SystemZone zone) {

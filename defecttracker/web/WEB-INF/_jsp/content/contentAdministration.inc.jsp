@@ -21,7 +21,7 @@
     assert(rootContent!=null);
 %>
             <section class="treeSection">
-                <% if (rdata.hasAnyContentRight()) { %>
+                <% if (rdata.hasGlobalContentEditRight()) { %>
                 <div><input type="checkbox" <%=Configuration.isShowInactiveContent() ? "checked" : ""%> onchange="linkTo('/ctrl/admin/toggleInactiveContent');" />&nbsp;<%=$SH("_showInactiveContent", locale)%></div>
                 <ul class="tree pagetree">
                     <% rootContent.displayTreeContent(pageContext,rdata);%>

@@ -258,16 +258,15 @@ public class UserData extends BaseData {
     }
 
     public boolean hasAnyElevatedSystemRight() {
-        return hasSystemRight(SystemZone.APPLICATION) || hasSystemRight(SystemZone.USER) || hasSystemRight(SystemZone.CONTENTEDIT);
+        return hasSystemRight(SystemZone.APPLICATION) || hasSystemRight(SystemZone.USER) || hasSystemRight(SystemZone.CONTENTADMINISTRATION);
     }
 
     public boolean hasSystemRight(SystemZone zone) {
         return systemRights.contains(zone) || isRoot();
     }
 
-    public boolean hasAnyContentRight() {
-        return hasSystemRight(SystemZone.CONTENTEDIT) ||
-                hasSystemRight(SystemZone.SPECIFICCONTENTEDIT);
+    public boolean hasGlobalContentEditRight() {
+        return hasSystemRight(SystemZone.CONTENTADMINISTRATION) || hasSystemRight(SystemZone.CONTENTEDIT);
     }
 
     public boolean isRoot(){

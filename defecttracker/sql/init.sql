@@ -242,14 +242,29 @@ VALUES (1,'Project Owners');
 INSERT INTO t_system_right (name,group_id)
 VALUES ('USER',1);
 INSERT INTO t_system_right (name,group_id)
+VALUES ('CONTENTADMINISTRATION',1);
+INSERT INTO t_system_right (name,group_id)
 VALUES ('CONTENTEDIT',1);
 INSERT INTO t_system_right (name,group_id)
 VALUES ('CONTENTREAD',1);
 
+INSERT INTO t_group (id,name)
+VALUES (2,'Project Editors');
+INSERT INTO t_system_right (name,group_id)
+VALUES ('CONTENTEDIT',2);
+INSERT INTO t_system_right (name,group_id)
+VALUES ('CONTENTREAD',2);
 
---- set pwd 'pass' dependent on salt qczm7vjTmdY=
+INSERT INTO t_user (id,first_name,last_name,email,login,pwd)
+VALUES (2,'System','Editor','editor@localhost','sysedit','');
+INSERT INTO t_user2group (user_id, group_id)
+VALUES(2,1);
+
+
+--- set pwd 'pass' dependent on salt jB8FPa3E6h4=
 -- root user
-update t_user set pwd='lj31EhPC1JvEvw0/+DghmE/1xzc=' where id=1;
+update t_user set pwd='UniSdEEc7IcDa38/ph/LND4yBSk=' where id=1;
+update t_user set pwd='UniSdEEc7IcDa38/ph/LND4yBSk=' where id=2;
 
 
 INSERT INTO t_content (id,type,parent_id,ranking,name,display_name,description,creator_id,changer_id,access_type,nav_type)

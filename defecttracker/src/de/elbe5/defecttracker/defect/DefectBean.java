@@ -89,7 +89,7 @@ public class DefectBean extends ContentBean {
             "display_id,location_id,project_id,plan_id, assigned_id, notified, lot, phase, " +
             "due_date1, state, costs, " +
             "position_x, position_y,position_comment,id) " +
-            "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     @Override
     public void createContentExtras(Connection con, ContentData contentData) throws SQLException {
