@@ -50,7 +50,7 @@
                     <input type="hidden" name="assignedId" value="0" />
                 <%}%>
                 <form:line label="_showClosedDefects" padded="true">
-                    <form:check name="showClosed" value="true" checked="<%=filter.isShowClosed()%>"></form:check>
+                    <form:check name="showClosed" value="true" checked="<%=filter.isShowClosed()%>"> </form:check>
                 </form:line>
             </div>
             <div class="modal-footer">

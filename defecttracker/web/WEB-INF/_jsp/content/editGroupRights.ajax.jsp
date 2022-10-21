@@ -38,8 +38,7 @@
                 <form:formerror/>
                 <%for (GroupData group : groups) {
                 if (group.getId() <= GroupData.ID_MAX_FINAL)
-                    continue;
-                    {
+                    continue;{
                     label = StringUtil.toHtml(group.getName());
                     name = "groupright_" + group.getId();%>
                     <form:line label="<%=label%>" padded="true">

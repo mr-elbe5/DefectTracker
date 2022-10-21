@@ -11,7 +11,6 @@
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
 <%@ page import="de.elbe5.defecttracker.location.LocationData" %>
-<%@ page import="de.elbe5.user.UserCache" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);

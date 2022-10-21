@@ -17,18 +17,12 @@
 
     String msg = rdata.getString(RequestData.KEY_MESSAGE);
     String msgType = rdata.getString(RequestData.KEY_MESSAGETYPE);
-    String msgKey="";
-    switch (msgType) {
-        case SessionRequestData.MESSAGE_TYPE_INFO:
-            msgKey="_info";
-            break;
-        case SessionRequestData.MESSAGE_TYPE_SUCCESS:
-            msgKey="_success";
-            break;
-        case SessionRequestData.MESSAGE_TYPE_ERROR:
-            msgKey="_error";
-            break;
-    }
+    String msgKey = switch (msgType) {
+        case SessionRequestData.MESSAGE_TYPE_INFO -> "_info";
+        case SessionRequestData.MESSAGE_TYPE_SUCCESS -> "_success";
+        case SessionRequestData.MESSAGE_TYPE_ERROR -> "_error";
+        default -> "";
+    };
 %>
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">

@@ -31,9 +31,9 @@
             <input type="hidden" name="userId" value="<%=rdata.getUserId()%>"/>
             <div class="modal-body">
                 <form:formerror/>
-                <form:password name="oldPassword" label="_oldPassword"></form:password>
-                <form:password name="newPassword1" label="_newPassword"></form:password>
-                <form:password name="newPassword2" label="_retypePassword"></form:password>
+                <form:password name="oldPassword" label="_oldPassword" />
+                <form:password name="newPassword1" label="_newPassword" />
+                <form:password name="newPassword2" label="_retypePassword" />
                 <div><small><%=$SH("_passwordHint")%></small></div>
             </div>
             <div class="modal-footer">

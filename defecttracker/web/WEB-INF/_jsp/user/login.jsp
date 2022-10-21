@@ -11,7 +11,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.application.Configuration" %>
-<%@ page import="de.elbe5.request.SessionRequestData" %>
 <%@ page import="de.elbe5.defecttracker.project.ProjectData" %>
 <%@ page import="java.util.List" %>
 <%@ page import="de.elbe5.content.ContentCache" %>
@@ -19,7 +18,6 @@
 
 <%
     String title = Configuration.getAppTitle();
-    SessionRequestData rdata = SessionRequestData.getRequestData(request);
     List<ProjectData> projects = ContentCache.getContents(ProjectData.class);
     assert(projects!=null);
 %>

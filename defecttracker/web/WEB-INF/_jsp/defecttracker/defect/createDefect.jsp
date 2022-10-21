@@ -89,8 +89,6 @@
     let $plan = $('#plan');
 
     $plan.on('click', function (event) {
-        let position=$container.position();
-        //console.log('container position=' + position.left + ',' + position.top);
         let offset = $container.offset();
         //console.log('container offset=' + offset.left + ',' + offset.top);
         posX = Math.round(event.pageX - offset.left );
@@ -100,7 +98,6 @@
     });
 
     function setPositioner() {
-        let planPosition=$plan.position();
         $positioner.css('left', posX - 11);
         //relative, so go top
         $positioner.css('top', posY - 5 - $plan.height());

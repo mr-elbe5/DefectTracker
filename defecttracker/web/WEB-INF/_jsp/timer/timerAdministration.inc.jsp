@@ -15,8 +15,6 @@
 <%@ page import="java.util.Map" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
-    SessionRequestData rdata = SessionRequestData.getRequestData(request);
-
     Map<String, TimerTaskData> tasks = null;
     try {
         Timer timerCache = Timer.getInstance();
