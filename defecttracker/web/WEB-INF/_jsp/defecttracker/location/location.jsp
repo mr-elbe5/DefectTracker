@@ -45,7 +45,7 @@
                 <div style="flex:6"><%=$SH("_description")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/location/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_DESCRIPTION%>");>&nbsp;</a>
                 </div>
-                <div style="flex:2"><%=$SH("_creation")%>
+                <div style="flex:2"><%=$SH("_creationDate")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/location/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_CREATION%>");>&nbsp;</a>
                 </div>
                 <div style="flex:2"><%=$SH("_editedBy")%>

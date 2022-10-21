@@ -169,8 +169,6 @@
         </button>
         <button type="button" class="btn btn-outline-secondary" onclick="return openModalDialog('/ctrl/defect/closeDefect/<%=defect.getId()%>',null);"><%=$SH("_closeDefect")%>
         </button>
-        <button type="button" class="btn btn-outline-secondary" onclick="return linkTo('/ctrl/defect/getDocxFile/<%=defect.getId()%>');"><%=$SH("_downloadWord")%>
-        </button>
     </div>
         <%
         }%>

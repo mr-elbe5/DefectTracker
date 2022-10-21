@@ -224,19 +224,6 @@ public class DefectController extends DefectBaseController {
         return view;
     }
 
-    public IView getDocxFile(SessionRequestData rdata) {
-        int contentId = rdata.getId();
-        DefectData data= ContentCache.getContent(contentId,DefectData.class);
-        assert(data!=null);
-        UserData currentUser=UserCache.getUser(rdata.getUserId());
-        UserData assignedUser = UserCache.getUser(data.getAssignedId());
-        BinaryFile file = DefectDocxBean.getInstance().getDefectWordFile(data, currentUser, assignedUser);
-        assert(file!=null);
-        BinaryFileView view=new BinaryFileView(file);
-        view.setForceDownload(true);
-        return view;
-    }
-
     private IView showDefectComment() {
         return new UrlView("/WEB-INF/_jsp/defecttracker/defect/comment.ajax.jsp");
     }

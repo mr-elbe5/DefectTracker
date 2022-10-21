@@ -50,8 +50,7 @@ public class DefectTrackerInitServlet extends InitServlet {
         if (!DbConnector.getInstance().initialize("jdbc/defecttracker"))
             return;
         Configuration.setAppTitle("Defect Tracker");
-        Strings.readFromCsv(ApplicationPath.getAppWEBINFPath() + "/webserver-strings.csv");
-        Strings.readFromCsv(ApplicationPath.getAppWEBINFPath() + "/application-strings.csv");
+        Strings.addBundle("application", Configuration.getDefaultLocale());
         AdminController.register(new AdminController());
         ContentController.register(new ContentController());
         DocumentController.register(new DocumentController());
