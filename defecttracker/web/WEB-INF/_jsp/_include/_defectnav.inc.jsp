@@ -8,7 +8,6 @@
 <%@ page import="de.elbe5.defecttracker.ViewFilter" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
     ViewFilter filter= ViewFilter.getFilter(rdata);
     if (filter.getProjectId()!=0){
         ProjectData project = ContentCache.getContent(filter.getProjectId(),ProjectData.class);
@@ -18,7 +17,7 @@
     </a>
 </li>
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false"><%=$SH("_locations",locale)%>
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false"><%=$SH("_locations")%>
     </a>
     <div class="dropdown-menu">
         <% for (ContentData child : project.getChildren()){

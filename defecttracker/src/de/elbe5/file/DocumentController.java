@@ -81,7 +81,7 @@ public class DocumentController extends FileController {
         }
         data.setNew(false);
         ContentCache.setDirty();
-        rdata.setMessage(Strings.string("_fileSaved",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_fileSaved"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         return new CloseDialogView("/ctrl/admin/openContentAdministration?contentId=" + data.getId());
     }
 
@@ -113,13 +113,13 @@ public class DocumentController extends FileController {
         int parentId = rdata.getInt("parentId");
         ContentData parent=ContentCache.getContent(parentId);
         if (parent == null){
-            rdata.setMessage(Strings.string("_actionNotExcecuted", rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_ERROR);
+            rdata.setMessage(Strings.string("_actionNotExcecuted"), SessionRequestData.MESSAGE_TYPE_ERROR);
             return showContentAdministration(rdata);
         }
         checkRights(parent.hasUserEditRight(rdata));
         DocumentData data=rdata.getClipboardData(RequestData.KEY_DOCUMENT,DocumentData.class);
         if (data==null){
-            rdata.setMessage(Strings.string("_actionNotExcecuted", rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_ERROR);
+            rdata.setMessage(Strings.string("_actionNotExcecuted"), SessionRequestData.MESSAGE_TYPE_ERROR);
             return showContentAdministration(rdata);
         }
         data.setParentId(parentId);
@@ -128,7 +128,7 @@ public class DocumentController extends FileController {
         FileBean.getInstance().saveFile(data,true);
         rdata.clearClipboardData(RequestData.KEY_DOCUMENT);
         ContentCache.setDirty();
-        rdata.setMessage(Strings.string("_documentPasted",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_documentPasted"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         return showContentAdministration(rdata,data.getId());
     }
 

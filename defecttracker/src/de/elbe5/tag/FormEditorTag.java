@@ -12,7 +12,6 @@ import de.elbe5.base.cache.Strings;
 import de.elbe5.base.util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Locale;
 
 public class FormEditorTag extends FormLineTag {
 
@@ -36,12 +35,14 @@ public class FormEditorTag extends FormLineTag {
     String controlPreHtml = "<textarea id=\"{1}\" name=\"{2}\" data-editor=\"{3}\" data-gutter=\"1\" {4}>";
     String controlPostHtml = "</textarea>\n<small id=\"{1}Hint\" class=\"form-text text-muted\">{2}</small>\n";
 
-    protected String getPreControlHtml(HttpServletRequest request, Locale locale) {
+    @Override
+    protected String getPreControlHtml(HttpServletRequest request) {
         return StringUtil.format(controlPreHtml, name, name, type, height.isEmpty() ? "" : "style=\"height:" + height + "\"");
     }
 
-    protected String getPostControlHtml(HttpServletRequest request, Locale locale) {
-        return StringUtil.format(controlPostHtml, name, hint.startsWith("_") ? Strings.html(hint, locale) : hint);
+    @Override
+    protected String getPostControlHtml(HttpServletRequest request) {
+        return StringUtil.format(controlPostHtml, name, hint.startsWith("_") ? Strings.html(hint) : hint);
     }
 
 }

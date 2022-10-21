@@ -9,19 +9,18 @@
 <%response.setContentType("text/html;charset=UTF-8");%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.rights.SystemZone" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();%>
+    %>
 <div id="pageContent">
     <form:message/>
     <section class="treeSection">
         <ul class="tree">
             <li class="open">
-                <a class="treeRoot"><%=$SH("_persons",locale)%>
+                <a class="treeRoot"><%=$SH("_persons")%>
                 </a>
                 <ul>
                     <%if (rdata.hasSystemRight(SystemZone.USER)) {%>

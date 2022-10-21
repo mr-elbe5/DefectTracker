@@ -10,7 +10,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.user.UserData" %>
 <%@ page import="de.elbe5.user.UserCache" %>
 <%@ page import="de.elbe5.file.FileData" %>
@@ -21,7 +20,7 @@
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     DefectData defect = rdata.getCurrentContent(DefectData.class);
     assert(defect !=null);
     UserData assignedUser = UserCache.getUser(defect.getAssignedId());
@@ -41,67 +40,67 @@
         <h3><%=$H(defect.getDescription())%></h3>
         <div class="d-flex flex-wrap align-items-stretch boxContainer">
             <div class="box">
-                <div class="boxTitle"><%=$SH("_id",locale)%></div>
+                <div class="boxTitle"><%=$SH("_id")%></div>
                 <div class="boxText"><%=$I(defect.getDisplayId())%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_creator",locale)%></div>
+                <div class="boxTitle"><%=$SH("_creator")%></div>
                 <div class="boxText"><%=$H(UserCache.getUser(defect.getCreatorId()).getName())%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_creationDate",locale)%></div>
-                <div class="boxText"><%=StringUtil.toHtmlDateTime(defect.getCreationDate(),locale)%></div>
+                <div class="boxTitle"><%=$SH("_creationDate")%></div>
+                <div class="boxText"><%=StringUtil.toHtmlDateTime(defect.getCreationDate())%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_editedBy",locale)%></div>
+                <div class="boxTitle"><%=$SH("_editedBy")%></div>
                 <div class="boxText"><%=$H(defect.getChangerName())%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_changeDate",locale)%></div>
-                <div class="boxText"><%=StringUtil.toHtmlDateTime(defect.getChangeDate(),locale)%></div>
+                <div class="boxTitle"><%=$SH("_changeDate")%></div>
+                <div class="boxText"><%=StringUtil.toHtmlDateTime(defect.getChangeDate())%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_phase",locale)%></div>
-                <div class="boxText"><%=$SH(defect.getPhase(),locale)%></div>
+                <div class="boxTitle"><%=$SH("_phase")%></div>
+                <div class="boxText"><%=$SH(defect.getPhase())%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_assigned",locale)%></div>
+                <div class="boxTitle"><%=$SH("_assigned")%></div>
                 <div class="boxText"><%=$H(assignedName)%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_notified",locale)%></div>
-                <div class="boxText"><%=$SH(defect.isNotified() ? "_yes" : "_no", locale)%></div>
+                <div class="boxTitle"><%=$SH("_notified")%></div>
+                <div class="boxText"><%=$SH(defect.isNotified() ? "_yes" : "_no")%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_lot",locale)%></div>
+                <div class="boxTitle"><%=$SH("_lot")%></div>
                 <div class="boxText"><%=$H(defect.getLot())%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_state",locale)%></div>
-                <div class="boxText"><%=$SH(defect.getState(),locale)%></div>
+                <div class="boxTitle"><%=$SH("_state")%></div>
+                <div class="boxText"><%=$SH(defect.getState())%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_dueDate1",locale)%></div>
-                <div class="boxText"><%=StringUtil.toHtmlDate(defect.getDueDate1(),locale)%></div>
+                <div class="boxTitle"><%=$SH("_dueDate1")%></div>
+                <div class="boxText"><%=StringUtil.toHtmlDate(defect.getDueDate1())%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_dueDate2",locale)%></div>
-                <div class="boxText"><%=StringUtil.toHtmlDate(defect.getDueDate2(),locale)%></div>
+                <div class="boxTitle"><%=$SH("_dueDate2")%></div>
+                <div class="boxText"><%=StringUtil.toHtmlDate(defect.getDueDate2())%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_closeDate",locale)%></div>
-                <div class="boxText"><%=StringUtil.toHtmlDate(defect.getCloseDate(),locale)%></div>
+                <div class="boxTitle"><%=$SH("_closeDate")%></div>
+                <div class="boxText"><%=StringUtil.toHtmlDate(defect.getCloseDate())%></div>
             </div>
         </div>
         <div class="d-flex flex-wrap align-items-stretch boxContainer">
             <div class="box">
-                <div class="boxTitle"><%=$SH("_position",locale)%></div>
+                <div class="boxTitle"><%=$SH("_position")%></div>
                 <% if (defect.getPlanId()!=0){%>
                 <div class="boxImage"><a href="#" onclick="return openModalDialog('/ctrl/defect/openFullDefectPlan/<%=defect.getId()%>');"><img src="/ctrl/defect/showCroppedDefectPlan/<%=defect.getId()%>" alt="" /></a></div>
                 <%}%>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_positionComment",locale)%></div>
+                <div class="boxTitle"><%=$SH("_positionComment")%></div>
                 <div class="boxText"><%=StringUtil.toHtmlMultiline(defect.getPositionComment())%></div>
             </div>
         </div>
@@ -113,9 +112,9 @@
                 <div class="boxTitle"><%=StringUtil.toHtml(file.getDisplayName())%></div>
                 <div class="boxImage">
                     <% if (file.isImage()){%>
-                    <a href="/ctrl/image/show/<%=file.getId()%>" target="_blank" title="<%=$SH("_view",locale)%>"><img src="/ctrl/image/showPreview/<%=file.getId()%>" alt="" /></a>
+                    <a href="/ctrl/image/show/<%=file.getId()%>" target="_blank" title="<%=$SH("_view")%>"><img src="/ctrl/image/showPreview/<%=file.getId()%>" alt="" /></a>
                     <%} else{%>
-                    <a href="/ctrl/document/show/<%=file.getId()%>" target="_blank" title="<%=$SH("_view",locale)%>"><img src="/static-content/img/document.png" alt="" /></a>
+                    <a href="/ctrl/document/show/<%=file.getId()%>" target="_blank" title="<%=$SH("_view")%>"><img src="/static-content/img/document.png" alt="" /></a>
                     <%}%></div>
                 <div class="boxSubtitle"><%=StringUtil.toHtmlMultiline(file.getDescription())%></div>
             </div>
@@ -127,8 +126,8 @@
     <div class="paragraph">
         <div class="boxContainer">
             <div class="box">
-                <div class="boxTitle"><%=$SH("_comment",locale)%>&nbsp;<%=$SH("_by",locale)%>&nbsp;<%=$H(UserCache.getUser(comment.getCreatorId()).getName())%>&nbsp;
-                    <%=$SH("_ofDate",locale)%>&nbsp;<%=StringUtil.toHtmlDateTime(comment.getCreationDate(),locale)%> - <%=$SH("_state",locale)%>:<%=$SH(comment.getState(),locale)%>
+                <div class="boxTitle"><%=$SH("_comment")%>&nbsp;<%=$SH("_by")%>&nbsp;<%=$H(UserCache.getUser(comment.getCreatorId()).getName())%>&nbsp;
+                    <%=$SH("_ofDate")%>&nbsp;<%=StringUtil.toHtmlDateTime(comment.getCreationDate())%> - <%=$SH("_state")%>:<%=$SH(comment.getState())%>
                 </div>
                 <div class="boxText"><%=StringUtil.toHtmlMultiline(comment.getComment())%></div>
             </div>
@@ -151,9 +150,9 @@
                 <div class="boxTitle"><%=StringUtil.toHtml(file.getDisplayName())%></div>
                 <div class="boxImage">
                     <% if (file.isImage()){%>
-                    <a href="/ctrl/image/show/<%=file.getId()%>" target="_blank" title="<%=$SH("_view",locale)%>"><img src="/ctrl/image/showPreview/<%=file.getId()%>" alt="" /></a>
+                    <a href="/ctrl/image/show/<%=file.getId()%>" target="_blank" title="<%=$SH("_view")%>"><img src="/ctrl/image/showPreview/<%=file.getId()%>" alt="" /></a>
                     <%} else{%>
-                    <a href="/ctrl/document/show/<%=file.getId()%>" target="_blank" title="<%=$SH("_view",locale)%>"><img src="/static-content/img/document.png" alt="" /></a>
+                    <a href="/ctrl/document/show/<%=file.getId()%>" target="_blank" title="<%=$SH("_view")%>"><img src="/static-content/img/document.png" alt="" /></a>
                     <%}%></div>
                 <div class="boxSubtitle"><%=StringUtil.toHtmlMultiline(file.getDescription())%></div>
             </div>
@@ -166,22 +165,22 @@
     if (!defect.isClosed()){
         if (rdata.hasSystemRight(SystemZone.CONTENTADMINISTRATION)) {%>
     <div class=buttonLine>
-        <button type="button" class="btn btn-outline-secondary" onclick="return openModalDialog('/ctrl/defect/openEditContentFrontend/<%=defect.getId()%>',null);"><%=$SH("_edit",locale)%>
+        <button type="button" class="btn btn-outline-secondary" onclick="return openModalDialog('/ctrl/defect/openEditContentFrontend/<%=defect.getId()%>',null);"><%=$SH("_edit")%>
         </button>
-        <button type="button" class="btn btn-outline-secondary" onclick="return openModalDialog('/ctrl/defect/closeDefect/<%=defect.getId()%>',null);"><%=$SH("_closeDefect",locale)%>
+        <button type="button" class="btn btn-outline-secondary" onclick="return openModalDialog('/ctrl/defect/closeDefect/<%=defect.getId()%>',null);"><%=$SH("_closeDefect")%>
         </button>
-        <button type="button" class="btn btn-outline-secondary" onclick="return linkTo('/ctrl/defect/getDocxFile/<%=defect.getId()%>');"><%=$SH("_downloadWord",locale)%>
+        <button type="button" class="btn btn-outline-secondary" onclick="return linkTo('/ctrl/defect/getDocxFile/<%=defect.getId()%>');"><%=$SH("_downloadWord")%>
         </button>
     </div>
         <%
         }%>
     <div class=buttonLine>
-        <button type="button" class="btn btn-outline-secondary" onclick="return openModalDialog('/ctrl/defect/openCreateDefectComment/<%=defect.getId()%>',null);"><%=$SH("_comment",locale)%>
+        <button type="button" class="btn btn-outline-secondary" onclick="return openModalDialog('/ctrl/defect/openCreateDefectComment/<%=defect.getId()%>',null);"><%=$SH("_comment")%>
         </button>
     </div>
     <%}%>
     <div class=buttonLine>
-        <button type="button" class="btn btn-outline-secondary" onclick="return linkTo('/ctrl/defect/getPdfFile/<%=defect.getId()%>');"><%=$SH("_downloadPdf",locale)%>
+        <button type="button" class="btn btn-outline-secondary" onclick="return linkTo('/ctrl/defect/getPdfFile/<%=defect.getId()%>');"><%=$SH("_downloadPdf")%>
         </button>
     </div>
 </section>

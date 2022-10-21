@@ -23,8 +23,6 @@ import de.elbe5.servlet.Controller;
 import de.elbe5.servlet.ControllerCache;
 import de.elbe5.view.*;
 
-import java.util.Locale;
-
 public class UserController extends Controller {
 
     public static final String KEY = "user";
@@ -58,13 +56,13 @@ public class UserController extends Controller {
         String login = rdata.getString("login");
         String pwd = rdata.getString("password");
         if (login.length() == 0 || pwd.length() == 0) {
-            rdata.setMessage(Strings.string("_notComplete",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_ERROR);
+            rdata.setMessage(Strings.string("_notComplete"), SessionRequestData.MESSAGE_TYPE_ERROR);
             return openLogin(rdata);
         }
         UserData data = UserBean.getInstance().loginUser(login, pwd);
         if (data == null) {
             Log.info("bad login of "+login);
-            rdata.setMessage(Strings.string("_badLogin",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_ERROR);
+            rdata.setMessage(Strings.string("_badLogin"), SessionRequestData.MESSAGE_TYPE_ERROR);
             return openLogin(rdata);
         }
         rdata.setSessionUser(data);
@@ -72,10 +70,9 @@ public class UserController extends Controller {
     }
 
     public IView logout(SessionRequestData rdata) {
-        Locale locale = rdata.getLocale();
         rdata.setSessionUser(null);
         rdata.resetSession();
-        rdata.setMessage(Strings.string("_loggedOut",locale), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_loggedOut"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         return showHome();
     }
 
@@ -109,7 +106,7 @@ public class UserController extends Controller {
         if (rdata.getUserId() == data.getId()) {
             rdata.setSessionUser(data);
         }
-        rdata.setMessage(Strings.string("_userSaved",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_userSaved"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         return new CloseDialogView("/ctrl/admin/openPersonAdministration?userId=" + data.getId());
     }
 
@@ -117,12 +114,12 @@ public class UserController extends Controller {
         checkRights(rdata.hasSystemRight(SystemZone.USER));
         int id = rdata.getId();
         if (id < BaseData.ID_MIN) {
-            rdata.setMessage(Strings.string("_notDeletable",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_ERROR);
+            rdata.setMessage(Strings.string("_notDeletable"), SessionRequestData.MESSAGE_TYPE_ERROR);
             return new UrlView("/ctrl/admin/openPersonAdministration");
         }
         UserBean.getInstance().deleteUser(id);
         UserCache.setDirty();
-        rdata.setMessage(Strings.string("_userDeleted",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_userDeleted"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         return new UrlView("/ctrl/admin/openPersonAdministration");
     }
 
@@ -131,14 +128,6 @@ public class UserController extends Controller {
         BinaryFile file = UserBean.getInstance().getBinaryPortraitData(userId);
         assert(file!=null);
         return new BinaryFileView(file);
-    }
-
-    public IView changeLocale(SessionRequestData rdata) {
-        String language = rdata.getString("language");
-        Locale locale = new Locale(language);
-        rdata.setSessionLocale(locale);
-        ContentData home = ContentCache.getContentRoot();
-        return new RedirectView(home.getUrl());
     }
 
     public IView openProfile(SessionRequestData rdata) {
@@ -158,27 +147,26 @@ public class UserController extends Controller {
         String oldPassword = rdata.getString("oldPassword");
         String newPassword = rdata.getString("newPassword1");
         String newPassword2 = rdata.getString("newPassword2");
-        Locale locale = rdata.getLocale();
         if (newPassword.length() < UserData.MIN_PASSWORD_LENGTH) {
             rdata.addFormField("newPassword1");
-            rdata.addFormError(Strings.string("_passwordLengthError",locale));
+            rdata.addFormError(Strings.string("_passwordLengthError"));
             return showChangePassword();
         }
         if (!newPassword.equals(newPassword2)) {
             rdata.addFormField("newPassword1");
             rdata.addFormField("newPassword2");
-            rdata.addFormError(Strings.string("_passwordsDontMatch",locale));
+            rdata.addFormError(Strings.string("_passwordsDontMatch"));
             return showChangePassword();
         }
         UserData data = UserBean.getInstance().loginUser(user.getLogin(), oldPassword);
         if (data == null) {
             rdata.addFormField("newPassword1");
-            rdata.addFormError(Strings.string("_badLogin",locale));
+            rdata.addFormError(Strings.string("_badLogin"));
             return showChangePassword();
         }
         data.setPassword(newPassword);
         UserBean.getInstance().saveUserPassword(data);
-        rdata.setMessage(Strings.string("_passwordChanged",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_passwordChanged"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         return new CloseDialogView("/ctrl/user/openProfile");
     }
 
@@ -198,7 +186,7 @@ public class UserController extends Controller {
         UserBean.getInstance().saveUserProfile(data);
         rdata.setSessionUser(data);
         UserCache.setDirty();
-        rdata.setMessage(Strings.string("_userSaved",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_userSaved"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         return new CloseDialogView("/ctrl/user/openProfile");
     }
 

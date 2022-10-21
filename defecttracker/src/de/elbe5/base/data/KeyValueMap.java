@@ -167,32 +167,32 @@ public class KeyValueMap extends HashMap<String, Object> {
         return getBoolean(key, false);
     }
 
-    public LocalDate getDate(String key, Locale locale) {
+    public LocalDate getDate(String key) {
         LocalDate value = null;
         try {
             String str = getString(key);
-            value = StringUtil.fromDate(str, locale);
+            value = StringUtil.fromDate(str);
 
         } catch (Exception ignore) {/* do nothing */
         }
         return value;
     }
 
-    public LocalTime getTime(String key, Locale locale) {
+    public LocalTime getTime(String key) {
         LocalTime value = null;
         try {
             String str = getString(key);
-            value = StringUtil.fromTime(str, locale);
+            value = StringUtil.fromTime(str);
         } catch (Exception ignore) {/* do nothing */
         }
         return value;
     }
 
-    public LocalDateTime getDateTime(String key, Locale locale) {
+    public LocalDateTime getDateTime(String key) {
         LocalDateTime value = null;
         try {
             String str = getString(key);
-            value = StringUtil.fromDateTime(str, locale);
+            value = StringUtil.fromDateTime(str);
         } catch (Exception ignore) {/* do nothing */
         }
         return value;

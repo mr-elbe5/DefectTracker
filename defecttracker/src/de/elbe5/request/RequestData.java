@@ -19,7 +19,6 @@ public abstract class RequestData extends KeyValueMap {
 
     public static final String KEY_REQUESTDATA = "$REQUESTDATA";
     public static final String KEY_URL = "$URL";
-    public static final String KEY_LOCALE = "$LOCALE";
     public static final String KEY_HOST = "$HOST";
     public static final String KEY_JSP = "$JSP";
     public static final String KEY_MESSAGE = "$MESSAGE";
@@ -67,8 +66,6 @@ public abstract class RequestData extends KeyValueMap {
     }
 
     public abstract UserData getLoginUser();
-
-    public abstract Locale getLocale();
 
     public boolean isPostback() {
         return method.equals("POST");

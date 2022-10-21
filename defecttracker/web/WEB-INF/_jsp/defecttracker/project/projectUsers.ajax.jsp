@@ -10,7 +10,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.defecttracker.project.ProjectData" %>
 <%@ page import="de.elbe5.content.ContentCache" %>
 <%@ page import="de.elbe5.group.GroupData" %>
@@ -21,7 +20,7 @@
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     int projectId=rdata.getInt("projectId");
     ViewFilter filter= ViewFilter.getFilter(rdata);
     GroupData group=null;
@@ -29,7 +28,7 @@
     if (project!=null)
         group= GroupBean.getInstance().getGroup(project.getGroupId());
 %>
-                    <option value="0" <%=filter.getAssignedId()==0 ? "selected" : ""%>><%=$SH("_all", locale)%>
+                    <option value="0" <%=filter.getAssignedId()==0 ? "selected" : ""%>><%=$SH("_all")%>
                     </option>
                     <% if (group!=null){
                         for (int userId : group.getUserIds()){

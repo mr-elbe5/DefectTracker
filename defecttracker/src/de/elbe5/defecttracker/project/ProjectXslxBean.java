@@ -15,16 +15,12 @@ import de.elbe5.base.util.StringUtil;
 import de.elbe5.defecttracker.DefectPoiBean;
 import de.elbe5.defecttracker.defect.DefectData;
 import de.elbe5.defecttracker.location.LocationData;
-import de.elbe5.user.UserData;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.xwpf.usermodel.*;
 
 import java.io.ByteArrayOutputStream;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
 
 public class ProjectXslxBean extends DefectPoiBean {
 
@@ -37,12 +33,12 @@ public class ProjectXslxBean extends DefectPoiBean {
         return instance;
     }
 
-    public BinaryFile getProjectExcel(ProjectData data, Locale locale){
+    public BinaryFile getProjectExcel(ProjectData data){
         XSSFWorkbook wb = new XSSFWorkbook();
 
         CreationHelper createHelper = wb.getCreationHelper();
         CellStyle dateStyle = wb.createCellStyle();
-        dateStyle.setDataFormat(createHelper.createDataFormat().getFormat(StringUtil.getDatePattern(locale)));
+        dateStyle.setDataFormat(createHelper.createDataFormat().getFormat(StringUtil.getDatePattern()));
         dateStyle.setAlignment(HorizontalAlignment.LEFT);
         CellStyle wrapStyle = wb.createCellStyle();
         wrapStyle.setWrapText(true);
@@ -51,7 +47,7 @@ public class ProjectXslxBean extends DefectPoiBean {
         headerStyle.setFillForegroundColor(xssfColor.getIndex());
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         for (LocationData location : data.getChildren(LocationData.class)){
-            writeLocation(location, wb, locale, dateStyle, wrapStyle, headerStyle);
+            writeLocation(location, wb, dateStyle, wrapStyle, headerStyle);
         }
         BinaryFile file=new BinaryFile();
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
@@ -68,23 +64,23 @@ public class ProjectXslxBean extends DefectPoiBean {
         return file;
     }
 
-    protected void writeLocation(LocationData data, Workbook wb, Locale locale, CellStyle dateStyle, CellStyle wrapStyle, CellStyle headerStyle){
+    protected void writeLocation(LocationData data, Workbook wb, CellStyle dateStyle, CellStyle wrapStyle, CellStyle headerStyle){
         List<DefectData> defects = data.getChildren(DefectData.class);
         Sheet sheet = wb.createSheet(xml(data.getDisplayName()));
         int rowIdx=0;
         int cellIdx=0;
         //header
         Row row = sheet.createRow(rowIdx++);
-        addCell(row, cellIdx++, headerStyle, Strings.xml("_id",locale));
-        addCell(row, cellIdx++, headerStyle, Strings.xml("_description",locale));
-        addCell(row, cellIdx++, headerStyle, Strings.xml("_creationDate",locale));
-        addCell(row, cellIdx++, headerStyle, Strings.xml("_dueDate1",locale));
-        addCell(row, cellIdx++, headerStyle, Strings.xml("_dueDate2",locale));
-        addCell(row, cellIdx++, headerStyle, Strings.xml("_closeDate",locale));
-        addCell(row, cellIdx++, headerStyle, Strings.xml("_state",locale));
-        addCell(row, cellIdx++, headerStyle, Strings.xml("_assigned",locale));
-        addCell(row, cellIdx++, headerStyle, Strings.xml("_lot",locale));
-        addCell(row, cellIdx++, headerStyle, Strings.xml("_costs",locale));
+        addCell(row, cellIdx++, headerStyle, Strings.xml("_id"));
+        addCell(row, cellIdx++, headerStyle, Strings.xml("_description"));
+        addCell(row, cellIdx++, headerStyle, Strings.xml("_creationDate"));
+        addCell(row, cellIdx++, headerStyle, Strings.xml("_dueDate1"));
+        addCell(row, cellIdx++, headerStyle, Strings.xml("_dueDate2"));
+        addCell(row, cellIdx++, headerStyle, Strings.xml("_closeDate"));
+        addCell(row, cellIdx++, headerStyle, Strings.xml("_state"));
+        addCell(row, cellIdx++, headerStyle, Strings.xml("_assigned"));
+        addCell(row, cellIdx++, headerStyle, Strings.xml("_lot"));
+        addCell(row, cellIdx++, headerStyle, Strings.xml("_costs"));
 
         int cols=cellIdx;
         //defects
@@ -93,11 +89,11 @@ public class ProjectXslxBean extends DefectPoiBean {
             cellIdx = 0;
             addCell(row, cellIdx++, defect.getDisplayId());
             addCell(row, cellIdx++, xml(defect.getDescription()));
-            addCell(row, cellIdx++, StringUtil.toHtmlDate(defect.getCreationDate(),locale), dateStyle);
-            addCell(row, cellIdx++, StringUtil.toHtmlDate(defect.getDueDate1(),locale), dateStyle);
-            addCell(row, cellIdx++, StringUtil.toHtmlDate(defect.getDueDate2(),locale), dateStyle);
-            addCell(row, cellIdx++, StringUtil.toHtmlDate(defect.getCloseDate(),locale), dateStyle);
-            addCell(row, cellIdx++, Strings.xml(defect.getState(),locale));
+            addCell(row, cellIdx++, StringUtil.toHtmlDate(defect.getCreationDate()), dateStyle);
+            addCell(row, cellIdx++, StringUtil.toHtmlDate(defect.getDueDate1()), dateStyle);
+            addCell(row, cellIdx++, StringUtil.toHtmlDate(defect.getDueDate2()), dateStyle);
+            addCell(row, cellIdx++, StringUtil.toHtmlDate(defect.getCloseDate()), dateStyle);
+            addCell(row, cellIdx++, Strings.xml(defect.getState()));
             addCell(row, cellIdx++, xml(defect.getAssignedName()));
             addCell(row, cellIdx++, xml(defect.getLot()));
             addCell(row, cellIdx, defect.getCosts());

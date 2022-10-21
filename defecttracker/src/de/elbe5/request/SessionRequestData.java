@@ -40,18 +40,13 @@ public class SessionRequestData extends RequestData {
         return getSessionUser();
     }
 
-    @Override
-    public Locale getLocale() {
-        return getSessionLocale();
-    }
-
     /************ form error *************/
 
     public boolean checkFormErrors() {
         if (formError == null)
             return true;
         if (formError.isFormIncomplete())
-            formError.addFormError(Strings.string("_notComplete", getLocale()));
+            formError.addFormError(Strings.string("_notComplete"));
         return formError.isEmpty();
     }
 
@@ -83,9 +78,6 @@ public class SessionRequestData extends RequestData {
     public void initSession() {
         session = request.getSession(true);
         if (session.isNew()) {
-            Locale requestLocale = request.getLocale();
-            if (Configuration.hasLanguage(requestLocale))
-                setSessionLocale(requestLocale);
             StringBuffer url = request.getRequestURL();
             String uri = request.getRequestURI();
             String host = url.substring(0, url.indexOf(uri));
@@ -227,26 +219,6 @@ public class SessionRequestData extends RequestData {
         }
     }
 
-    public void setSessionLocale() {
-        setSessionLocale(Configuration.getDefaultLocale());
-    }
-
-    public Locale getSessionLocale() {
-        Locale locale = getSessionObject(KEY_LOCALE,Locale.class);
-        if (locale == null) {
-            return Configuration.getDefaultLocale();
-        }
-        return locale;
-    }
-
-    public void setSessionLocale(Locale locale) {
-        if (Configuration.hasLanguage(locale)) {
-            setSessionObject(KEY_LOCALE, locale);
-        } else {
-            setSessionObject(KEY_LOCALE, Configuration.getDefaultLocale());
-        }
-    }
-
     public void setSessionHost(String host) {
         setSessionObject(KEY_HOST, host);
     }
@@ -256,10 +228,8 @@ public class SessionRequestData extends RequestData {
     }
 
     public void resetSession() {
-        Locale locale = getLocale();
         removeAllSessionObjects();
         request.getSession(true);
-        setSessionLocale(locale);
     }
 
     /*************** cookie methods ***************/

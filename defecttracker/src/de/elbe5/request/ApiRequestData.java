@@ -1,12 +1,10 @@
 package de.elbe5.request;
 
-import de.elbe5.application.Configuration;
 import de.elbe5.user.UserBean;
 import de.elbe5.user.UserData;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.util.Locale;
 
 public class ApiRequestData extends RequestData {
 
@@ -35,11 +33,6 @@ public class ApiRequestData extends RequestData {
     @Override
     public UserData getLoginUser() {
         return user;
-    }
-
-    @Override
-    public Locale getLocale() {
-        return Configuration.getDefaultLocale();
     }
 
 }

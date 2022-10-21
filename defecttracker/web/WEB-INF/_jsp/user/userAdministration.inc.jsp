@@ -13,11 +13,10 @@
 <%@ page import="de.elbe5.user.UserBean" %>
 <%@ page import="de.elbe5.user.UserData" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Locale" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     List<UserData> users = null;
     try {
         UserBean ts = UserBean.getInstance();
@@ -27,9 +26,9 @@
     int userId = rdata.getInt("userId");
 %>
 <li class="open">
-    <span><%=$SH("_users",locale)%></span>
+    <span><%=$SH("_users")%></span>
     <div class="icons">
-        <a class="icon fa fa-plus" href="" onclick="return openModalDialog('/ctrl/user/openCreateUser');" title="<%=$SH("_new",locale)%>"> </a>
+        <a class="icon fa fa-plus" href="" onclick="return openModalDialog('/ctrl/user/openCreateUser');" title="<%=$SH("_new")%>"> </a>
     </div>
     <ul>
         <%
@@ -39,9 +38,9 @@
         <li class="<%=userId==user.getId() ? "selected" : ""%>">
             <span><%=$H(user.getName())%>&nbsp;(<%=user.getId()%>)</span>
             <div class="icons">
-                <a class="icon fa fa-pencil" href="" onclick="return openModalDialog('/ctrl/user/openEditUser/<%=user.getId()%>');" title="<%=$SH("_edit",locale)%>"> </a>
+                <a class="icon fa fa-pencil" href="" onclick="return openModalDialog('/ctrl/user/openEditUser/<%=user.getId()%>');" title="<%=$SH("_edit")%>"> </a>
                 <% if (user.getId() != UserData.ID_ROOT) {%>
-                <a class="icon fa fa-trash-o" href="" onclick="if (confirmDelete()) return linkTo('/ctrl/user/deleteUser/<%=user.getId()%>');" title="<%=$SH("_delete",locale)%>"> </a>
+                <a class="icon fa fa-trash-o" href="" onclick="if (confirmDelete()) return linkTo('/ctrl/user/deleteUser/<%=user.getId()%>');" title="<%=$SH("_delete")%>"> </a>
             </div>
             <%}%>
         </li>

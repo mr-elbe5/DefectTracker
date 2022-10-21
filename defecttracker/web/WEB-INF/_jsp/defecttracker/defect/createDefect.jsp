@@ -9,7 +9,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.defecttracker.defect.DefectData" %>
 <%@ page import="de.elbe5.defecttracker.project.ProjectData" %>
 <%@ page import="de.elbe5.content.ContentCache" %>
@@ -21,7 +20,7 @@
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     DefectData defect = rdata.getCurrentContent(DefectData.class);
     assert (defect != null);
     LocationData location = ContentCache.getContent(defect.getLocationId(), LocationData.class);
@@ -46,7 +45,7 @@
         <form:textarea name="description" label="_description" height="5em" required="true"><%=StringUtil.toHtmlMultiline(defect.getDescription())%>
         </form:textarea>
         <form:select name="assigned" label="_assignTo" required="true">
-            <option value="0" <%=defect.getAssignedId() == 0 ? "selected" : ""%>><%=$SH("_pleaseSelect", locale)%>
+            <option value="0" <%=defect.getAssignedId() == 0 ? "selected" : ""%>><%=$SH("_pleaseSelect")%>
             </option>
             <% for (int userId : group.getUserIds()) {
                 UserData user = UserCache.getUser(userId);%>
@@ -56,7 +55,7 @@
         </form:select>
         <form:text name="lot" label="_lot" value="<%=$H(defect.getLot())%>"/>
         <form:text name="costs" label="_costs" value="<%=defect.getCostsString()%>"/>
-        <form:date name="dueDate1" label="_dueDate" value="<%=StringUtil.toHtmlDate(defect.getDueDate1(),locale)%>" required="true"/>
+        <form:date name="dueDate1" label="_dueDate" value="<%=StringUtil.toHtmlDate(defect.getDueDate1())%>" required="true"/>
         <% if (location.getPlan() != null) {%>
         <form:line label="_position"> </form:line>
         <div id="planContainer">
@@ -72,11 +71,11 @@
         <form:textarea name="positionComment" label="_positionComment" height="5em"><%=StringUtil.toHtmlMultiline(defect.getPositionComment())%>
         </form:textarea>
         <form:file name="files" label="_addDocumentsAndImages" required="false" multiple="true"/>
-        <form:line><%=$SH("_uploadHint", locale)%></form:line>
+        <form:line><%=$SH("_uploadHint")%></form:line>
         <div>
-            <button type="button" class="btn btn-outline-secondary" onclick="linkTo('/ctrl/location/show/<%=location.getId()%>');"><%=$SH("_cancel", locale)%>
+            <button type="button" class="btn btn-outline-secondary" onclick="linkTo('/ctrl/location/show/<%=location.getId()%>');"><%=$SH("_cancel")%>
             </button>
-            <button type="submit" class="btn btn-primary"><%=$SH("_save", locale)%>
+            <button type="submit" class="btn btn-primary"><%=$SH("_save")%>
             </button>
         </div>
     </form:form>

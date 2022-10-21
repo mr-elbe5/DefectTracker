@@ -8,6 +8,7 @@
  */
 package de.elbe5.base.cache;
 
+import de.elbe5.application.Configuration;
 import de.elbe5.base.log.Log;
 import de.elbe5.base.data.CsvFile;
 import org.apache.commons.text.StringEscapeUtils;
@@ -16,9 +17,7 @@ import java.util.*;
 
 public class Strings {
 
-    public static Locale DEFAULT_LOCALE = Locale.ENGLISH;
-
-    private static Map<Locale, Strings> cacheMap = new HashMap<>();
+    private static final Map<Locale, Strings> cacheMap = new HashMap<>();
 
     public static boolean hasLocale(Locale locale) {
         return cacheMap.containsKey(locale);
@@ -50,46 +49,37 @@ public class Strings {
         }
     }
 
-    public static String string(String key, Locale locale) {
-        Locale l = hasLocale(locale) ? locale : DEFAULT_LOCALE;
-        String s = getLocalizedStrings(l).getSingleString(key);
+    public static String string(String key) {
+        String s = getLocalizedStrings(Configuration.getDefaultLocale()).getSingleString(key);
         if (s == null) {
-            Log.warn("resource string not found for key " + key + " of locale " + locale);
+            Log.warn("resource string not found for key " + key);
             return "...";
         }
         if (s.isEmpty()) {
-            Log.warn("resource string is empty for key " + key + " of locale " + locale);
+            Log.warn("resource string is empty for key " + key);
             return "..";
         }
         return s;
     }
 
-    public static String string(String key) {
-        return string(key, DEFAULT_LOCALE);
-    }
-
-    public static String html(String key, Locale locale) {
-        return StringEscapeUtils.escapeHtml4(string(key, locale));
-    }
-
-    public static String htmlMultiline(String key, Locale locale) {
-        return StringEscapeUtils.escapeHtml4(string(key, locale)).replaceAll("\\\\n", "<br/>");
-    }
-
-    public static String js(String key, Locale locale) {
-        return StringEscapeUtils.escapeEcmaScript(string(key, locale));
-    }
-
-    public static String xml(String key, Locale locale) {
-        return StringEscapeUtils.escapeXml11(string(key, locale));
-    }
-
     public static String html(String key) {
-        return html(key, DEFAULT_LOCALE);
+        return StringEscapeUtils.escapeHtml4(string(key));
+    }
+
+    public static String htmlMultiline(String key) {
+        return StringEscapeUtils.escapeHtml4(string(key)).replaceAll("\\\\n", "<br/>");
+    }
+
+    public static String js(String key) {
+        return StringEscapeUtils.escapeEcmaScript(string(key));
+    }
+
+    public static String xml(String key) {
+        return StringEscapeUtils.escapeXml11(string(key));
     }
 
     protected Locale locale;
-    private Map<String, String> allStrings;
+    private final Map<String, String> allStrings;
 
     public Strings(Locale locale) {
         this.locale = locale;

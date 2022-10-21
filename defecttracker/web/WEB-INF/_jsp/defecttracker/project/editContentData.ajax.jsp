@@ -11,7 +11,6 @@
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.defecttracker.project.ProjectData" %>
 <%@ page import="de.elbe5.group.GroupBean" %>
 <%@ page import="de.elbe5.group.GroupData" %>
@@ -19,7 +18,7 @@
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     ProjectData contentData = rdata.getCurrentContent(ProjectData.class);
     assert (contentData != null);
     List<GroupData> groups = GroupBean.getInstance().getAllGroups();
@@ -27,7 +26,7 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><%=$SH("_editContentData", locale)%>
+            <h5 class="modal-title"><%=$SH("_editContentData")%>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -36,36 +35,36 @@
         <form:form url="<%=url%>" name="pageform" ajax="true" multi="true">
             <div class="modal-body">
                 <form:formerror/>
-                <h3><%=$SH("_settings", locale)%>
+                <h3><%=$SH("_settings")%>
                 </h3>
                 <form:line label="_idAndUrl"><%=$I(contentData.getId())%> - <%=$H(contentData.getUrl())%>
                 </form:line>
-                <form:line label="_creation"><%=$DT(contentData.getCreationDate(), locale)%> - <%=$H(contentData.getCreatorName())%>
+                <form:line label="_creation"><%=$DT(contentData.getCreationDate())%> - <%=$H(contentData.getCreatorName())%>
                 </form:line>
-                <form:line label="_lastChange"><%=$DT(contentData.getChangeDate(), locale)%> - <%=$H(contentData.getChangerName())%>
+                <form:line label="_lastChange"><%=$DT(contentData.getChangeDate())%> - <%=$H(contentData.getChangerName())%>
                 </form:line>
 
                 <form:text name="displayName" label="_name" required="true" value="<%=$H(contentData.getDisplayName())%>"/>
                 <form:textarea name="description" label="_description" height="5em"><%=$H(contentData.getDescription())%></form:textarea>
                 <form:select name="groupId" label="_group" required="true">
-                    <option value="0"  <%=contentData.getGroupId()==0 ? "selected" : ""%>><%=$SH("_pleaseSelect",locale)%></option>
+                    <option value="0"  <%=contentData.getGroupId()==0 ? "selected" : ""%>><%=$SH("_pleaseSelect")%></option>
                     <% for (GroupData group : groups){%>
                     <option value="<%=group.getId()%>" <%=contentData.getGroupId()==group.getId() ? "selected" : ""%>><%=$H(group.getName())%></option>
                     <%}%>
                 </form:select>
                 <form:select name="phase" label="_phase" onchange="">
-                    <option value="<%=ProjectData.PHASE_PREAPPROVE%>" <%=ProjectData.PHASE_PREAPPROVE.equals(contentData.getPhase()) ? "selected" : ""%>><%=$SH(ProjectData.PHASE_PREAPPROVE,locale)%></option>
-                    <option value="<%=ProjectData.PHASE_APPROVE%>" <%=ProjectData.PHASE_APPROVE.equals(contentData.getPhase()) ? "selected" : ""%>><%=$SH(ProjectData.PHASE_APPROVE,locale)%></option>
-                    <option value="<%=ProjectData.PHASE_WARRANTY%>" <%=ProjectData.PHASE_WARRANTY.equals(contentData.getPhase()) ? "selected" : ""%>><%=$SH(ProjectData.PHASE_WARRANTY,locale)%></option>
+                    <option value="<%=ProjectData.PHASE_PREAPPROVE%>" <%=ProjectData.PHASE_PREAPPROVE.equals(contentData.getPhase()) ? "selected" : ""%>><%=$SH(ProjectData.PHASE_PREAPPROVE)%></option>
+                    <option value="<%=ProjectData.PHASE_APPROVE%>" <%=ProjectData.PHASE_APPROVE.equals(contentData.getPhase()) ? "selected" : ""%>><%=$SH(ProjectData.PHASE_APPROVE)%></option>
+                    <option value="<%=ProjectData.PHASE_WARRANTY%>" <%=ProjectData.PHASE_WARRANTY.equals(contentData.getPhase()) ? "selected" : ""%>><%=$SH(ProjectData.PHASE_WARRANTY)%></option>
                 </form:select>
                 <form:line label="_active" padded="true">
                     <form:check name="active" value="true" checked="<%=contentData.isActive()%>"/>
                 </form:line>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close", locale)%>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close")%>
                 </button>
-                <button type="submit" class="btn btn-primary"><%=$SH("_save", locale)%>
+                <button type="submit" class="btn btn-primary"><%=$SH("_save")%>
                 </button>
             </div>
         </form:form>

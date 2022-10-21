@@ -13,11 +13,10 @@
 <%@ page import="de.elbe5.group.GroupBean" %>
 <%@ page import="de.elbe5.group.GroupData" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Locale" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     List<GroupData> groups = null;
     try {
         groups = GroupBean.getInstance().getAllGroups();
@@ -26,9 +25,9 @@
     int groupId = rdata.getInt("groupId");
 %><!--groups-->
 <li class="open">
-    <span><%=$SH("_groups",locale)%></span>
+    <span><%=$SH("_groups")%></span>
     <div class="icons">
-        <a class="icon fa fa-plus" href="" onclick="return openModalDialog('/ctrl/group/openCreateGroup');" title="<%=$SH("_new",locale)%>"> </a>
+        <a class="icon fa fa-plus" href="" onclick="return openModalDialog('/ctrl/group/openCreateGroup');" title="<%=$SH("_new")%>"> </a>
     </div>
     <ul>
         <%
@@ -38,8 +37,8 @@
         <li class="<%=groupId==group.getId() ? "open" : ""%>">
             <span><%=$H(group.getName())%></span>
             <div class="icons">
-                <a class="icon fa fa-pencil" href="" onclick="return openModalDialog('/ctrl/group/openEditGroup/<%=group.getId()%>');" title="<%=$SH("_edit",locale)%>"></a>
-                <a class="icon fa fa-trash-o" href="" onclick="if (confirmDelete()) return linkTo('/ctrl/group/deleteGroup/<%=group.getId()%>');" title="<%=$SH("_delete",locale)%>"></a>
+                <a class="icon fa fa-pencil" href="" onclick="return openModalDialog('/ctrl/group/openEditGroup/<%=group.getId()%>');" title="<%=$SH("_edit")%>"></a>
+                <a class="icon fa fa-trash-o" href="" onclick="if (confirmDelete()) return linkTo('/ctrl/group/deleteGroup/<%=group.getId()%>');" title="<%=$SH("_delete")%>"></a>
             </div>
         </li>
         <%

@@ -9,7 +9,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="java.util.List" %>
 <%@ page import="de.elbe5.content.ContentData" %>
 <%@ page import="de.elbe5.file.DocumentData" %>
@@ -17,24 +16,24 @@
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     ContentData contentData = rdata.getCurrentContent();
     assert contentData != null;
     List<String> documentTypes=contentData.getDocumentClasses();
     int fileId=rdata.getInt("fileId");
 %>
         <li class="documents">
-            <span>[<%=$SH("_documents", locale)%>]</span>
+            <span>[<%=$SH("_documents")%>]</span>
             <%if (contentData.hasUserEditRight(rdata)) {%>
             <div class="icons">
                 <% if (rdata.hasClipboardData(RequestData.KEY_DOCUMENT)) {%>
-                <a class="icon fa fa-paste" href="/ctrl/document/pasteDocument?parentId=<%=contentData.getId()%>" title="<%=$SH("_pasteDocument",locale)%>"> </a>
+                <a class="icon fa fa-paste" href="/ctrl/document/pasteDocument?parentId=<%=contentData.getId()%>" title="<%=$SH("_pasteDocument")%>"> </a>
                 <%}
                     if (!documentTypes.isEmpty()) {%>
-                <a class="icon fa fa-plus dropdown-toggle" data-toggle="dropdown" title="<%=$SH("_newDocument",locale)%>"></a>
+                <a class="icon fa fa-plus dropdown-toggle" data-toggle="dropdown" title="<%=$SH("_newDocument")%>"></a>
                 <div class="dropdown-menu">
                     <%for (String documentType : documentTypes) {
-                        String name = $SH(documentType, locale);%>
+                        String name = $SH(documentType);%>
                     <a class="dropdown-item" onclick="return openModalDialog('/ctrl/document/openCreateDocument?parentId=<%=contentData.getId()%>&type=<%=documentType%>');"><%=name%>
                     </a>
                     <%
@@ -54,12 +53,12 @@
                             <%=document.getDisplayName()%>
                         </span>
                         <div class="icons">
-                            <a class="icon fa fa-eye" href="/ctrl/document/show/<%=document.getId()%>" target="_blank" title="<%=$SH("_view",locale)%>"> </a>
-                            <a class="icon fa fa-download" href="/ctrl/document/download/<%=document.getId()%>" title="<%=$SH("_download",locale)%>"> </a>
-                            <a class="icon fa fa-pencil" href="" onclick="return openModalDialog('/ctrl/document/openEditDocument/<%=document.getId()%>');" title="<%=$SH("_edit",locale)%>"> </a>
-                            <a class="icon fa fa-scissors" href="" onclick="return linkTo('/ctrl/document/cutDocument/<%=document.getId()%>');" title="<%=$SH("_cut",locale)%>"> </a>
-                            <a class="icon fa fa-copy" href="" onclick="return linkTo('/ctrl/document/copyDocument/<%=document.getId()%>');" title="<%=$SH("_copy",locale)%>"> </a>
-                            <a class="icon fa fa-trash-o" href="" onclick="if (confirmDelete()) return linkTo('/ctrl/document/deleteDocument/<%=document.getId()%>');" title="<%=$SH("_delete",locale)%>"> </a>
+                            <a class="icon fa fa-eye" href="/ctrl/document/show/<%=document.getId()%>" target="_blank" title="<%=$SH("_view")%>"> </a>
+                            <a class="icon fa fa-download" href="/ctrl/document/download/<%=document.getId()%>" title="<%=$SH("_download")%>"> </a>
+                            <a class="icon fa fa-pencil" href="" onclick="return openModalDialog('/ctrl/document/openEditDocument/<%=document.getId()%>');" title="<%=$SH("_edit")%>"> </a>
+                            <a class="icon fa fa-scissors" href="" onclick="return linkTo('/ctrl/document/cutDocument/<%=document.getId()%>');" title="<%=$SH("_cut")%>"> </a>
+                            <a class="icon fa fa-copy" href="" onclick="return linkTo('/ctrl/document/copyDocument/<%=document.getId()%>');" title="<%=$SH("_copy")%>"> </a>
+                            <a class="icon fa fa-trash-o" href="" onclick="if (confirmDelete()) return linkTo('/ctrl/document/deleteDocument/<%=document.getId()%>');" title="<%=$SH("_delete")%>"> </a>
                         </div>
                     </div>
                 </li>

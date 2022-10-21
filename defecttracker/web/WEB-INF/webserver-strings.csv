@@ -96,7 +96,6 @@ _day;Day;Tag
 _dbAlmostReadyHint;The database is connected and tables have been created.;Die Datenbank ist verbunden und die Tabellen wurden erzeugt.
 _dbErrorHint;The database couls not be initialised;Die Datenbank konnte nicht initialisiert werden
 _dbReadyHint;The database is connected, tables have been created and the application is ready to use.;Die Datenbank ist verbunden, die Tabellen wurden erzeugt und die Applikation ist bereit zum Benutzen.
-_defaultLocale;Default Locale;Standardsprache
 _delete;Delete;Löschen
 _deleteAll;Delete All;Alle löschen
 _deleteError;Delete Error;Fehler beim löschen
@@ -195,7 +194,6 @@ _lastChange;Last Change;Letzte Änderung
 _lastName;Last Name;Nachname
 _layout;Layout;Layout
 _load;Load;Laden
-_locale;Locale;Sprache
 _location;Location;Ort
 _loggedInAs;Logged in as;Angemeldet als
 _loggedOut;Successfully logged out;Erfolgreich abgemeldet

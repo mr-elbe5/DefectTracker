@@ -10,14 +10,13 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.user.UserCache" %>
 <%@ page import="de.elbe5.file.ImageData" %>
 <%@ page import="de.elbe5.request.RequestData" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     ImageData imageData = rdata.getSessionObject(RequestData.KEY_IMAGE,ImageData.class);
     assert (imageData != null);
     String url = "/ctrl/image/saveImage/" + imageData.getId();
@@ -26,7 +25,7 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><%=$SH("_editImage",locale)%>
+            <h5 class="modal-title"><%=$SH("_editImage")%>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -37,9 +36,9 @@
                 <form:formerror/>
                 <form:line label="_idAndFileName"><%=$I(imageData.getId())%> - <%=$H(imageData.getFileName())%>
                 </form:line>
-                <form:line label="_creation"><%=$DT(imageData.getCreationDate(), locale)%> - <%=$H(UserCache.getUser(imageData.getCreatorId()).getName())%>
+                <form:line label="_creation"><%=$DT(imageData.getCreationDate())%> - <%=$H(UserCache.getUser(imageData.getCreatorId()).getName())%>
                 </form:line>
-                <form:line label="_lastChange"><%=$DT(imageData.getChangeDate(), locale)%> - <%=$H(UserCache.getUser(imageData.getChangerId()).getName())%>
+                <form:line label="_lastChange"><%=$DT(imageData.getChangeDate())%> - <%=$H(UserCache.getUser(imageData.getChangerId()).getName())%>
                 </form:line>
 
                 <form:file name="file" label="_image" required="<%=fileRequired%>"/>
@@ -47,9 +46,9 @@
                 <form:textarea name="description" label="_description" height="3em"><%=$H(imageData.getDescription())%></form:textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close",locale)%>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close")%>
                 </button>
-                <button type="submit" class="btn btn-primary"><%=$SH("_save",locale)%>
+                <button type="submit" class="btn btn-primary"><%=$SH("_save")%>
                 </button>
             </div>
         </form:form>

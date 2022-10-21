@@ -12,11 +12,10 @@
 <%@ page import="de.elbe5.request.SessionRequestData" %>
 <%@ page import="de.elbe5.timer.TimerInterval" %>
 <%@ page import="de.elbe5.timer.TimerTaskData" %>
-<%@ page import="java.util.Locale" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     TimerTaskData data = (TimerTaskData) rdata.getSessionObject("timerTaskData");
     if ((data == null))
         throw new AssertionError();
@@ -24,7 +23,7 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><%=$SH("_taskSettings",locale)%>
+            <h5 class="modal-title"><%=$SH("_taskSettings")%>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -39,13 +38,13 @@
                 <form:line label="_displayName"><%=$H(data.getDisplayName())%>
                 </form:line>
                 <form:line label="_intervalType" padded="true" required="true">
-                    <form:radio name="interval" value="<%=TimerInterval.CONTINOUS.name()%>" checked="<%=data.getInterval() == TimerInterval.CONTINOUS%>"><%=$SH("_continous",locale)%>
+                    <form:radio name="interval" value="<%=TimerInterval.CONTINOUS.name()%>" checked="<%=data.getInterval() == TimerInterval.CONTINOUS%>"><%=$SH("_continous")%>
                     </form:radio><br/>
-                    <form:radio name="interval" value="<%=TimerInterval.MONTH.name()%>" checked="<%=data.getInterval() == TimerInterval.MONTH%>"><%=$SH("_monthly",locale)%>
+                    <form:radio name="interval" value="<%=TimerInterval.MONTH.name()%>" checked="<%=data.getInterval() == TimerInterval.MONTH%>"><%=$SH("_monthly")%>
                     </form:radio><br/>
-                    <form:radio name="interval" value="<%=TimerInterval.DAY.name()%>" checked="<%=data.getInterval() == TimerInterval.DAY%>"><%=$SH("_daily",locale)%>
+                    <form:radio name="interval" value="<%=TimerInterval.DAY.name()%>" checked="<%=data.getInterval() == TimerInterval.DAY%>"><%=$SH("_daily")%>
                     </form:radio><br/>
-                    <form:radio name="interval" value="<%=TimerInterval.HOUR.name()%>" checked="<%=data.getInterval() == TimerInterval.HOUR%>"><%=$SH("_everyHour",locale)%>
+                    <form:radio name="interval" value="<%=TimerInterval.HOUR.name()%>" checked="<%=data.getInterval() == TimerInterval.HOUR%>"><%=$SH("_everyHour")%>
                     </form:radio>
                 </form:line>
                 <form:text name="day" label="_day" required="true" value="<%=$I(data.getDay())%>"/>
@@ -54,9 +53,9 @@
                 <form:line label="_active" padded="true"><form:check name="active" value="true" checked="<%=data.isActive()%>"/></form:line>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close",locale)%>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close")%>
                 </button>
-                <button type="submit" class="btn btn-outline-primary"><%=$SH("_save",locale)%>
+                <button type="submit" class="btn btn-outline-primary"><%=$SH("_save")%>
                 </button>
             </div>
         </form:form>

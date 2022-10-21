@@ -11,20 +11,19 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.defecttracker.project.ProjectData" %>
 <%@ page import="de.elbe5.defecttracker.ViewFilter" %>
 <%@ page import="de.elbe5.content.ContentCache" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     ViewFilter filter = ViewFilter.getFilter(rdata);
 %>
 <form:message/>
 <section class="contentSection" id="content">
     <div class="projectSelector">
-        <h1><%=$SH("_selectProject",locale)%></h1>
+        <h1><%=$SH("_selectProject")%></h1>
         <% for (int projectId : filter.getOwnProjectIds()){
             ProjectData project= ContentCache.getContent(projectId,ProjectData.class);
             if (project==null)

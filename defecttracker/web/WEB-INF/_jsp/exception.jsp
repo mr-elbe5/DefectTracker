@@ -14,11 +14,10 @@
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 
 <%
-    Locale locale = request.getLocale();
     CmsException ex=(CmsException) request.getAttribute("exception");
     assert(ex!=null);
-    String error=$SH("_errorHeader",locale);
-    String errorText=$SH("_error"+ex.getResponseCode(),locale);
+    String error=$SH("_errorHeader");
+    String errorText=$SH("_error"+ex.getResponseCode());
 %>
 <html lang="en">
 <head>
@@ -65,7 +64,7 @@
 <main>
     <h1><%=error%></h1>
     <div class="errorText"><%=errorText%></div>
-    <div class="link"><a href="/" title="Home"><%=$SH("_home",locale)%></a></div>
+    <div class="link"><a href="/" title="Home"><%=$SH("_home")%></a></div>
 </main>
 </body>
 </html>

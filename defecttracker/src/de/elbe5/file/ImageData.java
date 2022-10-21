@@ -13,7 +13,6 @@ import javax.imageio.ImageWriter;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Locale;
 
 public class ImageData extends FileData {
 
@@ -250,7 +249,7 @@ public class ImageData extends FileData {
     }
 
     @SuppressWarnings("unchecked")
-    public JSONObject getJson(Locale locale){
+    public JSONObject getJson(){
         JSONObject json = new JSONObject();
         json.put("id",getId());
         json.put("fileName",getFileName());

@@ -73,7 +73,7 @@ public class ProjectController extends DefectBaseController {
         int contentId = rdata.getId();
         ProjectData project=ContentCache.getContent(contentId,ProjectData.class);
         assert(project!=null);
-        BinaryFile file = ProjectXslxBean.getInstance().getProjectExcel(project, rdata.getLocale());
+        BinaryFile file = ProjectXslxBean.getInstance().getProjectExcel(project);
         assert(file!=null);
         BinaryFileView view=new BinaryFileView(file);
         view.setForceDownload(true);

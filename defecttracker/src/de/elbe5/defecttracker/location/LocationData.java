@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class LocationData extends ContentData {
 
@@ -156,7 +155,7 @@ public class LocationData extends ContentData {
             plan = new PlanImageData();
             plan.setCreateValues(this,rdata);
             plan.createFromBinaryFile(file, PlanImageData.STD_SIZE, PlanImageData.STD_SIZE, plan.getMaxPreviewWidth(), plan.getMaxPreviewHeight(), false);
-            plan.setDisplayName(Strings.string("_plan",rdata.getSessionLocale()));
+            plan.setDisplayName(Strings.string("_plan"));
         }
         if (getDisplayName().isEmpty()) {
             rdata.addIncompleteField("displayName");
@@ -174,7 +173,7 @@ public class LocationData extends ContentData {
             plan = new PlanImageData();
             plan.setCreateValues(this,rdata);
             plan.createFromBinaryFile(file, PlanImageData.STD_SIZE, PlanImageData.STD_SIZE, plan.getMaxPreviewWidth(), plan.getMaxPreviewHeight(), false);
-            plan.setDisplayName(Strings.string("_plan",rdata.getSessionLocale()));
+            plan.setDisplayName(Strings.string("_plan"));
         }
         setActive(rdata.getBoolean("active"));
         if (getDisplayName().isEmpty()) {
@@ -183,7 +182,7 @@ public class LocationData extends ContentData {
     }
 
     @SuppressWarnings("unchecked")
-    public JSONObject getJson(Locale locale){
+    public JSONObject getJson(){
         JSONObject json = new JSONObject();
         json.put("id",getId());
         json.put("name",getDisplayName());

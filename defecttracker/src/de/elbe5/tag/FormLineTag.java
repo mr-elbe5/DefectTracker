@@ -15,7 +15,6 @@ import de.elbe5.request.SessionRequestData;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import java.io.Writer;
-import java.util.Locale;
 
 public class FormLineTag extends BaseTag {
 
@@ -46,7 +45,6 @@ public class FormLineTag extends BaseTag {
         try {
             HttpServletRequest request = getRequest();
             SessionRequestData rdata = SessionRequestData.getRequestData(request);
-            Locale locale = getLocale(rdata);
             Writer writer = getWriter();
             writer.write("<div class=\"form-group row");
             if (rdata.hasFormErrorField(name))
@@ -62,7 +60,7 @@ public class FormLineTag extends BaseTag {
                     writer.write("\"");
                 }
                 writer.write(">");
-                writer.write(label.startsWith("_") ? Strings.html(label, locale) : label);
+                writer.write(label.startsWith("_") ? Strings.html(label) : label);
                 if (required) {
                     writer.write(" <sup>*</sup>");
                 }
@@ -72,7 +70,7 @@ public class FormLineTag extends BaseTag {
             if (padded)
                 writer.write(" padded");
             writer.write("\">\n");
-            writer.write(getPreControlHtml(request, locale));
+            writer.write(getPreControlHtml(request));
         } catch (Exception e) {
             Log.error("error writing form line tag", e);
             throw new JspException(e);
@@ -85,9 +83,8 @@ public class FormLineTag extends BaseTag {
         try {
             HttpServletRequest request = getRequest();
             SessionRequestData rdata = SessionRequestData.getRequestData(request);
-            Locale locale = getLocale(rdata);
             Writer writer = getWriter();
-            writer.write(getPostControlHtml(request, locale));
+            writer.write(getPostControlHtml(request));
             writer.write("</div></div>");
         } catch (Exception e) {
             Log.error("error writing form line tag", e);
@@ -95,11 +92,11 @@ public class FormLineTag extends BaseTag {
         return EVAL_PAGE;
     }
 
-    protected String getPreControlHtml(HttpServletRequest request, Locale locale) {
+    protected String getPreControlHtml(HttpServletRequest request) {
         return "";
     }
 
-    protected String getPostControlHtml(HttpServletRequest request, Locale locale) {
+    protected String getPostControlHtml(HttpServletRequest request) {
         return "";
     }
 

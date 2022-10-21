@@ -11,7 +11,6 @@ package de.elbe5.tag;
 import de.elbe5.base.util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Locale;
 
 public class FormTextAreaTag extends FormLineTag {
 
@@ -24,11 +23,13 @@ public class FormTextAreaTag extends FormLineTag {
     String controlPreHtml = "<textarea id=\"{1}\" name=\"{2}\" class=\"form-control\" {3}>";
     String controlPostHtml = "</textarea>\n";
 
-    protected String getPreControlHtml(HttpServletRequest request, Locale locale) {
+    @Override
+    protected String getPreControlHtml(HttpServletRequest request) {
         return StringUtil.format(controlPreHtml, name, name, height.isEmpty() ? "" : "style=\"height:" + height + "\"");
     }
 
-    protected String getPostControlHtml(HttpServletRequest request, Locale locale) {
+    @Override
+    protected String getPostControlHtml(HttpServletRequest request) {
         return controlPostHtml;
     }
 

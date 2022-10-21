@@ -9,7 +9,6 @@
 <%response.setContentType("text/html;charset=UTF-8");%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
 <%@ page import="de.elbe5.application.Configuration" %>
 <%@ page import="de.elbe5.content.ContentData" %>
@@ -17,13 +16,13 @@
 <%@ page import="java.util.List" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     ContentData contentData = rdata.getCurrentContent();
     List<Integer> parentIds = ContentCache.getParentContentIds(contentData);
     String title = Configuration.getAppTitle()+ (contentData!=null ? " | " + contentData.getDisplayName() : "");
 %>
 <!DOCTYPE html>
-<html lang="<%=locale.getLanguage()%>">
+<html lang="<%=Configuration.getDefaultLocale().getLanguage()%>">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -77,7 +76,7 @@
             <section class="col-6 filter">
                 <ul class="filter">
                     <%if (contentData != null) {%>
-                    <li><a class="fa fa-filter" href="" onclick="return openModalDialog('/ctrl/project/openFilter/<%=contentData.getId()%>');">&nbsp;<%=$SH("_filter",locale)%></a></li>
+                    <li><a class="fa fa-filter" href="" onclick="return openModalDialog('/ctrl/project/openFilter/<%=contentData.getId()%>');">&nbsp;<%=$SH("_filter")%></a></li>
                     <%}%>
                 </ul>
             </section>
@@ -98,7 +97,7 @@
     <div class="container">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link"><%=$SH("_copyright", locale)%>
+                <a class="nav-link"><%=$SH("_copyright")%>
                 </a>
             </li>
             <% for (ContentData data : ContentCache.getFooterList()) {

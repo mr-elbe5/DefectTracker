@@ -9,20 +9,19 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="java.util.List" %>
 <%@ page import="de.elbe5.content.ContentData" %>
 <%@ page import="de.elbe5.file.DocumentData" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     ContentData contentData = rdata.getCurrentContent();
     assert contentData != null;
     int fileId=rdata.getInt("fileId");
 %>
         <li class="documents">
-            <span>[<%=$SH("_documents", locale)%>]</span>
+            <span>[<%=$SH("_documents")%>]</span>
             <ul>
                 <%
                     List<DocumentData> documents = contentData.getFiles(DocumentData.class);
@@ -33,8 +32,8 @@
                             <%=document.getDisplayName()%>
                         </span>
                         <div class="icons">
-                            <a class="icon fa fa-eye" href="/ctrl/document/show/<%=document.getId()%>" target="_blank" title="<%=$SH("_view",locale)%>"> </a>
-                            <a class="icon fa fa-download" href="/ctrl/document/download/<%=document.getId()%>" title="<%=$SH("_download",locale)%>"> </a>
+                            <a class="icon fa fa-eye" href="/ctrl/document/show/<%=document.getId()%>" target="_blank" title="<%=$SH("_view")%>"> </a>
+                            <a class="icon fa fa-download" href="/ctrl/document/download/<%=document.getId()%>" title="<%=$SH("_download")%>"> </a>
                         </div>
                     </div>
                 </li>

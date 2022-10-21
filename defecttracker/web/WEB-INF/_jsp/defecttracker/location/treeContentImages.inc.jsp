@@ -9,20 +9,19 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="java.util.List" %>
 <%@ page import="de.elbe5.content.ContentData" %>
 <%@ page import="de.elbe5.file.ImageData" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     ContentData contentData = rdata.getCurrentContent();
     assert contentData != null;
     int fileId=rdata.getInt("fileId");
 %>
         <li class="images">
-            <span>[<%=$SH("_images", locale)%>]</span>
+            <span>[<%=$SH("_images")%>]</span>
             <ul>
                 <%
                     List<ImageData> images = contentData.getFiles(ImageData.class);
@@ -36,9 +35,9 @@
                             </span>
                         </span>
                         <div class="icons">
-                            <a class="icon fa fa-eye" href="/ctrl/image/show/<%=image.getId()%>" target="_blank" title="<%=$SH("_view",locale)%>"> </a>
-                            <a class="icon fa fa-download" href="/ctrl/image/download/<%=image.getId()%>" title="<%=$SH("_download",locale)%>"> </a>
-                            <a class="icon fa fa-pencil" href="" onclick="return openModalDialog('/ctrl/image/openEditImage/<%=image.getId()%>');" title="<%=$SH("_edit",locale)%>"> </a>
+                            <a class="icon fa fa-eye" href="/ctrl/image/show/<%=image.getId()%>" target="_blank" title="<%=$SH("_view")%>"> </a>
+                            <a class="icon fa fa-download" href="/ctrl/image/download/<%=image.getId()%>" title="<%=$SH("_download")%>"> </a>
+                            <a class="icon fa fa-pencil" href="" onclick="return openModalDialog('/ctrl/image/openEditImage/<%=image.getId()%>');" title="<%=$SH("_edit")%>"> </a>
                         </div>
                     </div>
                 </li>

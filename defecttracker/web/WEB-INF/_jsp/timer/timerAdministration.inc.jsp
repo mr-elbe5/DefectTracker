@@ -12,12 +12,11 @@
 <%@ page import="de.elbe5.request.SessionRequestData" %>
 <%@ page import="de.elbe5.timer.Timer" %>
 <%@ page import="de.elbe5.timer.TimerTaskData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="java.util.Map" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     Map<String, TimerTaskData> tasks = null;
     try {
         Timer timerCache = Timer.getInstance();
@@ -26,7 +25,7 @@
     }
 %>
 <li class="open">
-    <%=$SH("_timers",locale)%>
+    <%=$SH("_timers")%>
     <ul>
         <%
             if (tasks != null) {
@@ -35,7 +34,7 @@
         <li>
             <span><%=$H(task.getDisplayName())%></span>
             <div class="icons">
-                <a class="icon fa fa-pencil" href="" onclick="return openModalDialog('/ctrl/timer/openEditTimerTask?timerName=<%=task.getName()%>');" title="<%=$SH("_edit",locale)%>"></a>
+                <a class="icon fa fa-pencil" href="" onclick="return openModalDialog('/ctrl/timer/openEditTimerTask?timerName=<%=task.getName()%>');" title="<%=$SH("_edit")%>"></a>
             </div>
         </li>
         <%

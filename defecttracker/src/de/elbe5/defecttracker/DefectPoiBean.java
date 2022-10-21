@@ -15,7 +15,6 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xwpf.usermodel.*;
 
 import java.time.LocalDate;
-import java.util.Locale;
 
 public abstract class DefectPoiBean {
 
@@ -54,7 +53,7 @@ public abstract class DefectPoiBean {
     protected void addFromAddress(XWPFDocument document, UserData user){
         XWPFParagraph para = createParagraph(document);
         XWPFRun run=createRun(para);
-        run.setText(Strings.xml("_from", Locale.GERMAN));
+        run.setText(Strings.xml("_from"));
         run.addBreak();
         run.setText(user.getName());
         run.addBreak();
@@ -66,7 +65,7 @@ public abstract class DefectPoiBean {
     protected void addToAddress(XWPFDocument document, UserData user){
         XWPFParagraph para = createParagraph(document);
         XWPFRun run=createRun(para);
-        run.setText(Strings.xml("_to", Locale.GERMAN));
+        run.setText(Strings.xml("_to"));
         run.addBreak();
         run.setText(user.getName());
         run.addBreak();
@@ -79,7 +78,7 @@ public abstract class DefectPoiBean {
     protected void addSignature(XWPFDocument document, UserData user, String city, LocalDate date){
         XWPFParagraph para = createParagraph(document);
         XWPFRun run=createRun(para);
-        run.setText(city + ", " + StringUtil.toHtmlDate(date, Locale.GERMAN));
+        run.setText(city + ", " + StringUtil.toHtmlDate(date));
         run.addBreak();
         run.addBreak();
         run.addBreak();

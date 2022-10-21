@@ -17,7 +17,6 @@ import de.elbe5.rights.SystemZone;
 import de.elbe5.view.*;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class DefectUserController extends UserController {
@@ -28,13 +27,13 @@ public class DefectUserController extends UserController {
         String login = rdata.getString("login");
         String pwd = rdata.getString("password");
         if (login.length() == 0 || pwd.length() == 0) {
-            rdata.setMessage(Strings.string("_notComplete",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_ERROR);
+            rdata.setMessage(Strings.string("_notComplete"), SessionRequestData.MESSAGE_TYPE_ERROR);
             return openLogin(rdata);
         }
         UserData data = UserBean.getInstance().loginUser(login, pwd);
         if (data == null) {
             Log.info("bad login of "+login);
-            rdata.setMessage(Strings.string("_badLogin",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_ERROR);
+            rdata.setMessage(Strings.string("_badLogin"), SessionRequestData.MESSAGE_TYPE_ERROR);
             return openLogin(rdata);
         }
         ViewFilter filter = ViewFilter.getFilter(rdata);
@@ -48,13 +47,10 @@ public class DefectUserController extends UserController {
         filter.getOwnProjectIds().clear();
         filter.getOwnProjectIds().addAll(projectIds);
         if (projectIds.isEmpty() && !isEditor){
-            rdata.setMessage(Strings.string("_noProject",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_ERROR);
+            rdata.setMessage(Strings.string("_noProject"), SessionRequestData.MESSAGE_TYPE_ERROR);
             return openLogin(rdata);
         }
         rdata.setSessionUser(data);
-        String language=rdata.getString("language");
-        if (!language.isEmpty())
-            rdata.setSessionLocale(new Locale(language));
         if (projectIds.size()==1){
             filter.setProjectId(projectIds.get(0));
         } else if (cookieValues.containsKey("projectId")){

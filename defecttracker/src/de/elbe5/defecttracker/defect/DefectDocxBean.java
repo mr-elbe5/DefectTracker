@@ -24,7 +24,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Locale;
 
 public class DefectDocxBean extends DefectPoiBean {
 
@@ -41,7 +40,7 @@ public class DefectDocxBean extends DefectPoiBean {
         return StringUtil.toXml(src);
     }
 
-    public BinaryFile getDefectWordFile(DefectData data, UserData fromUser, UserData toUser, Locale locale) {
+    public BinaryFile getDefectWordFile(DefectData data, UserData fromUser, UserData toUser) {
         BinaryFile file=null;
         try {
             XWPFDocument document = new XWPFDocument();

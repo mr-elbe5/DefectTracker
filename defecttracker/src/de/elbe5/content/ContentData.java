@@ -52,7 +52,6 @@ public class ContentData extends BaseData implements Comparable<ContentData> {
     private String path = "";
     private String displayName = "";
     private String description = "";
-    private Locale locale = Configuration.getDefaultLocale();
     private String accessType = ACCESS_TYPE_OPEN;
     private String navType = NAV_TYPE_NONE;
     private boolean active = true;
@@ -135,24 +134,6 @@ public class ContentData extends BaseData implements Comparable<ContentData> {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Locale getLocale() {
-        return locale;
-    }
-
-    public String getLanguage(){
-        return locale==null ? "" : locale.getLanguage();
-    }
-
-    public void setLocale(Locale locale) {
-        this.locale = locale;
-    }
-
-    public void setLanguage(String language) {
-        if (Configuration.hasLanguage(language)) {
-            setLocale(Configuration.getLocale(language));
-        }
     }
 
     public String getAccessType() {
@@ -445,7 +426,6 @@ public class ContentData extends BaseData implements Comparable<ContentData> {
         setChangerId(rdata.getUserId());
         setParentId(parent.getId());
         setParent(parent);
-        setLanguage(parent.getLanguage());
         inheritRightsFromParent();
     }
 
@@ -468,7 +448,6 @@ public class ContentData extends BaseData implements Comparable<ContentData> {
         setName(data.getName());
         setDisplayName(data.getDisplayName());
         setDescription(data.getDescription());
-        setLocale(data.getLocale());
         setCreatorId(rdata.getUserId());
         setChangerId(rdata.getUserId());
         setAccessType(data.getAccessType());
@@ -495,7 +474,6 @@ public class ContentData extends BaseData implements Comparable<ContentData> {
         setDisplayName(rdata.getString("displayName").trim());
         setName(StringUtil.toSafeWebName(getDisplayName()));
         setDescription(rdata.getString("description"));
-        setLanguage(rdata.getString("language"));
         setAccessType(rdata.getString("accessType"));
         setNavType(rdata.getString("navType"));
         setActive(rdata.getBoolean("active"));

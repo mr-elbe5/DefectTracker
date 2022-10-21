@@ -15,7 +15,6 @@ import de.elbe5.request.SessionRequestData;
 
 import javax.servlet.jsp.JspException;
 import java.io.Writer;
-import java.util.Locale;
 
 public class MessageTag extends BaseTag {
 
@@ -28,7 +27,6 @@ public class MessageTag extends BaseTag {
             if (rdata.hasMessage()) {
                 String msg = rdata.getString(RequestData.KEY_MESSAGE);
                 String msgType = rdata.getString(RequestData.KEY_MESSAGETYPE);
-                Locale locale = rdata.getLocale();
                 Writer writer = getWriter();
                 writer.write(StringUtil.format(controlHtml, msgType, StringUtil.toHtml(msg)));
             }

@@ -10,7 +10,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="java.util.List" %>
 <%@ page import="de.elbe5.defecttracker.project.ProjectData" %>
 <%@ page import="de.elbe5.defecttracker.ViewFilter" %>
@@ -21,7 +20,7 @@
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
     ProjectData project = rdata.getCurrentContent(ProjectData.class);
     assert (project != null);
-    Locale locale = rdata.getLocale();
+
     int id=project.getId();
     ViewFilter filter = ViewFilter.getFilter(rdata);
     List<DefectData> defects = filter.getProjectDefects();
@@ -29,40 +28,40 @@
 <% if (project.hasUserReadRight(rdata)){%>
 <form:message/>
 <section class="contentSection tableContent" id="content">
-    <h3><%=$SH("_defects",locale)%></h3>
+    <h3><%=$SH("_defects")%></h3>
     <div id="defectTable" class="flexTable defect-table">
         <div class=tableHead>
             <div class=tableRow>
-                <div style="flex:1"><%=$SH("_id",locale)%>
+                <div style="flex:1"><%=$SH("_id")%>
                 </div>
-                <div style="flex:6"><%=$SH("_description",locale)%>
+                <div style="flex:6"><%=$SH("_description")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_DESCRIPTION%>");>&nbsp;</a>
                 </div>
-                <div style="flex:2"><%=$SH("_location",locale)%>
+                <div style="flex:2"><%=$SH("_location")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_LOCATION%>");>&nbsp;</a>
                 </div>
-                <div style="flex:2"><%=$SH("_creationDate",locale)%>
+                <div style="flex:2"><%=$SH("_creationDate")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_CREATION%>");>&nbsp;</a>
                 </div>
-                <div style="flex:2"><%=$SH("_editedBy",locale)%>
+                <div style="flex:2"><%=$SH("_editedBy")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_CHANGER%>");>&nbsp;</a>
                 </div>
-                <div style="flex:2"><%=$SH("_changeDate",locale)%>
+                <div style="flex:2"><%=$SH("_changeDate")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_CHANGE%>");>&nbsp;</a>
                 </div>
-                <div style="flex:2"><%=$SH("_dueDate",locale)%>
+                <div style="flex:2"><%=$SH("_dueDate")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_DUE_DATE%>");>&nbsp;</a>
                 </div>
-                <div style="flex:2"><%=$SH("_closeDate",locale)%>
+                <div style="flex:2"><%=$SH("_closeDate")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_CLOSE_DATE%>");>&nbsp;</a>
                 </div>
-                <div style="flex:2"><%=$SH("_state",locale)%>
+                <div style="flex:2"><%=$SH("_state")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_STATE%>");>&nbsp;</a>
                 </div>
-                <div style="flex:2"><%=$SH("_assigned",locale)%>
+                <div style="flex:2"><%=$SH("_assigned")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/project/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_ASSIGNED%>");>&nbsp;</a>
                 </div>
-                <div style="flex:2"><%=$SH("_notified",locale)%>
+                <div style="flex:2"><%=$SH("_notified")%>
                     <a class="fa fa-sort" onclick=linkTo("/ctrl/location/sort/<%=id%>?sortType=<%=ViewFilter.TYPE_NOTIFIED%>");>&nbsp;</a>
                 </div>
                 <div style="flex:1"></div>
@@ -74,16 +73,16 @@
                 <div><%=defect.getDisplayId()%></div>
                 <div><%=StringUtil.toHtml(defect.getDescription())%></div>
                 <div><%=$H(defect.getLocationName())%></div>
-                <div><%=StringUtil.toHtmlDate(defect.getCreationDate(),locale)%></div>
+                <div><%=StringUtil.toHtmlDate(defect.getCreationDate())%></div>
                 <div><%=StringUtil.toHtml(defect.getChangerName())%></div>
-                <div><%=StringUtil.toHtmlDate(defect.getChangeDate(),locale)%></div>
-                <div><%=StringUtil.toHtmlDate(defect.getDueDate(),locale)%></div>
-                <div><%=StringUtil.toHtmlDate(defect.getCloseDate(),locale)%></div>
-                <div><%=$SH(defect.getState(),locale)%></div>
+                <div><%=StringUtil.toHtmlDate(defect.getChangeDate())%></div>
+                <div><%=StringUtil.toHtmlDate(defect.getDueDate())%></div>
+                <div><%=StringUtil.toHtmlDate(defect.getCloseDate())%></div>
+                <div><%=$SH(defect.getState())%></div>
                 <div><%=$H(defect.getAssignedName())%></div>
-                <div><%=$SH(defect.isNotified() ? "_yes" : "_no", locale)%></div>
+                <div><%=$SH(defect.isNotified() ? "_yes" : "_no")%></div>
                 <div>
-                    <a href="" class="fa fa-eye" title="<%=$SH("_show",locale)%>" onclick="return linkTo('/ctrl/content/show/<%=defect.getId()%>',null);"></a>
+                    <a href="" class="fa fa-eye" title="<%=$SH("_show")%>" onclick="return linkTo('/ctrl/content/show/<%=defect.getId()%>',null);"></a>
                 </div>
             </div>
         <%
@@ -92,7 +91,7 @@
     </div>
     <% if (project.hasUserEditRight(rdata)){%>
     <div class=buttonLine>
-        <button type="button" class="btn btn-outline-secondary" onclick="return linkTo('/ctrl/project/getExcel/<%=project.getId()%>');"><%=$SH("_downloadExcel",locale)%>
+        <button type="button" class="btn btn-outline-secondary" onclick="return linkTo('/ctrl/project/getExcel/<%=project.getId()%>');"><%=$SH("_downloadExcel")%>
         </button>
     </div>
     <%}%>

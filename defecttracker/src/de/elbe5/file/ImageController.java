@@ -81,7 +81,7 @@ public class ImageController extends FileController {
         }
         data.setNew(false);
         ContentCache.setDirty();
-        rdata.setMessage(Strings.string("_fileSaved",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_fileSaved"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         return new CloseDialogView("/ctrl/admin/openContentAdministration?contentId=" + data.getId());
     }
 
@@ -114,7 +114,7 @@ public class ImageController extends FileController {
         ImageData data=rdata.getClipboardData(RequestData.KEY_IMAGE,ImageData.class);
         ContentData parent=ContentCache.getContent(parentId);
         if (parent == null){
-            rdata.setMessage(Strings.string("_actionNotExcecuted", rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_ERROR);
+            rdata.setMessage(Strings.string("_actionNotExcecuted"), SessionRequestData.MESSAGE_TYPE_ERROR);
             return showContentAdministration(rdata);
         }
         checkRights(parent.hasUserEditRight(rdata));
@@ -124,7 +124,7 @@ public class ImageController extends FileController {
         FileBean.getInstance().saveFile(data, true);
         rdata.clearClipboardData(RequestData.KEY_IMAGE);
         ContentCache.setDirty();
-        rdata.setMessage(Strings.string("_imagePasted",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_imagePasted"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         return showContentAdministration(rdata,data.getId());
     }
 

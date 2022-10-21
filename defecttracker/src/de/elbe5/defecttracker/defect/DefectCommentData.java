@@ -21,7 +21,6 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class DefectCommentData extends BaseData {
 
@@ -77,12 +76,12 @@ public class DefectCommentData extends BaseData {
         return files;
     }
 
-    public String geTitle(Locale locale){
-        return Strings.string("_comment",locale)
-                +" "+ Strings.string("_by",locale)
+    public String geTitle(){
+        return Strings.string("_comment")
+                +" "+ Strings.string("_by")
                 +" "+ UserCache.getUser(getCreatorId()).getName()
-                +" "+ Strings.string("_ofDate",locale)
-                +" "+ StringUtil.toHtmlDateTime(getCreationDate(),locale);
+                +" "+ Strings.string("_ofDate")
+                +" "+ StringUtil.toHtmlDateTime(getCreationDate());
     }
 
     public void setCreateValues(DefectData defect, int creatorId){

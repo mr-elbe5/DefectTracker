@@ -10,14 +10,13 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.user.UserCache" %>
 <%@ page import="de.elbe5.file.DocumentData" %>
 <%@ page import="de.elbe5.request.RequestData" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     DocumentData documentData = rdata.getSessionObject(RequestData.KEY_DOCUMENT,DocumentData.class);
     assert (documentData != null);
     String url = "/ctrl/document/saveDocument/" + documentData.getId();
@@ -26,7 +25,7 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><%=$SH("_editDocumentSettings",locale)%>
+            <h5 class="modal-title"><%=$SH("_editDocumentSettings")%>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -37,9 +36,9 @@
                 <form:formerror/>
                 <form:line label="_idAndFileName"><%=$I(documentData.getId())%> - <%=$H(documentData.getFileName())%>
                 </form:line>
-                <form:line label="_creation"><%=$DT(documentData.getCreationDate(), locale)%> - <%=$H(UserCache.getUser(documentData.getCreatorId()).getName())%>
+                <form:line label="_creation"><%=$DT(documentData.getCreationDate())%> - <%=$H(UserCache.getUser(documentData.getCreatorId()).getName())%>
                 </form:line>
-                <form:line label="_lastChange"><%=$DT(documentData.getChangeDate(), locale)%> - <%=$H(UserCache.getUser(documentData.getChangerId()).getName())%>
+                <form:line label="_lastChange"><%=$DT(documentData.getChangeDate())%> - <%=$H(UserCache.getUser(documentData.getChangerId()).getName())%>
                 </form:line>
 
                 <form:file name="file" label="_file" required="<%=fileRequired%>"/>
@@ -49,9 +48,9 @@
                 </form:line>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close",locale)%>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close")%>
                 </button>
-                <button type="submit" class="btn btn-primary"><%=$SH("_save",locale)%>
+                <button type="submit" class="btn btn-primary"><%=$SH("_save")%>
                 </button>
             </div>
         </form:form>

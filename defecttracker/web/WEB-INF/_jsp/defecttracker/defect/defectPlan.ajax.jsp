@@ -10,17 +10,16 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     int contentId=rdata.getId();
 %>
 <div class="modal-dialog modal-dialog-full" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><%=$SH("_position", locale)%>
+            <h5 class="modal-title"><%=$SH("_position")%>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -30,7 +29,7 @@
             <img src="/ctrl/defect/showFullDefectPlan/<%=contentId%>" alt=""/>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close", locale)%>
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close")%>
             </button>
         </div>
     </div>

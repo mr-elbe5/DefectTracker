@@ -12,18 +12,17 @@
 <%@ page import="de.elbe5.request.SessionRequestData" %>
 <%@ page import="de.elbe5.user.UserBean" %>
 <%@ page import="de.elbe5.user.UserData" %>
-<%@ page import="java.util.Locale" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     UserData user = UserBean.getInstance().getUser(rdata.getLoginUser().getId());
     String url = "/ctrl/user/changeProfile/" + user.getId();
 %>
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><%=$SH("_changeProfile",locale)%>
+            <h5 class="modal-title"><%=$SH("_changeProfile")%>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -44,13 +43,13 @@
                 </form:textarea>
                 <form:file name="portrait" label="_portrait"><% if (user.hasPortrait()) {%><img src="/ctrl/user/showPortrait/<%=user.getId()%>" alt="<%=$H(user.getName())%>"/> <%}%>
                 </form:file>
-                <h3><%=$SH("_address",locale)%>
+                <h3><%=$SH("_address")%>
                 </h3>
                 <form:text name="street" label="_street" value="<%=$H(user.getStreet())%>"/>
                 <form:text name="zipCode" label="_zipCode" value="<%=$H(user.getZipCode())%>"/>
                 <form:text name="city" label="_city" value="<%=$H(user.getCity())%>"/>
                 <form:text name="country" label="_country" value="<%=$H(user.getCountry())%>"/>
-                <h3><%=$SH("_contact",locale)%>
+                <h3><%=$SH("_contact")%>
                 </h3>
                 <form:text name="email" label="_email" required="true" value="<%=$H(user.getEmail())%>"/>
                 <form:text name="phone" label="_phone" value="<%=$H(user.getPhone())%>"/>
@@ -58,9 +57,9 @@
                 <form:text name="mobile" label="_mobile" value="<%=$H(user.getMobile())%>"/>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close",locale)%>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close")%>
                 </button>
-                <button type="submit" class="btn btn-outline-primary"><%=$SH("_save",locale)%>
+                <button type="submit" class="btn btn-outline-primary"><%=$SH("_save")%>
                 </button>
             </div>
         </form:form>

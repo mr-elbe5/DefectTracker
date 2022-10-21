@@ -10,7 +10,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.defecttracker.defect.DefectData" %>
 <%@ page import="de.elbe5.defecttracker.project.ProjectData" %>
 <%@ page import="de.elbe5.content.ContentCache" %>
@@ -22,7 +21,7 @@
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     DefectData defect = rdata.getCurrentContent(DefectData.class);
     assert(defect !=null);
     LocationData location= ContentCache.getContent(defect.getLocationId(),LocationData.class);
@@ -44,9 +43,9 @@
         <form:formerror/>
         <form:line label="_id" padded="true"><%=Integer.toString(defect.getDisplayId())%></form:line>
         <form:line label="_description" padded="true"><%=$HML(defect.getDescription())%></form:line>
-        <form:line label="_editedBy" padded="true"><%=$H(defect.getChangerName())%> (<%=$DT(defect.getChangeDate(),locale)%>)</form:line>
+        <form:line label="_editedBy" padded="true"><%=$H(defect.getChangerName())%> (<%=$DT(defect.getChangeDate())%>)</form:line>
         <form:select name="assigned" label="_assigned" required="true">
-            <option value="0" <%=defect.getAssignedId()==0 ? "selected" : ""%>><%=$SH("_pleaseSelect", locale)%></option>
+            <option value="0" <%=defect.getAssignedId()==0 ? "selected" : ""%>><%=$SH("_pleaseSelect")%></option>
             <% for (int userId : group.getUserIds()){
                 UserData user= UserCache.getUser(userId);
             %>
@@ -56,16 +55,16 @@
         <form:line label="_notified" padded = "true"><form:check name="notified" value="true" checked="<%=defect.isNotified()%>"/></form:line>
         <form:text name="lot" label="_lot" value="<%=$H(defect.getLot())%>" />
         <form:text name="costs" label="_costs" value="<%=defect.getCostsString()%>" />
-        <form:date name="dueDate2" label="_dueDate2" value="<%=$D(defect.getDueDate2(),locale)%>" required="true"/>
+        <form:date name="dueDate2" label="_dueDate2" value="<%=$D(defect.getDueDate2())%>" required="true"/>
         <% if (defect.getPlanId()!=0){%>
         <form:line label="_position"><img src="/ctrl/defect/showCroppedDefectPlan/<%=defect.getId()%>" alt="" /></form:line>
         <%}%>
         <form:line label="_positionComment" padded="true"><%=$HML(defect.getPositionComment())%></form:line>
         <form:file name="files" label="_addDocumentsAndImages" required="false" multiple="true"/>
         <div>
-            <button type="button" class="btn btn-outline-secondary" onclick="linkTo('/ctrl/defect/show/<%=defect.getId()%>');"><%=$SH("_cancel",locale)%>
+            <button type="button" class="btn btn-outline-secondary" onclick="linkTo('/ctrl/defect/show/<%=defect.getId()%>');"><%=$SH("_cancel")%>
             </button>
-            <button type="submit" class="btn btn-primary"><%=$SH("_save",locale)%>
+            <button type="submit" class="btn btn-primary"><%=$SH("_save")%>
             </button>
         </div>
     </form:form>

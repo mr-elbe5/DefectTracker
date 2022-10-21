@@ -10,14 +10,13 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.defecttracker.defect.DefectData" %>
 <%@ page import="de.elbe5.defecttracker.defect.DefectCommentData" %>
 <%@ page import="de.elbe5.content.ContentCache" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     DefectData defect = ContentCache.getContent(rdata.getId(),DefectData.class);
     assert (defect != null);
     DefectCommentData comment = rdata.getSessionObject(DefectCommentData.KEY_COMMENT,DefectCommentData.class);
@@ -26,7 +25,7 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><%=$SH("_editDefectComment", locale)%>
+            <h5 class="modal-title"><%=$SH("_editDefectComment")%>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -38,18 +37,18 @@
                 <form:line label="_defect" padded="true"><%=$H(defect.getDescription())%></form:line>
                 <form:textarea name="comment" label="_comment" height="8em" required="true"><%=$H(comment.getComment())%></form:textarea>
                 <form:select name="state" label="_state">
-                    <option value="<%=DefectData.STATE_OPEN%>" <%=DefectData.STATE_OPEN.equals(defect.getState()) ? "selected" : ""%>><%=$SH(DefectData.STATE_OPEN,locale)%></option>
-                    <option value="<%=DefectData.STATE_DISPUTED%>" <%=DefectData.STATE_DISPUTED.equals(defect.getState()) ? "selected" : ""%>><%=$SH(DefectData.STATE_DISPUTED,locale)%></option>
-                    <option value="<%=DefectData.STATE_REJECTED%>" <%=DefectData.STATE_REJECTED.equals(defect.getState()) ? "selected" : ""%>><%=$SH(DefectData.STATE_REJECTED,locale)%></option>
-                    <option value="<%=DefectData.STATE_DONE%>" <%=DefectData.STATE_DONE.equals(defect.getState()) ? "selected" : ""%>><%=$SH(DefectData.STATE_DONE,locale)%></option>
+                    <option value="<%=DefectData.STATE_OPEN%>" <%=DefectData.STATE_OPEN.equals(defect.getState()) ? "selected" : ""%>><%=$SH(DefectData.STATE_OPEN)%></option>
+                    <option value="<%=DefectData.STATE_DISPUTED%>" <%=DefectData.STATE_DISPUTED.equals(defect.getState()) ? "selected" : ""%>><%=$SH(DefectData.STATE_DISPUTED)%></option>
+                    <option value="<%=DefectData.STATE_REJECTED%>" <%=DefectData.STATE_REJECTED.equals(defect.getState()) ? "selected" : ""%>><%=$SH(DefectData.STATE_REJECTED)%></option>
+                    <option value="<%=DefectData.STATE_DONE%>" <%=DefectData.STATE_DONE.equals(defect.getState()) ? "selected" : ""%>><%=$SH(DefectData.STATE_DONE)%></option>
                 </form:select>
                 <form:file name="files" label="_addDocumentsAndImages" required="false" multiple="true"/>
-                <form:line><%=$SH("_uploadHint", locale)%></form:line>
+                <form:line><%=$SH("_uploadHint")%></form:line>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close",locale)%>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close")%>
                 </button>
-                <button type="submit" class="btn btn-primary"><%=$SH("_save",locale)%>
+                <button type="submit" class="btn btn-primary"><%=$SH("_save")%>
                 </button>
             </div>
         </form:form>

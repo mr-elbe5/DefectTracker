@@ -333,10 +333,9 @@ public class DefectData extends ContentData {
 
     @Override
     public void readFrontendCreateRequestData(SessionRequestData rdata) {
-        Locale locale = rdata.getLocale();
         readCommonRequestData(rdata);
         setDescription(rdata.getString("description").trim());
-        setDueDate1(rdata.getDate("dueDate1", locale));
+        setDueDate1(rdata.getDate("dueDate1"));
         setPositionX(rdata.getInt("positionX"));
         setPositionY(rdata.getInt("positionY"));
         setPositionComment(rdata.getString("positionComment"));
@@ -353,9 +352,8 @@ public class DefectData extends ContentData {
 
     @Override
     public void readFrontendUpdateRequestData(SessionRequestData rdata) {
-        Locale locale = rdata.getLocale();
         readCommonRequestData(rdata);
-        setDueDate2(rdata.getDate("dueDate2", locale));
+        setDueDate2(rdata.getDate("dueDate2"));
         if (getAssignedId()==0) {
             rdata.addIncompleteField("assigned");
         }

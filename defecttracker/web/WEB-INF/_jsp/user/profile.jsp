@@ -12,17 +12,16 @@
 <%@ page import="de.elbe5.request.SessionRequestData" %>
 <%@ page import="de.elbe5.user.UserBean" %>
 <%@ page import="de.elbe5.user.UserData" %>
-<%@ page import="java.util.Locale" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     UserData user = UserBean.getInstance().getUser(rdata.getLoginUser().getId());
 %>
 <form:message/>
 <section class="contentTop">
     <h1>
-        <%=$SH("_profile",locale)%>
+        <%=$SH("_profile")%>
     </h1>
 </section>
 <div class="row">
@@ -42,7 +41,7 @@
             </form:line>
             <form:line label="_portrait"><% if (user.hasPortrait()) {%><img src="/ctrl/user/showPortrait/<%=user.getId()%>" alt="<%=$H(user.getName())%>"/> <%}%>
             </form:line>
-            <h3><%=$SH("_address",locale)%>
+            <h3><%=$SH("_address")%>
             </h3>
             <form:line label="_street"><%=$H(user.getStreet())%>
             </form:line>
@@ -52,7 +51,7 @@
             </form:line>
             <form:line label="_country"><%=$H(user.getCountry())%>
             </form:line>
-            <h3><%=$SH("_contact",locale)%>
+            <h3><%=$SH("_contact")%>
             </h3>
             <form:line label="_email"><%=$H(user.getEmail())%>
             </form:line>
@@ -68,11 +67,11 @@
         <div class="section">
             <div class="paragraph form">
                 <div>
-                    <a class="link" href="#" onclick="return openModalDialog('/ctrl/user/openChangePassword');"><%=$SH("_changePassword",locale)%>
+                    <a class="link" href="#" onclick="return openModalDialog('/ctrl/user/openChangePassword');"><%=$SH("_changePassword")%>
                     </a>
                 </div>
                 <div>
-                    <a class="link" href="#" onclick="return openModalDialog('/ctrl/user/openChangeProfile');"><%=$SH("_changeProfile",locale)%>
+                    <a class="link" href="#" onclick="return openModalDialog('/ctrl/user/openChangeProfile');"><%=$SH("_changeProfile")%>
                     </a>
                 </div>
             </div>

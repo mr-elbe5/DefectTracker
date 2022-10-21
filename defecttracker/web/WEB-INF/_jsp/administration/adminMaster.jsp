@@ -9,19 +9,19 @@
 <%response.setContentType("text/html;charset=UTF-8");%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
 <%@ page import="de.elbe5.rights.SystemZone" %>
 <%@ page import="de.elbe5.request.RequestData" %>
+<%@ page import="de.elbe5.application.Configuration" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     String title = rdata.getString(RequestData.KEY_TITLE);
     String includeUrl = rdata.getString(RequestData.KEY_JSP);
 %>
 <!DOCTYPE html>
-<html lang="<%=locale.getLanguage()%>">
+<html lang="<%=Configuration.getDefaultLocale().getLanguage()%>">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -44,14 +44,14 @@
         <div class="top row">
             <section class="col-12 sysnav">
                 <ul class="nav justify-content-end">
-                    <li class="nav-item"><a class="nav-link fa fa-home" href="/" title="<%=$SH("_home", locale)%>"></a></li>
+                    <li class="nav-item"><a class="nav-link fa fa-home" href="/" title="<%=$SH("_home")%>"></a></li>
                 </ul>
             </section>
         </div>
         <div class="menu row">
             <section class="col-12 menu">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <span class="navbar-brand" ><a><%=$SH("_administration",locale)%></a></span>
+                    <span class="navbar-brand" ><a><%=$SH("_administration")%></a></span>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -60,20 +60,20 @@
                             <% if (rdata.hasSystemRight(SystemZone.APPLICATION)){%>
                             <li class="nav-item">
                                 <a class="nav-link"
-                                        href="/ctrl/admin/openSystemAdministration"><%=$SH("_systemAdministration",locale)%>
+                                        href="/ctrl/admin/openSystemAdministration"><%=$SH("_systemAdministration")%>
                                 </a>
                             </li>
                             <%}%>
                             <% if (rdata.hasSystemRight(SystemZone.USER)){%>
                             <li class="nav-item">
                                 <a class="nav-link"
-                                        href="/ctrl/admin/openPersonAdministration"><%=$SH("_personAdministration",locale)%>
+                                        href="/ctrl/admin/openPersonAdministration"><%=$SH("_personAdministration")%>
                                 </a>
                             </li>
                             <%}%>
                             <% if (rdata.hasSystemRight(SystemZone.CONTENTADMINISTRATION)){%>
                             <li class="nav-item">
-                                <a class="nav-link" href="/ctrl/admin/openContentAdministration"><%=$SH("_contentAdministration",locale)%>
+                                <a class="nav-link" href="/ctrl/admin/openContentAdministration"><%=$SH("_contentAdministration")%>
                                 </a>
                             </li>
                             <%}%>
@@ -86,7 +86,7 @@
             <section class="bc">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/"><%=$SH("_home",locale)%>
+                        <li class="breadcrumb-item"><a href="/"><%=$SH("_home")%>
                         </a></li>
                         <li class="breadcrumb-item"><a><%=$H(title)%>
                         </a></li>
@@ -103,18 +103,18 @@
 </main>
 <footer>
     <div class="container">
-        <ul class="nav"><li class="nav-item"><span class="nav-link"><%=$SH("_copyright",locale)%></span></li></ul>
+        <ul class="nav"><li class="nav-item"><span class="nav-link"><%=$SH("_copyright")%></span></li></ul>
     </div>
 </footer>
 <div class="modal" id="modalDialog" tabindex="-1" role="dialog">
 </div>
 <script type="text/javascript">
     function confirmDelete() {
-        return confirm('<%=$SJ("_confirmDelete",locale)%>');
+        return confirm('<%=$SJ("_confirmDelete")%>');
     }
 
     function confirmExecute() {
-        return confirm('<%=$SJ("_confirmExecute",locale)%>');
+        return confirm('<%=$SJ("_confirmExecute")%>');
     }
 </script>
 

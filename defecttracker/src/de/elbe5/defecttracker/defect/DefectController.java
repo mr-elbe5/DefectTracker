@@ -92,7 +92,7 @@ public class DefectController extends DefectBaseController {
         data.setNew(false);
         data.setViewType(ContentData.VIEW_TYPE_SHOW);
         ContentCache.setDirty();
-        rdata.setMessage(Strings.string("_contentSaved",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_contentSaved"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         return show(rdata);
     }
 
@@ -108,7 +108,7 @@ public class DefectController extends DefectBaseController {
         }
         data.setViewType(ContentData.VIEW_TYPE_SHOW);
         ContentCache.setDirty();
-        rdata.setMessage(Strings.string("_defectClosed",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_defectClosed"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         LocationData location = ContentCache.getContent(data.getLocationId(), LocationData.class);
         return new ContentView(location);
     }
@@ -207,7 +207,7 @@ public class DefectController extends DefectBaseController {
                 FileBean.getInstance().saveFile(document,true);
             }
         }
-        rdata.setMessage(Strings.string("_defectCommentSaved",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_defectCommentSaved"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         defectData.getComments().add(data);
         ContentCache.setDirty();
         return new CloseDialogView("/ctrl/content/show/"+defectData.getId());
@@ -230,7 +230,7 @@ public class DefectController extends DefectBaseController {
         assert(data!=null);
         UserData currentUser=UserCache.getUser(rdata.getUserId());
         UserData assignedUser = UserCache.getUser(data.getAssignedId());
-        BinaryFile file = DefectDocxBean.getInstance().getDefectWordFile(data, currentUser, assignedUser, rdata.getLocale());
+        BinaryFile file = DefectDocxBean.getInstance().getDefectWordFile(data, currentUser, assignedUser);
         assert(file!=null);
         BinaryFileView view=new BinaryFileView(file);
         view.setForceDownload(true);

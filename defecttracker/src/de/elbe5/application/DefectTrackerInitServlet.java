@@ -52,9 +52,6 @@ public class DefectTrackerInitServlet extends InitServlet {
         Configuration.setAppTitle("Defect Tracker");
         Strings.readFromCsv(ApplicationPath.getAppWEBINFPath() + "/webserver-strings.csv");
         Strings.readFromCsv(ApplicationPath.getAppWEBINFPath() + "/application-strings.csv");
-        if (Strings.hasLocale(Configuration.getDefaultLocale())) {
-            Strings.DEFAULT_LOCALE = Configuration.getDefaultLocale();
-        }
         AdminController.register(new AdminController());
         ContentController.register(new ContentController());
         DocumentController.register(new DocumentController());

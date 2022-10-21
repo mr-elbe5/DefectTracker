@@ -160,12 +160,6 @@ public class XmlData {
         }
     }
 
-    public void addLocaleAttribute(Element node, String key, Locale locale) {
-        if (locale != null) {
-            addAttribute(node, key, locale.getLanguage());
-        }
-    }
-
     public Element getRootNode() {
         return doc.getDocumentElement();
     }
@@ -279,21 +273,6 @@ public class XmlData {
             if (attr != null) {
                 try {
                     result = LocalDateTime.parse(attr.getNodeValue(), datetimeFormatter);
-                } catch (Exception ignored) {
-                }
-            }
-        }
-        return result;
-    }
-
-    public Locale getLocaleAttribute(Node node, String key) {
-        Locale result = Locale.getDefault();
-        if (node.hasAttributes()) {
-            NamedNodeMap attrMap = node.getAttributes();
-            Node attr = attrMap.getNamedItem(key);
-            if (attr != null) {
-                try {
-                    result = new Locale(attr.getNodeValue());
                 } catch (Exception ignored) {
                 }
             }

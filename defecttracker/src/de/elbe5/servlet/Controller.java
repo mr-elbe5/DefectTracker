@@ -21,7 +21,7 @@ public abstract class Controller {
     }
 
     protected void setSaveError(SessionRequestData rdata) {
-        rdata.setMessage(Strings.string("_saveError",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_ERROR);
+        rdata.setMessage(Strings.string("_saveError"), SessionRequestData.MESSAGE_TYPE_ERROR);
     }
 
     protected IView openAdminPage(SessionRequestData rdata, String jsp, String title) {
@@ -31,15 +31,15 @@ public abstract class Controller {
     }
 
     protected IView showSystemAdministration(SessionRequestData rdata) {
-        return openAdminPage(rdata, "/WEB-INF/_jsp/administration/systemAdministration.jsp", Strings.string("_systemAdministration",rdata.getLocale()));
+        return openAdminPage(rdata, "/WEB-INF/_jsp/administration/systemAdministration.jsp", Strings.string("_systemAdministration"));
     }
 
     protected IView showPersonAdministration(SessionRequestData rdata) {
-        return openAdminPage(rdata, "/WEB-INF/_jsp/administration/personAdministration.jsp", Strings.string("_personAdministration",rdata.getLocale()));
+        return openAdminPage(rdata, "/WEB-INF/_jsp/administration/personAdministration.jsp", Strings.string("_personAdministration"));
     }
 
     protected IView showContentAdministration(SessionRequestData rdata) {
-        return openAdminPage(rdata, "/WEB-INF/_jsp/administration/contentAdministration.jsp", Strings.string("_contentAdministration",rdata.getLocale()));
+        return openAdminPage(rdata, "/WEB-INF/_jsp/administration/contentAdministration.jsp", Strings.string("_contentAdministration"));
     }
 
     protected IView openJspPage(String jsp) {

@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class ProjectData extends ContentData {
 
@@ -136,12 +135,12 @@ public class ProjectData extends ContentData {
     }
 
     @SuppressWarnings("unchecked")
-    public JSONObject getJson(Locale locale){
+    public JSONObject getJson(){
         JSONObject json = new JSONObject();
         json.put("id",getId());
         json.put("name",getDisplayName());
         json.put("description",getDescription());
-        json.put("phase", Strings.string(getPhase(),locale));
+        json.put("phase", Strings.string(getPhase()));
         return json;
     }
 

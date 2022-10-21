@@ -10,12 +10,11 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.request.RequestData" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     String msg = rdata.getString(RequestData.KEY_MESSAGE);
     String msgType = rdata.getString(RequestData.KEY_MESSAGETYPE);
     String msgKey="";
@@ -34,7 +33,7 @@
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><%=$SH(msgKey, locale)%>
+            <h5 class="modal-title"><%=$SH(msgKey)%>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -44,7 +43,7 @@
             <%=$H(msg)%>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close",locale)%>
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close")%>
             </button>
         </div>
     </div>

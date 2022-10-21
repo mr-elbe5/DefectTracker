@@ -53,7 +53,7 @@ public abstract class FileController extends Controller {
         FileBean.getInstance().deleteFile(contentId);
         ContentCache.setDirty();
         rdata.put("contentId", Integer.toString(parentId));
-        rdata.setMessage(Strings.string("_fileDeleted",rdata.getLocale()), SessionRequestData.MESSAGE_TYPE_SUCCESS);
+        rdata.setMessage(Strings.string("_fileDeleted"), SessionRequestData.MESSAGE_TYPE_SUCCESS);
         return showContentAdministration(rdata,parentId);
     }
 

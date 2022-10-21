@@ -19,7 +19,6 @@ import de.elbe5.user.UserCache;
 import de.elbe5.user.UserData;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 
 public class DefectPdfBean extends DefectFopBean {
 
@@ -35,25 +34,24 @@ public class DefectPdfBean extends DefectFopBean {
     // defect
 
     public BinaryFile getDefectPdfFile(DefectData data, SessionRequestData rdata){
-        Locale locale=rdata.getLocale();
         LocalDateTime now=getServerTime();
         StringBuilder sb=new StringBuilder();
         sb.append("<root>");
-        addDefectHeaderXml(sb,data,locale);
-        addDefectXml(sb,data, locale,rdata.getSessionHost());
+        addDefectHeaderXml(sb,data);
+        addDefectXml(sb,data,rdata.getSessionHost());
         for (DefectCommentData commnet : data.getComments()){
-            addDefectCommentXml(sb, data, commnet, locale, rdata.getSessionHost());
+            addDefectCommentXml(sb, data, commnet, rdata.getSessionHost());
         }
-        addDefectFooterXml(sb,data,now,locale);
+        addDefectFooterXml(sb,data,now);
         sb.append("</root>");
         //System.out.println(sb.toString());
-        String fileName="report-of-defect-" + data.getDisplayId() + "-" + StringUtil.toHtmlDateTime(now,locale).replace(' ','-')+".pdf";
+        String fileName="report-of-defect-" + data.getDisplayId() + "-" + StringUtil.toHtmlDateTime(now).replace(' ','-')+".pdf";
         return getPdf(sb.toString(), "pdf.xsl", fileName);
     }
 
-    private void addDefectHeaderXml(StringBuilder sb, DefectData data, Locale locale) {
+    private void addDefectHeaderXml(StringBuilder sb, DefectData data) {
         sb.append("<header><title>");
-        sb.append(Strings.xml("_report",locale));
+        sb.append(Strings.xml("_report"));
         sb.append(": ");
         sb.append(xml(data.getProjectName()));
         sb.append(", ");
@@ -63,47 +61,47 @@ public class DefectPdfBean extends DefectFopBean {
         sb.append("</title></header>");
     }
 
-    private void addDefectFooterXml(StringBuilder sb, DefectData data, LocalDateTime now, Locale locale) {
+    private void addDefectFooterXml(StringBuilder sb, DefectData data, LocalDateTime now) {
         sb.append("<footer><date>");
-        sb.append(xml(StringUtil.toHtmlDateTime(now,locale)));
+        sb.append(xml(StringUtil.toHtmlDateTime(now)));
         sb.append("</date></footer>");
     }
 
-    private void addDefectXml(StringBuilder sb, DefectData data, Locale locale, String host) {
+    private void addDefectXml(StringBuilder sb, DefectData data, String host) {
         sb.append("<defect>");
-        addLabeledContent(sb,Strings.string("_description",locale),data.getDescription());
-        addLabeledContent(sb,Strings.string("_id",locale),Integer.toString(data.getDisplayId()));
+        addLabeledContent(sb,Strings.string("_description"),data.getDescription());
+        addLabeledContent(sb,Strings.string("_id"),Integer.toString(data.getDisplayId()));
         UserData user= UserCache.getUser(data.getCreatorId());
-        addLabeledContent(sb,Strings.string("_creator",locale),user.getName());
-        addLabeledContent(sb,Strings.string("_creationDate",locale),StringUtil.toHtmlDateTime(data.getCreationDate(),locale));
-        addLabeledContent(sb,Strings.string("_phase",locale),Strings.string(data.getPhase(),locale));
-        addLabeledContent(sb,Strings.string("_state",locale),Strings.string(data.getState(),locale));
-        addLabeledContent(sb,Strings.string("_assigned",locale),data.getAssignedName());
-        addLabeledContent(sb,Strings.string("_lot",locale),data.getLot());
-        addLabeledContent(sb,Strings.string("_dueDate1",locale),StringUtil.toHtmlDate(data.getDueDate1(),locale));
-        addLabeledContent(sb,Strings.string("_dueDate2",locale),StringUtil.toHtmlDate(data.getDueDate2(),locale));
-        addLabeledContent(sb,Strings.string("_closeDate",locale),StringUtil.toHtmlDate(data.getCloseDate(),locale));
+        addLabeledContent(sb,Strings.string("_creator"),user.getName());
+        addLabeledContent(sb,Strings.string("_creationDate"),StringUtil.toHtmlDateTime(data.getCreationDate()));
+        addLabeledContent(sb,Strings.string("_phase"),Strings.string(data.getPhase()));
+        addLabeledContent(sb,Strings.string("_state"),Strings.string(data.getState()));
+        addLabeledContent(sb,Strings.string("_assigned"),data.getAssignedName());
+        addLabeledContent(sb,Strings.string("_lot"),data.getLot());
+        addLabeledContent(sb,Strings.string("_dueDate1"),StringUtil.toHtmlDate(data.getDueDate1()));
+        addLabeledContent(sb,Strings.string("_dueDate2"),StringUtil.toHtmlDate(data.getDueDate2()));
+        addLabeledContent(sb,Strings.string("_closeDate"),StringUtil.toHtmlDate(data.getCloseDate()));
         PlanImageData plan = FileBean.getInstance().getFile(data.getPlanId(),true,PlanImageData.class);
         byte[] redarrowBytes = FileBean.getInstance().getImageBytes("redarrow.png");
         BinaryFile file = plan.createCroppedDefectPlan(redarrowBytes, data.getId(), data.getPositionX(), data.getPositionY());
-        addLabeledImage(sb,Strings.string("_position",locale), file,"5.0cm");
-        addLabeledContent(sb,Strings.string("_positionComment",locale),data.getPositionComment());
+        addLabeledImage(sb,Strings.string("_position"), file,"5.0cm");
+        addLabeledContent(sb,Strings.string("_positionComment"),data.getPositionComment());
         for (DefectImageData image : data.getFiles(DefectImageData.class)){
             file = FileBean.getInstance().getBinaryFile(image.getId());
-            addLabeledImage(sb,Strings.string("_image",locale),file,"5.0cm");
+            addLabeledImage(sb,Strings.string("_image"),file,"5.0cm");
         }
         sb.append("</defect>");
     }
 
-    private void addDefectCommentXml(StringBuilder sb, DefectData defect, DefectCommentData data, Locale locale, String host) {
+    private void addDefectCommentXml(StringBuilder sb, DefectData defect, DefectCommentData data, String host) {
         sb.append("<comment>");
-        sb.append("<title>").append(xml(data.geTitle(locale))).append("</title>");
+        sb.append("<title>").append(xml(data.geTitle())).append("</title>");
         UserData user= UserCache.getUser(data.getCreatorId());
-        addLabeledContent(sb,Strings.string("_comment",locale),data.getComment());
+        addLabeledContent(sb,Strings.string("_comment"),data.getComment());
         for (DefectCommentImageData image : defect.getFiles(DefectCommentImageData.class)){
             if (image.getCommentId()==data.getId()) {
                 BinaryFile file = FileBean.getInstance().getBinaryFile(image.getId());
-                addLabeledImage(sb, Strings.string("_image", locale), file, "5.0cm");
+                addLabeledImage(sb, Strings.string("_image"), file, "5.0cm");
             }
         }
         sb.append("</comment>");

@@ -9,20 +9,19 @@
 <%@ page import="de.elbe5.base.util.StringUtil" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="de.elbe5.base.cache.Strings" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.LocalTime" %>
 <%!
-    public String $D(LocalDate date, Locale locale){
-        return StringUtil.toHtmlDate(date, locale);
+    public String $D(LocalDate date){
+        return StringUtil.toHtmlDate(date);
     }
 
-    public String $T(LocalTime time, Locale locale){
-        return StringUtil.toHtmlTime(time, locale);
+    public String $T(LocalTime time){
+        return StringUtil.toHtmlTime(time);
     }
 
-    public String $DT(LocalDateTime dateTime, Locale locale){
-        return StringUtil.toHtmlDateTime(dateTime, locale);
+    public String $DT(LocalDateTime dateTime){
+        return StringUtil.toHtmlDateTime(dateTime);
     }
 
     public String $H(String src){
@@ -37,16 +36,16 @@
         return StringUtil.toHtmlMultiline(src);
     }
 
-    public String $SH(String key, Locale locale){
-        return Strings.html(key,locale);
+    public String $SH(String key){
+        return Strings.html(key);
     }
 
-    public String $SHM(String key, Locale locale){
-        return Strings.htmlMultiline(key,locale);
+    public String $SHM(String key){
+        return Strings.htmlMultiline(key);
     }
 
-    public String $SJ(String key, Locale locale){
-        return Strings.js(key,locale);
+    public String $SJ(String key){
+        return Strings.js(key);
     }
 
     public String $I(int i){

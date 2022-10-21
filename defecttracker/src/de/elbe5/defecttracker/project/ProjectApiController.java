@@ -8,7 +8,6 @@
  */
 package de.elbe5.defecttracker.project;
 
-import de.elbe5.application.Configuration;
 import de.elbe5.base.log.Log;
 import de.elbe5.content.ContentCache;
 import de.elbe5.defecttracker.BaseApiController;
@@ -32,7 +31,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.List;
-import java.util.Locale;
 
 public class ProjectApiController extends BaseApiController {
 
@@ -75,7 +73,6 @@ public class ProjectApiController extends BaseApiController {
         filter.setShowClosed(false);
         List<Integer> projectIds= ProjectBean.getInstance().getUserProjectIds(user.getId(),isEditor);
         //Log.log("found projectIds: " + projectIds.size());
-        Locale locale= Configuration.getDefaultLocale();
         JSONObject json = new JSONObject();
         JSONArray jsProjects=new JSONArray();
         json.put("projects",jsProjects);
@@ -87,12 +84,12 @@ public class ProjectApiController extends BaseApiController {
                 Log.warn("skipping inactive project: " + project.getName());
                 continue;
             }
-            JSONObject jsProject = project.getJson(locale);
+            JSONObject jsProject = project.getJson();
             GroupData group = GroupBean.getInstance().getGroup(project.getGroupId());
             JSONArray jsUsers=new JSONArray();
             for (int uid : group.getUserIds()) {
                 UserData ud = UserCache.getUser(uid);
-                JSONObject jsUser = ud.getJsonShort(locale);
+                JSONObject jsUser = ud.getJsonShort();
                 jsUsers.add(jsUser);
             }
             jsProject.put("users",jsUsers);
@@ -106,11 +103,11 @@ public class ProjectApiController extends BaseApiController {
                     Log.warn("skipping inactive location: " + location.getName());
                     continue;
                 }
-                JSONObject jsLocation = location.getJson(locale);
+                JSONObject jsLocation = location.getJson();
                 jsLocations.add(jsLocation);
                 PlanImageData plan = location.getPlan();
                 if (plan != null) {
-                    JSONObject jsPlan = plan.getJson(locale);
+                    JSONObject jsPlan = plan.getJson();
                     jsLocation.put("plan", jsPlan);
                 }
                 JSONArray jsDefects = new JSONArray();
@@ -126,7 +123,7 @@ public class ProjectApiController extends BaseApiController {
                     JSONArray jsImages = new JSONArray();
                     jsDefect.put("images", jsImages);
                     for (DefectImageData image : defect.getFiles(DefectImageData.class)) {
-                        JSONObject jsImage = image.getJson(locale);
+                        JSONObject jsImage = image.getJson();
                         jsImages.add(jsImage);
                     }
                     List<DefectCommentImageData> commentImages = defect.getFiles(DefectCommentImageData.class);
@@ -139,7 +136,7 @@ public class ProjectApiController extends BaseApiController {
                         jsComment.put("images", jsCommentImages);
                         for (DefectCommentImageData image : commentImages) {
                             if (image.getCommentId() == comment.getId()) {
-                                JSONObject jsImage = image.getJson(locale);
+                                JSONObject jsImage = image.getJson();
                                 jsCommentImages.add(jsImage);
                             }
                         }

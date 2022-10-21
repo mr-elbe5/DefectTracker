@@ -12,7 +12,6 @@
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.application.Configuration" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.defecttracker.project.ProjectData" %>
 <%@ page import="java.util.List" %>
 <%@ page import="de.elbe5.content.ContentCache" %>
@@ -21,11 +20,10 @@
 <%
     String title = Configuration.getAppTitle();
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
     List<ProjectData> projects = ContentCache.getContents(ProjectData.class);
     assert(projects!=null);
 %>
-<html lang="<%=locale.getLanguage()%>">
+<html lang="<%=Configuration.getDefaultLocale().getLanguage()%>">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -45,25 +43,18 @@
             <form class="form" action="/ctrl/user/login" method="post" name="loginForm" accept-charset="UTF-8">
                 <img class="mb-4" src="/static-content/img/logo-dark.png" alt="<%=Configuration.getAppTitle()%>">
                 <div class="form-group">
-                    <label for="login" class="sr-only"><%=$SH("_loginName",locale)%>
+                    <label for="login" class="sr-only"><%=$SH("_loginName")%>
                     </label>
                     <input type="text" id="login" name="login" class="form-control"
-                           placeholder="<%=$SH("_loginName",locale)%>" required autofocus>
+                           placeholder="<%=$SH("_loginName")%>" required autofocus>
                 </div>
                 <div class="form-group">
-                    <label for="password" class="sr-only"><%=$SH("_password",locale)%>
+                    <label for="password" class="sr-only"><%=$SH("_password")%>
                     </label>
                     <input type="password" id="password" name="password" class="form-control"
-                           placeholder="<%=$SH("_password",locale)%>" required>
+                           placeholder="<%=$SH("_password")%>" required>
                 </div>
-                <div class="form-group">
-                    <label for="language" class="sr-only"><%=$SH("_language",locale)%></label>
-                    <select id="language" name="language" class="form-control">
-                        <option value="<%=Locale.GERMAN.getLanguage()%>" selected><%=$H(Locale.GERMAN.getDisplayName(Locale.GERMAN))%></option>
-                        <option value="<%=Locale.ENGLISH.getLanguage()%>"><%=$H(Locale.ENGLISH.getDisplayName(Locale.ENGLISH))%></option>
-                    </select>
-                </div>
-                <button class="btn btn-outline-primary" type="submit"><%=$SH("_login",locale)%>
+                <button class="btn btn-outline-primary" type="submit"><%=$SH("_login")%>
                 </button>
             </form>
         </section>

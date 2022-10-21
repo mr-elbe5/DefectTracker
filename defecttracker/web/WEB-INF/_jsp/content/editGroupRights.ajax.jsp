@@ -10,7 +10,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="java.util.Locale" %>
 <%@ page import="de.elbe5.content.ContentData" %>
 <%@ page import="de.elbe5.group.GroupData" %>
 <%@ page import="java.util.List" %>
@@ -19,7 +18,7 @@
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    Locale locale = rdata.getLocale();
+
     ContentData contentData = rdata.getCurrentSessionContent();
     assert (contentData != null);
     List<GroupData> groups = GroupBean.getInstance().getAllGroups();
@@ -28,7 +27,7 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><%=$SH("_editGroupRights", locale)%>
+            <h5 class="modal-title"><%=$SH("_editGroupRights")%>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -44,22 +43,22 @@
                     label = StringUtil.toHtml(group.getName());
                     name = "groupright_" + group.getId();%>
                     <form:line label="<%=label%>" padded="true">
-                        <form:radio name="<%=name%>" value="" checked="<%=!contentData.hasAnyGroupRight(group.getId())%>"><%=$SH("_rightnone", locale)%>
+                        <form:radio name="<%=name%>" value="" checked="<%=!contentData.hasAnyGroupRight(group.getId())%>"><%=$SH("_rightnone")%>
                         </form:radio><br/>
-                        <form:radio name="<%=name%>" value="<%=Right.READ.name()%>" checked="<%=contentData.isGroupRight(group.getId(), Right.READ)%>"><%=$SH("_rightread", locale)%>
+                        <form:radio name="<%=name%>" value="<%=Right.READ.name()%>" checked="<%=contentData.isGroupRight(group.getId(), Right.READ)%>"><%=$SH("_rightread")%>
                         </form:radio><br/>
-                        <form:radio name="<%=name%>" value="<%=Right.EDIT.name()%>" checked="<%=contentData.isGroupRight(group.getId(), Right.EDIT)%>"><%=$SH("_rightedit", locale)%>
+                        <form:radio name="<%=name%>" value="<%=Right.EDIT.name()%>" checked="<%=contentData.isGroupRight(group.getId(), Right.EDIT)%>"><%=$SH("_rightedit")%>
                         </form:radio><br/>
-                        <form:radio name="<%=name%>" value="<%=Right.APPROVE.name()%>" checked="<%=contentData.isGroupRight(group.getId(), Right.APPROVE)%>"><%=$SH("_rightapprove", locale)%>
+                        <form:radio name="<%=name%>" value="<%=Right.APPROVE.name()%>" checked="<%=contentData.isGroupRight(group.getId(), Right.APPROVE)%>"><%=$SH("_rightapprove")%>
                         </form:radio><br/>
                     </form:line>
                     <%}
                 }%>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close", locale)%>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close")%>
                 </button>
-                <button type="submit" class="btn btn-primary"><%=$SH("_save", locale)%>
+                <button type="submit" class="btn btn-primary"><%=$SH("_save")%>
                 </button>
             </div>
         </form:form>

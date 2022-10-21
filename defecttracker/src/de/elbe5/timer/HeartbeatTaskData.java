@@ -27,7 +27,7 @@ public class HeartbeatTaskData extends TimerTaskData {
 
     @Override
     public boolean execute(LocalDateTime executionTime, LocalDateTime checkTime) {
-        Log.log("Heartbeat at " + StringUtil.toHtmlDateTime(TimerBean.getInstance().getServerTime(), Configuration.getDefaultLocale()));
+        Log.log("Heartbeat at " + StringUtil.toHtmlDateTime(TimerBean.getInstance().getServerTime()));
         return true;
     }
 }

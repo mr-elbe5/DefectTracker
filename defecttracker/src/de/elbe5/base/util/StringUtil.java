@@ -72,58 +72,58 @@ public class StringUtil {
         return StringEscapeUtils.escapeHtml4(src).replaceAll("\n", "\n<br>\n");
     }
 
-    public static String getDatePattern(Locale locale){
-        return Strings.string("_$datePattern",locale);
+    public static String getDatePattern(){
+        return Strings.string("_$datePattern");
     }
 
-    public static String getDateTimePattern(Locale locale){
-        return Strings.string("_$dateTimePattern",locale);
+    public static String getDateTimePattern(){
+        return Strings.string("_$dateTimePattern");
     }
 
-    public static String getTimePattern(Locale locale){
-        return Strings.string("_$timePattern",locale);
+    public static String getTimePattern(){
+        return Strings.string("_$timePattern");
     }
 
-    public static String toHtmlDate(LocalDate date, Locale locale) {
-        if (date == null || locale == null)
+    public static String toHtmlDate(LocalDate date) {
+        if (date == null)
             return "";
-        return date.format(DateTimeFormatter.ofPattern(getDatePattern(locale)));
+        return date.format(DateTimeFormatter.ofPattern(getDatePattern()));
     }
 
-    public static String toHtmlDate(LocalDateTime date, Locale locale) {
-        if (date == null || locale == null)
+    public static String toHtmlDate(LocalDateTime date) {
+        if (date == null)
             return "";
-        return date.format(DateTimeFormatter.ofPattern(getDatePattern(locale)));
+        return date.format(DateTimeFormatter.ofPattern(getDatePattern()));
     }
 
-    public static LocalDate fromDate(String s, Locale locale) {
-        if (s == null || s.isEmpty() || locale == null)
+    public static LocalDate fromDate(String s) {
+        if (s == null || s.isEmpty())
             return null;
-        return LocalDate.parse(s, DateTimeFormatter.ofPattern(getDatePattern(locale)));
+        return LocalDate.parse(s, DateTimeFormatter.ofPattern(getDatePattern()));
     }
 
-    public static String toHtmlTime(LocalTime date, Locale locale) {
-        if (date == null || locale == null)
+    public static String toHtmlTime(LocalTime date) {
+        if (date == null)
             return "";
-        return date.format(DateTimeFormatter.ofPattern(getTimePattern(locale)));
+        return date.format(DateTimeFormatter.ofPattern(getTimePattern()));
     }
 
-    public static LocalTime fromTime(String s, Locale locale) {
-        if (s == null || s.isEmpty() || locale == null)
+    public static LocalTime fromTime(String s) {
+        if (s == null || s.isEmpty())
             return null;
-        return LocalTime.parse(s, DateTimeFormatter.ofPattern(getTimePattern(locale)));
+        return LocalTime.parse(s, DateTimeFormatter.ofPattern(getTimePattern()));
     }
 
-    public static String toHtmlDateTime(LocalDateTime date, Locale locale) {
-        if (date == null || locale == null)
+    public static String toHtmlDateTime(LocalDateTime date) {
+        if (date == null)
             return "";
-        return date.format(DateTimeFormatter.ofPattern(getDateTimePattern(locale)));
+        return date.format(DateTimeFormatter.ofPattern(getDateTimePattern()));
     }
 
-    public static LocalDateTime fromDateTime(String s, Locale locale) {
-        if (s == null || s.isEmpty() || locale == null)
+    public static LocalDateTime fromDateTime(String s) {
+        if (s == null || s.isEmpty())
             return null;
-        return LocalDateTime.parse(s, DateTimeFormatter.ofPattern(getDateTimePattern(locale)));
+        return LocalDateTime.parse(s, DateTimeFormatter.ofPattern(getDateTimePattern()));
     }
 
     public static String toXml(String src) {

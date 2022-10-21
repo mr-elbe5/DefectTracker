@@ -16,7 +16,6 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 import java.io.Writer;
-import java.util.Locale;
 
 public class BaseTag implements Tag {
     protected Tag parent = null;
@@ -33,10 +32,6 @@ public class BaseTag implements Tag {
 
     public HttpServletRequest getRequest() {
         return (HttpServletRequest) getContext().getRequest();
-    }
-
-    public Locale getLocale(SessionRequestData rdata) {
-        return rdata.getLocale();
     }
 
     public Writer getWriter() {
