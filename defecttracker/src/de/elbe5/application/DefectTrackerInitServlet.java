@@ -8,7 +8,7 @@
  */
 package de.elbe5.application;
 
-import de.elbe5.base.cache.Strings;
+import de.elbe5.base.data.Strings;
 import de.elbe5.base.log.Log;
 import de.elbe5.defecttracker.defect.*;
 import de.elbe5.defecttracker.location.*;
@@ -21,8 +21,6 @@ import de.elbe5.content.*;
 import de.elbe5.database.DbConnector;
 import de.elbe5.file.*;
 import de.elbe5.group.GroupController;
-import de.elbe5.servlet.ApiControllerCache;
-import de.elbe5.servlet.ControllerCache;
 import de.elbe5.servlet.InitServlet;
 import de.elbe5.timer.CleanupTaskData;
 import de.elbe5.timer.HeartbeatTaskData;

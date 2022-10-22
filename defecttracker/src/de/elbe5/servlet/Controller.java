@@ -1,6 +1,6 @@
 package de.elbe5.servlet;
 
-import de.elbe5.base.cache.Strings;
+import de.elbe5.base.data.Strings;
 import de.elbe5.content.JspContentData;
 import de.elbe5.request.*;
 import de.elbe5.view.IView;

@@ -8,7 +8,7 @@
  */
 package de.elbe5.defecttracker.project;
 
-import de.elbe5.base.cache.Strings;
+import de.elbe5.base.data.Strings;
 import de.elbe5.base.util.StringUtil;
 import de.elbe5.defecttracker.ViewFilter;
 import de.elbe5.defecttracker.location.LocationData;

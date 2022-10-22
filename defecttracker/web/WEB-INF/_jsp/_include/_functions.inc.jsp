@@ -8,7 +8,7 @@
 --%>
 <%@ page import="de.elbe5.base.util.StringUtil" %>
 <%@ page import="java.time.LocalDateTime" %>
-<%@ page import="de.elbe5.base.cache.Strings" %>
+<%@ page import="de.elbe5.base.data.Strings" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.LocalTime" %>
 <%!

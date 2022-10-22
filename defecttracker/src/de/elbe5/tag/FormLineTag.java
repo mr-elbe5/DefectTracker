@@ -8,7 +8,7 @@
  */
 package de.elbe5.tag;
 
-import de.elbe5.base.cache.Strings;
+import de.elbe5.base.data.Strings;
 import de.elbe5.base.log.Log;
 import de.elbe5.request.SessionRequestData;
 

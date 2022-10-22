@@ -8,7 +8,7 @@
  */
 package de.elbe5.defecttracker.defect;
 
-import de.elbe5.base.cache.Strings;
+import de.elbe5.base.data.Strings;
 import de.elbe5.base.data.BinaryFile;
 import de.elbe5.base.data.Token;
 import de.elbe5.defecttracker.DefectBaseController;
@@ -18,8 +18,6 @@ import de.elbe5.defecttracker.location.PlanImageData;
 import de.elbe5.file.FileBean;
 import de.elbe5.request.*;
 import de.elbe5.servlet.ControllerCache;
-import de.elbe5.user.UserCache;
-import de.elbe5.user.UserData;
 import de.elbe5.view.*;
 
 import java.util.List;

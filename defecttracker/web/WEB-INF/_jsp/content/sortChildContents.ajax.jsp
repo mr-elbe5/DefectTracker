@@ -47,7 +47,7 @@
                     String name, onchange;%>
                 <h3><%=$SH("_subcontents")%>
                 </h3>
-                <form:line label="_name" padded="true"><%=$SH("_position")%>
+                <form:line label="_name" padded="true"><%=$SH("_sequence")%>
                 </form:line>
                 <%
                     int idx = 0;

@@ -13,7 +13,7 @@ import de.elbe5.base.data.BinaryFile;
 import de.elbe5.base.log.Log;
 import de.elbe5.base.util.ImageUtil;
 import de.elbe5.base.util.StringUtil;
-import de.elbe5.base.cache.Strings;
+import de.elbe5.base.data.Strings;
 import de.elbe5.application.Configuration;
 import de.elbe5.group.GroupData;
 import de.elbe5.request.SessionRequestData;
