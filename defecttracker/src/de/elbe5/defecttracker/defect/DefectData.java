@@ -273,16 +273,16 @@ public class DefectData extends ContentData {
 
     @Override
     public boolean hasUserReadRight(SessionRequestData rdata) {
-        return ViewFilter.getFilter(rdata).hasProjectReadRight(getProjectId()) && (rdata.hasSystemRight(SystemZone.CONTENTADMINISTRATION) || rdata.getUserId()==getAssignedId());
+        return ViewFilter.getFilter(rdata).hasProjectReadRight(getProjectId()) && (rdata.hasGlobalContentEditRight() || rdata.getUserId()==getAssignedId());
     }
 
     public boolean hasUserReadRight(ViewFilter filter, UserData user) {
-        return filter.hasProjectReadRight(getProjectId()) && (user.hasSystemRight(SystemZone.CONTENTADMINISTRATION) || user.getId()==getAssignedId());
+        return filter.hasProjectReadRight(getProjectId()) && (user.hasGlobalContentEditRight() || user.getId()==getAssignedId());
     }
 
     @Override
     public boolean hasUserEditRight(SessionRequestData rdata) {
-        return rdata.hasSystemRight(SystemZone.CONTENTADMINISTRATION);
+        return rdata.hasGlobalContentEditRight();
     }
 
     public boolean hasUserGlobalEditRight(SessionRequestData rdata) {

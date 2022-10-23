@@ -12,6 +12,7 @@ import de.elbe5.base.data.BinaryFile;
 import de.elbe5.content.ContentCache;
 import de.elbe5.defecttracker.DefectBaseController;
 import de.elbe5.defecttracker.ViewFilter;
+import de.elbe5.defecttracker.location.LocationPdfBean;
 import de.elbe5.request.SessionRequestData;
 import de.elbe5.view.*;
 
@@ -80,6 +81,15 @@ public class ProjectController extends DefectBaseController {
         ProjectData project=ContentCache.getContent(contentId,ProjectData.class);
         assert(project!=null);
         BinaryFile file = ProjectXslxBean.getInstance().getProjectExcel(project);
+        assert(file!=null);
+        BinaryFileView view=new BinaryFileView(file);
+        view.setForceDownload(true);
+        return view;
+    }
+
+    public IView getReport(SessionRequestData rdata) {
+        int contentId = rdata.getId();
+        BinaryFile file = ProjectPdfBean.getInstance().getProjectReport(contentId, rdata);
         assert(file!=null);
         BinaryFileView view=new BinaryFileView(file);
         view.setForceDownload(true);

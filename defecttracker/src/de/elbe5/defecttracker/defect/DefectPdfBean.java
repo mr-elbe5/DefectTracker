@@ -50,7 +50,7 @@ public class DefectPdfBean extends DefectFopBean {
     }
 
     private void addDefectHeaderXml(StringBuilder sb, DefectData data) {
-        sb.append("<header><title>");
+        sb.append("<defectheader><title>");
         sb.append(Strings.xml("_report"));
         sb.append(": ");
         sb.append(xml(data.getProjectName()));
@@ -58,13 +58,16 @@ public class DefectPdfBean extends DefectFopBean {
         sb.append(xml(data.getLocationName()));
         sb.append(", ");
         sb.append(xml(data.getDisplayName()));
-        sb.append("</title></header>");
+        sb.append("</title></defectheader>");
     }
 
     private void addDefectFooterXml(StringBuilder sb, DefectData data, LocalDateTime now) {
-        sb.append("<footer><date>");
+        sb.append("<footer><docAndDate>")
+                .append(Strings.xml("_defect"))
+                .append(" ").append(xml(data.getDisplayName()))
+                .append(" - ");
         sb.append(xml(StringUtil.toHtmlDateTime(now)));
-        sb.append("</date></footer>");
+        sb.append("</docAndDate></footer>");
     }
 
     private void addDefectXml(StringBuilder sb, DefectData data, String host) {

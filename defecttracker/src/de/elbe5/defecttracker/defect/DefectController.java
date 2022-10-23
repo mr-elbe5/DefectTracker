@@ -50,7 +50,7 @@ public class DefectController extends DefectBaseController {
     public IView openCreateContentFrontend(SessionRequestData rdata) {
         int parentId=rdata.getInt("parentId");
         LocationData parent= (LocationData) ContentCache.getContent(parentId);
-        checkRights(parent.hasUserAnyEditRight(rdata));
+        checkRights(parent.hasUserGlobalEditRight(rdata));
         DefectData data = new DefectData();
         data.setCreateValues(parent, rdata);
         data.setViewType(ContentData.VIEW_TYPE_EDIT);

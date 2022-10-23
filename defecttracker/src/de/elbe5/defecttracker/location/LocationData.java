@@ -118,11 +118,11 @@ public class LocationData extends ContentData {
 
     @Override
     public boolean hasUserEditRight(SessionRequestData rdata) {
-        return rdata.hasSystemRight(SystemZone.CONTENTADMINISTRATION);
+        return rdata.hasGlobalContentEditRight();
     }
 
-    public boolean hasUserAnyEditRight(SessionRequestData rdata) {
-        return rdata.hasSystemRight(SystemZone.CONTENTADMINISTRATION) || rdata.hasSystemRight(SystemZone.CONTENTEDIT);
+    public boolean hasUserGlobalEditRight(SessionRequestData rdata) {
+        return rdata.hasGlobalContentEditRight();
     }
 
     @Override
