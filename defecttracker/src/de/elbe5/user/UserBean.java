@@ -27,6 +27,8 @@ import java.util.UUID;
  */
 public class UserBean extends DbBean {
 
+    private static String VOID_PASSWORD = "void";
+
     private static UserBean instance = null;
 
     public static UserBean getInstance() {
@@ -106,6 +108,8 @@ public class UserBean extends DbBean {
     private static String LOGIN_SQL = "SELECT pwd,id,change_date,first_name,last_name,email FROM t_user WHERE login=? AND locked=FALSE AND deleted=FALSE";
 
     public UserData loginUser(String login, String pwd) {
+        if (VOID_PASSWORD.equals(pwd))
+            return null;
         Connection con = getConnection();
         PreparedStatement pst = null;
         UserData data = null;
@@ -148,6 +152,8 @@ public class UserBean extends DbBean {
     private static String UPDATE_TOKEN_SQL = "UPDATE t_user SET token_expiration=? WHERE id=?";
 
     public UserData loginApiUser(String login, String pwd) {
+        if (VOID_PASSWORD.equals(pwd))
+            return null;
         Connection con = getConnection();
         PreparedStatement pst = null;
         UserData data = null;

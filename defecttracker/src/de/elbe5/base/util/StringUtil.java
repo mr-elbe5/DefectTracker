@@ -140,21 +140,6 @@ public class StringUtil {
         return StringEscapeUtils.escapeEcmaScript(src);
     }
 
-    public static String toUrl(String src) {
-        if (src == null) {
-            return "";
-        }
-        return encodeUTF8(src);
-    }
-
-    public static String encodeUTF8(String src) {
-        try {
-            return URLEncoder.encode(src, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            return src;
-        }
-    }
-
     public static String toSafeWebName(String src) {
         for (String[] match : MATCHES) {
             src = src.replace(match[0], match[1]);

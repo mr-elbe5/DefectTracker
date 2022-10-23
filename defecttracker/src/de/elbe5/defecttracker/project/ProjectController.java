@@ -46,12 +46,18 @@ public class ProjectController extends DefectBaseController {
         checkRights(rdata.isLoggedIn());
         int contentId=rdata.getId();
         ViewFilter filter = ViewFilter.getFilter(rdata);
+        int oldProjectId = filter.getProjectId();
         filter.setProjectId(rdata.getInt("projectId"));
         filter.setShowClosed(rdata.getBoolean("showClosed"));
         filter.setAssignedId(rdata.getInt("assignedId"));
         rdata.addLoginCookie("projectId", Integer.toString(filter.getProjectId()),COOKIE_EXPIRATION_DAYS);
         rdata.addLoginCookie("showClosed", Boolean.toString(filter.isShowClosed()),COOKIE_EXPIRATION_DAYS);
-        return new CloseDialogView("/ctrl/content/show/"+contentId);
+        if (oldProjectId == filter.getProjectId()) {
+            return new CloseDialogView("/ctrl/content/show/" + contentId);
+        }
+        else{
+            return new CloseDialogView("/ctrl/content/show/" + filter.getProjectId());
+        }
     }
 
     public IView updateFilterUsers(SessionRequestData rdata) {

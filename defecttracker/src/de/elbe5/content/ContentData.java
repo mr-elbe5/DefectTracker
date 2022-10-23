@@ -111,9 +111,10 @@ public class ContentData extends BaseData implements Comparable<ContentData> {
     public void generatePath() {
         if (getParent() == null)
             return;
-        setPath(getParent().getPath() + "/" + StringUtil.toUrl(getName().toLowerCase()));
+        setPath(getParent().getPath() + "/" + StringUtil.toSafeWebName(getName().toLowerCase()));
     }
 
+    //used in cache
     public String getUrl() {
         if (getPath().isEmpty())
             return "/home.html";
