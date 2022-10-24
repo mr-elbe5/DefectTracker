@@ -11,8 +11,8 @@ package de.elbe5.defecttracker.root;
 import de.elbe5.content.ContentData;
 import de.elbe5.request.SessionRequestData;
 
-import javax.servlet.ServletException;
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.jsp.PageContext;
 import java.io.IOException;
 import java.io.Writer;
 

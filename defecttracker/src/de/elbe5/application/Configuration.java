@@ -10,7 +10,7 @@ package de.elbe5.application;
 
 import de.elbe5.base.mail.Mailer;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 

@@ -12,8 +12,8 @@ import de.elbe5.base.log.Log;
 import de.elbe5.base.util.StringUtil;
 import de.elbe5.request.SessionRequestData;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.jsp.JspException;
 import java.io.Writer;
 
 public class FormErrorTag extends BaseTag {

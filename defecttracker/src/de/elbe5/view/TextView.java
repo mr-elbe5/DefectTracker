@@ -5,8 +5,8 @@ import de.elbe5.application.Configuration;
 import de.elbe5.request.SessionRequestData;
 import de.elbe5.request.ResponseCode;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.MessageFormat;

@@ -12,7 +12,7 @@ import de.elbe5.base.log.Log;
 import de.elbe5.base.util.StringUtil;
 import de.elbe5.view.IView;
 
-import javax.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspException;
 import java.io.Writer;
 
 public class FormTag extends BaseTag {

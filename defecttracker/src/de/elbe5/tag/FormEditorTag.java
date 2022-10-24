@@ -11,7 +11,7 @@ package de.elbe5.tag;
 import de.elbe5.base.data.Strings;
 import de.elbe5.base.util.StringUtil;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class FormEditorTag extends FormLineTag {
 

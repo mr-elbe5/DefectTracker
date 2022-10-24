@@ -3,8 +3,8 @@ package de.elbe5.view;
 import de.elbe5.file.ImageData;
 import de.elbe5.request.ApiRequestData;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class ApiImagePreview extends ImagePreview implements IApiView{
 

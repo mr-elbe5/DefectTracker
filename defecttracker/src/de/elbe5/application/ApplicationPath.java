@@ -8,7 +8,7 @@
  */
 package de.elbe5.application;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import java.io.File;
 
 public class ApplicationPath {

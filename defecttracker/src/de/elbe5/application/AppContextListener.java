@@ -12,8 +12,8 @@ import de.elbe5.base.log.Log;
 import de.elbe5.base.thread.BaseThread;
 import de.elbe5.base.thread.IStoppable;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 import java.util.HashMap;
 import java.util.Map;
 

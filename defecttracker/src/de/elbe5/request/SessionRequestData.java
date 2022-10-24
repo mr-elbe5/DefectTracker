@@ -5,7 +5,7 @@ import de.elbe5.base.data.Strings;
 import de.elbe5.content.ContentData;
 import de.elbe5.user.UserData;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 import java.util.*;
 
 public class SessionRequestData extends RequestData {

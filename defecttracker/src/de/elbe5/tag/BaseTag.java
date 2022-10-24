@@ -11,10 +11,10 @@ package de.elbe5.tag;
 import de.elbe5.base.util.StringUtil;
 import de.elbe5.request.SessionRequestData;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.tagext.Tag;
 import java.io.Writer;
 
 public class BaseTag implements Tag {

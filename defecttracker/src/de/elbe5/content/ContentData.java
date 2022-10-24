@@ -25,8 +25,8 @@ import de.elbe5.user.UserData;
 import de.elbe5.view.IView;
 import de.elbe5.view.ContentView;
 
-import javax.servlet.ServletException;
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.jsp.PageContext;
 import java.io.IOException;
 import java.util.*;
 

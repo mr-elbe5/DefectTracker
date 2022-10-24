@@ -3,7 +3,7 @@ package de.elbe5.request;
 import de.elbe5.user.UserBean;
 import de.elbe5.user.UserData;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 public class ApiRequestData extends RequestData {

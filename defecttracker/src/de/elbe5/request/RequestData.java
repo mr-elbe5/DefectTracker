@@ -9,7 +9,7 @@ import de.elbe5.rights.SystemZone;
 import de.elbe5.user.UserData;
 import org.json.simple.JSONObject;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

@@ -11,7 +11,7 @@ package de.elbe5.tag;
 import de.elbe5.application.Configuration;
 import de.elbe5.base.util.StringUtil;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class DateTag extends FormLineTag {
 

@@ -10,9 +10,9 @@ package de.elbe5.content;
 
 import de.elbe5.request.SessionRequestData;
 
-import javax.servlet.ServletException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.PageContext;
 import java.io.IOException;
 
 public class JspContentData extends ContentData {

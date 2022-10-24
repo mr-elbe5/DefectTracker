@@ -16,8 +16,8 @@ import de.elbe5.request.SessionRequestData;
 import de.elbe5.view.IView;
 import de.elbe5.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ContentServlet extends WebServlet {

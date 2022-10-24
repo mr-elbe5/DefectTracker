@@ -3,8 +3,8 @@ package de.elbe5.view;
 import de.elbe5.base.data.BinaryFile;
 import de.elbe5.request.ApiRequestData;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class ApiBinaryFileView extends BinaryFileView implements IApiView{
 

@@ -5,9 +5,9 @@ import de.elbe5.base.log.Log;
 import de.elbe5.request.ApiRequestData;
 import de.elbe5.request.ResponseCode;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JsonView implements IApiView {

@@ -23,8 +23,8 @@ import de.elbe5.user.UserCache;
 import de.elbe5.user.UserData;
 import org.json.simple.JSONObject;
 
-import javax.servlet.ServletException;
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.jsp.PageContext;
 import java.io.IOException;
 import java.io.Writer;
 import java.time.LocalDate;
