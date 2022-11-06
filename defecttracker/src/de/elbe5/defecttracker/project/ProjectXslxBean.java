@@ -66,7 +66,20 @@ public class ProjectXslxBean extends DefectPoiBean {
 
     protected void writeLocation(LocationData data, Workbook wb, CellStyle dateStyle, CellStyle wrapStyle, CellStyle headerStyle){
         List<DefectData> defects = data.getChildren(DefectData.class);
-        Sheet sheet = wb.createSheet(xml(data.getDisplayName()));
+        Sheet sheet = null;
+        String sheetName = data.getDisplayName();
+        int count = 0;
+        while (sheet == null) {
+            try {
+                sheet = wb.createSheet(sheetName);
+            } catch (Exception e) {
+                count++;
+                sheetName = data.getDisplayName() + "(" + count + ")";
+            }
+            if (count > 10){
+                return;
+            }
+        }
         int rowIdx=0;
         int cellIdx=0;
         //header
