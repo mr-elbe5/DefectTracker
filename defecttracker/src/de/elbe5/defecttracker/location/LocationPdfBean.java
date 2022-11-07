@@ -95,7 +95,6 @@ public class LocationPdfBean extends DefectFopBean {
             sb.append("<description>").append(Strings.xml("_defect")).append(": ").append(xml(defect.getDescription())).append("</description>");
             sb.append("<defectrow>");
             sb.append("<label1>").append(Strings.xml("_id")).append("</label1><content1>").append(defect.getDisplayId()).append("</content1>");
-            sb.append("<label2>").append(Strings.xml("_phase")).append("</label2><content2>").append(Strings.xml(defect.getPhase())).append("</content2>");
             sb.append("</defectrow>");
             sb.append("<defectrow>");
             UserData user= UserCache.getUser(defect.getCreatorId());

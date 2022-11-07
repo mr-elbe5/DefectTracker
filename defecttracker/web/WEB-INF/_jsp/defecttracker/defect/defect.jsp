@@ -60,10 +60,6 @@
                 <div class="boxText"><%=StringUtil.toHtmlDateTime(defect.getChangeDate())%></div>
             </div>
             <div class="box">
-                <div class="boxTitle"><%=$SH("_phase")%></div>
-                <div class="boxText"><%=$SH(defect.getPhase())%></div>
-            </div>
-            <div class="box">
                 <div class="boxTitle"><%=$SH("_assigned")%></div>
                 <div class="boxText"><%=$H(assignedName)%></div>
             </div>

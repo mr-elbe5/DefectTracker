@@ -16,7 +16,6 @@ import de.elbe5.content.ContentData;
 import de.elbe5.file.DocumentData;
 import de.elbe5.file.ImageData;
 import de.elbe5.request.SessionRequestData;
-import de.elbe5.rights.SystemZone;
 import org.json.simple.JSONObject;
 
 import jakarta.servlet.ServletException;
@@ -28,13 +27,9 @@ import java.util.List;
 
 public class ProjectData extends ContentData {
 
-    public static final String PHASE_PREAPPROVE = "PREAPPROVE";
-    public static final String PHASE_APPROVE = "APPROVE";
-    public static final String PHASE_WARRANTY = "WARRANTY";
-
-    private static List<String> contentTypes=new ArrayList<>();
-    private static List<String> documentTypes=new ArrayList<>();
-    private static List<String> imageTypes=new ArrayList<>();
+    private static final List<String> contentTypes=new ArrayList<>();
+    private static final List<String> documentTypes=new ArrayList<>();
+    private static final List<String> imageTypes=new ArrayList<>();
 
     static{
         contentTypes.add(LocationData.class.getSimpleName());
@@ -43,7 +38,6 @@ public class ProjectData extends ContentData {
     }
 
     protected int groupId=0;
-    protected String phase=PHASE_PREAPPROVE;
 
     public ProjectData() {
     }
@@ -54,14 +48,6 @@ public class ProjectData extends ContentData {
 
     public void setGroupId(int groupId) {
         this.groupId = groupId;
-    }
-
-    public String getPhase() {
-        return phase;
-    }
-
-    public void setPhase(String phase) {
-        this.phase = phase;
     }
 
     @Override
@@ -123,7 +109,6 @@ public class ProjectData extends ContentData {
         setName(StringUtil.toSafeWebName(getDisplayName()));
         setDescription(rdata.getString("description"));
         setGroupId(rdata.getInt("groupId"));
-        setPhase(rdata.getString("phase"));
         setActive(rdata.getBoolean("active"));
         setNavType(ContentData.NAV_TYPE_HEADER);
         if (getDisplayName().isEmpty()) {
@@ -140,7 +125,6 @@ public class ProjectData extends ContentData {
         json.put("id",getId());
         json.put("name",getDisplayName());
         json.put("description",getDescription());
-        json.put("phase", Strings.string(getPhase()));
         return json;
     }
 

@@ -55,7 +55,6 @@ public class DefectData extends ContentData {
 
     protected boolean notified = false;
     protected String lot = "";
-    protected String phase = ProjectData.PHASE_PREAPPROVE;
     protected String state = STATE_OPEN;
     protected int costs = 0;
     protected int positionX = 0; // Percent * 100
@@ -138,14 +137,6 @@ public class DefectData extends ContentData {
 
     public void setLot(String lot) {
         this.lot = lot;
-    }
-
-    public String getPhase() {
-        return phase;
-    }
-
-    public void setPhase(String phase) {
-        this.phase = phase;
     }
 
     public String getState() {
@@ -326,7 +317,6 @@ public class DefectData extends ContentData {
         setLocationId(location.getId());
         setProjectId(project.getId());
         setState(STATE_OPEN);
-        setPhase(project.getPhase());
         setNavType(NAV_TYPE_NONE);
         setPlanId(location.getPlan() == null ? 0 : location.getPlan().getId());
     }

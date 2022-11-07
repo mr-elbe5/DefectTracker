@@ -35,12 +35,12 @@ public class DefectBean extends ContentBean {
         return getNextId("s_defect_id");
     }
 
-    private static String GET_CONTENT_EXTRAS_SQL = "SELECT display_id,location_id,project_id,plan_id, assigned_id, notified, lot, phase, state, " +
+    private static final String GET_CONTENT_EXTRAS_SQL = "SELECT display_id,location_id,project_id,plan_id, assigned_id, notified, lot, state, " +
             "costs, position_x, position_y, position_comment, " +
             "due_date1, due_date2, close_date  " +
             "FROM t_defect  WHERE id=?";
 
-    private static String GET_COMMENTS_SQL = "SELECT id, creation_date, creator_id, comment " +
+    private static final String GET_COMMENTS_SQL = "SELECT id, creation_date, creator_id, comment " +
             "from t_defect_comment where defect_id=? order by creation_date desc";
 
     @Override
@@ -65,7 +65,6 @@ public class DefectBean extends ContentBean {
                     data.setAssignedId(rs.getInt(i++));
                     data.setNotified(rs.getBoolean(i++));
                     data.setLot(rs.getString(i++));
-                    data.setPhase(rs.getString(i++));
                     data.setState(rs.getString(i++));
                     data.setCosts(rs.getInt(i++));
                     data.setPositionX(rs.getInt(i++));
@@ -85,11 +84,11 @@ public class DefectBean extends ContentBean {
         }
     }
 
-    private static String INSERT_CONTENT_EXTRAS_SQL = "insert into t_defect (" +
-            "display_id,location_id,project_id,plan_id, assigned_id, notified, lot, phase, " +
+    private static final String INSERT_CONTENT_EXTRAS_SQL = "insert into t_defect (" +
+            "display_id,location_id,project_id,plan_id, assigned_id, notified, lot, " +
             "due_date1, state, costs, " +
             "position_x, position_y,position_comment,id) " +
-            "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     @Override
     public void createContentExtras(Connection con, ContentData contentData) throws SQLException {
@@ -107,7 +106,6 @@ public class DefectBean extends ContentBean {
             pst.setInt(i++, data.getAssignedId());
             pst.setBoolean(i++, data.isNotified());
             pst.setString(i++, data.getLot());
-            pst.setString(i++, data.getPhase());
             LocalDate date=data.getDueDate1();
             if (date==null)
                 pst.setNull(i++,Types.TIMESTAMP);
@@ -129,7 +127,7 @@ public class DefectBean extends ContentBean {
         }
     }
 
-    private static String UPDATE_CONTENT_EXTRAS_SQL = "update t_defect " +
+    private static final String UPDATE_CONTENT_EXTRAS_SQL = "update t_defect " +
             "set assigned_id=?, notified=?, lot=?, due_date2=?, costs=? where id=? ";
 
     @Override
@@ -163,8 +161,8 @@ public class DefectBean extends ContentBean {
         }
     }
 
-    private static String UPDATE_CHANGE_SQL = "update t_content set change_date=?, changer_id=? where id=?";
-    private static String CLOSE_DEFECT_SQL = "update t_defect set close_date=? where id=?";
+    private static final String UPDATE_CHANGE_SQL = "update t_content set change_date=?, changer_id=? where id=?";
+    private static final String CLOSE_DEFECT_SQL = "update t_defect set close_date=? where id=?";
 
     public boolean closeDefect(DefectData data) {
         Connection con = startTransaction();
@@ -196,7 +194,7 @@ public class DefectBean extends ContentBean {
 
     // project Ids
 
-    private static String GET_PROJECT_DEFECT_IDS_SQL = "SELECT id FROM t_defect  WHERE project_id=?";
+    private static final String GET_PROJECT_DEFECT_IDS_SQL = "SELECT id FROM t_defect  WHERE project_id=?";
 
     public List<Integer> getProjectDefectIds(int projectId) {
         Connection con = startTransaction();
@@ -219,7 +217,7 @@ public class DefectBean extends ContentBean {
         return ids;
     }
 
-    private static String GET_LOCATION_DEFECT_IDS_SQL = "SELECT id FROM t_defect  WHERE location_id=?";
+    private static final String GET_LOCATION_DEFECT_IDS_SQL = "SELECT id FROM t_defect  WHERE location_id=?";
 
     public List<Integer> getLocationDefectIds(int locationId) {
         Connection con = startTransaction();
@@ -261,7 +259,7 @@ public class DefectBean extends ContentBean {
         return comments;
     }
 
-    private static String READ_ALL_DEFECT_COMMENTS_SQL = "SELECT id, creation_date, creator_id, comment, state " +
+    private static final String READ_ALL_DEFECT_COMMENTS_SQL = "SELECT id, creation_date, creator_id, comment, state " +
             "FROM t_defect_comment WHERE defect_id=? order by id";
 
     public List<DefectCommentData> readAllDefectComments(Connection con, int defectId) throws SQLException {
@@ -302,7 +300,7 @@ public class DefectBean extends ContentBean {
         return comment;
     }
 
-    private static String READ_DEFECT_COMMENT_SQL = "SELECT defect_id, creation_date, creator_id, comment, state " +
+    private static final String READ_DEFECT_COMMENT_SQL = "SELECT defect_id, creation_date, creator_id, comment, state " +
             "FROM t_defect_comment WHERE id=? ";
 
     public DefectCommentData readDefectComment(Connection con, int commentId) throws SQLException {
@@ -343,8 +341,8 @@ public class DefectBean extends ContentBean {
         }
     }
 
-    private static String UPDATE_DEFECT_STATE_SQL = "update t_defect set state=? where id=?";
-    private static String INSERT_DEFECT_COMMENT_SQL = "insert into t_defect_comment (creation_date,defect_id,creator_id," +
+    private static final String UPDATE_DEFECT_STATE_SQL = "update t_defect set state=? where id=?";
+    private static final String INSERT_DEFECT_COMMENT_SQL = "insert into t_defect_comment (creation_date,defect_id,creator_id," +
             "comment,state,id) " +
             "values(?,?,?,?,?,?)";
 
@@ -377,7 +375,7 @@ public class DefectBean extends ContentBean {
         }
     }
 
-    private static String DELETE_DEFECT_COMMENT_SQL = "DELETE FROM t_cd_defect_comment WHERE id=?";
+    private static final String DELETE_DEFECT_COMMENT_SQL = "DELETE FROM t_cd_defect_comment WHERE id=?";
 
     public boolean deleteDefectComment(int id) {
         return deleteItem(DELETE_DEFECT_COMMENT_SQL, id);

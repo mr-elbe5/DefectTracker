@@ -26,7 +26,7 @@ public class LocationBean extends ContentBean {
         return instance;
     }
 
-    private static String GET_CONTENT_EXTRAS_SQL = "SELECT project_id FROM t_location WHERE id=?";
+    private static final String GET_CONTENT_EXTRAS_SQL = "SELECT project_id, approve_date FROM t_location WHERE id=?";
 
     @Override
     public void readContentExtras(Connection con, ContentData contentData) throws SQLException {
@@ -40,7 +40,12 @@ public class LocationBean extends ContentBean {
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     int i = 1;
-                    data.setProjectId(rs.getInt(i));
+                    data.setProjectId(rs.getInt(i++));
+                    Timestamp ts = rs.getTimestamp(i);
+                    if (ts != null)
+                        data.setApproveDateTime(ts.toLocalDateTime());
+                    else
+                        data.setApproveDate(null);
                 }
             }
         } finally {
@@ -48,7 +53,7 @@ public class LocationBean extends ContentBean {
         }
     }
 
-    private static String INSERT_CONTENT_EXTRAS_SQL = "insert into t_location (project_id,id) values(?,?)";
+    private static final String INSERT_CONTENT_EXTRAS_SQL = "insert into t_location (project_id,approve_date,id) values(?,?,?)";
 
     @Override
     public void createContentExtras(Connection con, ContentData contentData) throws SQLException {
@@ -65,6 +70,10 @@ public class LocationBean extends ContentBean {
             pst = con.prepareStatement(INSERT_CONTENT_EXTRAS_SQL);
             int i = 1;
             pst.setInt(i++, data.getProjectId());
+            if (data.getApproveDate() != null)
+                pst.setTimestamp(i++, Timestamp.valueOf(data.getApproveDateTime()));
+            else
+                pst.setNull(i++, Types.TIMESTAMP);
             pst.setInt(i, data.getId());
             pst.executeUpdate();
             pst.close();
@@ -75,6 +84,8 @@ public class LocationBean extends ContentBean {
             ImageBean.getInstance().saveFile(con,data.getPlan(),true);
     }
 
+    private static final String UPDATE_CONTENT_EXTRAS_SQL = "update t_location set approve_date = ? where id = ?";
+
     @Override
     public void updateContentExtras(Connection con, ContentData contentData) throws SQLException{
         if (contentData.isNew() || !(contentData instanceof LocationData))
@@ -82,6 +93,20 @@ public class LocationBean extends ContentBean {
         LocationData data = (LocationData) contentData;
         if (data.getPlan()!=null)
             ImageBean.getInstance().saveFile(con,data.getPlan(),true);
+        PreparedStatement pst = null;
+        try {
+            pst = con.prepareStatement(UPDATE_CONTENT_EXTRAS_SQL);
+            int i = 1;
+            if (data.getApproveDate() != null)
+                pst.setTimestamp(i++, Timestamp.valueOf(data.getApproveDateTime()));
+            else
+                pst.setNull(i++, Types.TIMESTAMP);
+            pst.setInt(i, data.getId());
+            pst.executeUpdate();
+            pst.close();
+        } finally {
+            closeStatement(pst);
+        }
     }
 
 }

@@ -20,13 +20,15 @@ import de.elbe5.file.DocumentData;
 import de.elbe5.file.ImageData;
 import de.elbe5.request.RequestData;
 import de.elbe5.request.SessionRequestData;
-import de.elbe5.rights.SystemZone;
 import org.json.simple.JSONObject;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.jsp.PageContext;
 import java.io.IOException;
 import java.io.Writer;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,8 @@ public class LocationData extends ContentData {
 
     protected int projectId=0;
 
+    protected LocalDate approveDate = null;
+
     PlanImageData plan = null;
 
     public LocationData() {
@@ -56,6 +60,22 @@ public class LocationData extends ContentData {
 
     public void setProjectId(int projectId) {
         this.projectId = projectId;
+    }
+
+    public LocalDate getApproveDate() {
+        return approveDate;
+    }
+
+    public LocalDateTime getApproveDateTime() {
+        return LocalDateTime.of(approveDate, LocalTime.MIDNIGHT);
+    }
+
+    public void setApproveDate(LocalDate approveDate) {
+        this.approveDate = approveDate;
+    }
+
+    public void setApproveDateTime(LocalDateTime approveDate) {
+        this.approveDate = approveDate.toLocalDate();
     }
 
     // set plans
@@ -140,7 +160,6 @@ public class LocationData extends ContentData {
             return;
         }
         setProjectId(parent.getId());
-        ProjectData project=(ProjectData)parent;
     }
 
     @Override
@@ -148,6 +167,7 @@ public class LocationData extends ContentData {
         setDisplayName(rdata.getString("displayName").trim());
         setName(StringUtil.toSafeWebName(getDisplayName()));
         setDescription(rdata.getString("description"));
+        setApproveDate(rdata.getDate("approveDate"));
         setNavType(ContentData.NAV_TYPE_HEADER);
         setActive(rdata.getBoolean("active"));
         BinaryFile file = rdata.getFile("file");
@@ -167,6 +187,7 @@ public class LocationData extends ContentData {
         setDisplayName(rdata.getString("displayName").trim());
         setName(StringUtil.toSafeWebName(getDisplayName()));
         setDescription(rdata.getString("description"));
+        setApproveDate(rdata.getDate("approveDate"));
         setNavType(ContentData.NAV_TYPE_HEADER);
         BinaryFile file = rdata.getFile("file");
         if (file != null && plan == null){
@@ -187,6 +208,7 @@ public class LocationData extends ContentData {
         json.put("id",getId());
         json.put("name",getDisplayName());
         json.put("description",getDescription());
+        json.put("approveDate",getApproveDate());
         return json;
     }
 

@@ -46,6 +46,7 @@
                 <form:file name="file" label="_plan" />
                 <form:line><%=$SH("_uploadHint")%></form:line>
                 <%}%>
+                <form:date name="approveDate" label="_approveDate" required="false" value="<%=$D(contentData.getApproveDate())%>"/>
                 <form:line label="_active" padded="true">
                     <form:check name="active" value="true" checked="<%=contentData.isActive()%>"/>
                 </form:line>

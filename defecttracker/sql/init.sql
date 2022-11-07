@@ -160,7 +160,6 @@ CREATE TABLE IF NOT EXISTS t_project
 (
     id INTEGER NOT NULL,
     group_id   INTEGER NOT NULL,
-    phase      VARCHAR(20) NOT NULL,
     CONSTRAINT t_project_pk PRIMARY KEY (id),
     CONSTRAINT t_project_fk1 FOREIGN KEY (id) REFERENCES t_content (id) ON DELETE CASCADE,
     CONSTRAINT t_project_fk2 FOREIGN KEY (group_id) REFERENCES t_group (id)
@@ -170,6 +169,7 @@ CREATE TABLE IF NOT EXISTS t_location
 (
     id                 INTEGER      NOT NULL,
     project_id         INTEGER      NOT NULL,
+    approve_date       TIMESTAMP    NULL,
     CONSTRAINT t_location_pk PRIMARY KEY (id),
     CONSTRAINT t_location_fk1 FOREIGN KEY (id) REFERENCES t_content (id) ON DELETE CASCADE,
     CONSTRAINT t_location_fk2 FOREIGN KEY (project_id) REFERENCES t_project (id) ON DELETE CASCADE
@@ -186,7 +186,6 @@ CREATE TABLE IF NOT EXISTS t_defect
     assigned_id      INTEGER       NOT NULL,
     notified         BOOLEAN       NOT NULL DEFAULT FALSE,
     lot              VARCHAR(255)  NOT NULL DEFAULT '',
-    phase            VARCHAR(20)   NOT NULL,
     state            VARCHAR(20)   NOT NULL,
     costs            INTEGER       NOT NULL DEFAULT 0,
     plan_id          INTEGER       NOT NULL,

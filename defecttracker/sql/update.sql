@@ -66,3 +66,8 @@ VALUES(2,1);
 -- root user
 update t_user set pwd='UniSdEEc7IcDa38/ph/LND4yBSk=' where id=1;
 update t_user set pwd='UniSdEEc7IcDa38/ph/LND4yBSk=' where id=2;
+
+alter table t_location add approve_date DATE NULL;
+
+alter table t_project drop column phase;
+alter table t_defect drop column phase;

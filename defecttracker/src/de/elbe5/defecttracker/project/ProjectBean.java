@@ -28,7 +28,7 @@ public class ProjectBean extends ContentBean {
         }
         return instance;
     }
-    private static final String GET_CONTENT_EXTRAS_SQL = "SELECT group_id,phase FROM t_project WHERE id=?";
+    private static final String GET_CONTENT_EXTRAS_SQL = "SELECT group_id FROM t_project WHERE id=?";
 
     @Override
     public void readContentExtras(Connection con, ContentData contentData) throws SQLException {
@@ -42,15 +42,14 @@ public class ProjectBean extends ContentBean {
             ResultSet rs=pst.executeQuery();
             if (rs.next()){
                 int i=1;
-                data.setGroupId(rs.getInt(i++));
-                data.setPhase(rs.getString(i));
+                data.setGroupId(rs.getInt(i));
             }
         } finally {
             closeStatement(pst);
         }
     }
 
-    private static final String INSERT_CONTENT_EXTRAS_SQL = "insert into t_project (group_id, phase, id) values(?,?,?)";
+    private static final String INSERT_CONTENT_EXTRAS_SQL = "insert into t_project (group_id, id) values(?,?)";
 
     @Override
     public void createContentExtras(Connection con, ContentData contentData) throws SQLException {
@@ -62,7 +61,6 @@ public class ProjectBean extends ContentBean {
             pst = con.prepareStatement(INSERT_CONTENT_EXTRAS_SQL);
             int i=1;
             pst.setInt(i++, data.getGroupId());
-            pst.setString(i++, data.getPhase());
             pst.setInt(i, data.getId());
             pst.executeUpdate();
             pst.close();
@@ -71,7 +69,7 @@ public class ProjectBean extends ContentBean {
         }
     }
 
-    private static final String UPDATE_CONTENT_EXTRAS_SQL = "update t_project set group_id=?, phase=? where id=?";
+    private static final String UPDATE_CONTENT_EXTRAS_SQL = "update t_project set group_id=?, where id=?";
 
     @Override
     public void updateContentExtras(Connection con, ContentData contentData) throws SQLException {
@@ -83,7 +81,6 @@ public class ProjectBean extends ContentBean {
             pst = con.prepareStatement(UPDATE_CONTENT_EXTRAS_SQL);
             int i=1;
             pst.setInt(i++, data.getGroupId());
-            pst.setString(i++, data.getPhase());
             pst.setInt(i, data.getId());
             pst.executeUpdate();
             pst.close();

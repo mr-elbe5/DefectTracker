@@ -51,11 +51,6 @@
                     <option value="<%=group.getId()%>" <%=contentData.getGroupId()==group.getId() ? "selected" : ""%>><%=$H(group.getName())%></option>
                     <%}%>
                 </form:select>
-                <form:select name="phase" label="_phase" onchange="">
-                    <option value="<%=ProjectData.PHASE_PREAPPROVE%>" <%=ProjectData.PHASE_PREAPPROVE.equals(contentData.getPhase()) ? "selected" : ""%>><%=$SH(ProjectData.PHASE_PREAPPROVE)%></option>
-                    <option value="<%=ProjectData.PHASE_APPROVE%>" <%=ProjectData.PHASE_APPROVE.equals(contentData.getPhase()) ? "selected" : ""%>><%=$SH(ProjectData.PHASE_APPROVE)%></option>
-                    <option value="<%=ProjectData.PHASE_WARRANTY%>" <%=ProjectData.PHASE_WARRANTY.equals(contentData.getPhase()) ? "selected" : ""%>><%=$SH(ProjectData.PHASE_WARRANTY)%></option>
-                </form:select>
                 <form:line label="_active" padded="true">
                     <form:check name="active" value="true" checked="<%=contentData.isActive()%>"/>
                 </form:line>
