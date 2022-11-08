@@ -46,10 +46,10 @@ public class ViewFilter implements Comparator<DefectData> {
     private int currentUserId = 0;
     private boolean isEditor= false;
     private int projectId = 0;
-    private int assignedId = 0;
+    private List<Integer> watchedIds = new ArrayList<>();
     private boolean showClosed =false;
 
-    private List<Integer> ownProjectIds=new ArrayList<>();
+    private final List<Integer> ownProjectIds=new ArrayList<>();
 
     public List<Integer> getOwnProjectIds() {
         return ownProjectIds;
@@ -96,12 +96,12 @@ public class ViewFilter implements Comparator<DefectData> {
         return isEditor || ownProjectIds.contains(projectId);
     }
 
-    public int getAssignedId() {
-        return assignedId;
+    public List<Integer> getWatchedIds() {
+        return watchedIds;
     }
 
-    public void setAssignedId(int assignedId) {
-        this.assignedId = assignedId;
+    public void setWatchedIds(List<Integer> watchedIds) {
+        this.watchedIds = watchedIds;
     }
 
     public boolean isShowClosed() {
@@ -188,7 +188,7 @@ public class ViewFilter implements Comparator<DefectData> {
                 list.remove(i);
                 continue;
             }
-            if (assignedId!=0 && data.getAssignedId()!=assignedId){
+            if (!getWatchedIds().contains(data.getAssignedId())){
                 list.remove(i);
             }
         }
@@ -213,7 +213,7 @@ public class ViewFilter implements Comparator<DefectData> {
                 list.remove(i);
                 continue;
             }
-            if (assignedId!=0 && data.getAssignedId()!=assignedId){
+            if (!getWatchedIds().contains(data.getAssignedId())){
                 list.remove(i);
             }
         }

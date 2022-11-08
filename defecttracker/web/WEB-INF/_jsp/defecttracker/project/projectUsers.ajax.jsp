@@ -28,15 +28,17 @@
     if (project!=null)
         group= GroupBean.getInstance().getGroup(project.getGroupId());
 %>
-                    <option value="0" <%=filter.getAssignedId()==0 ? "selected" : ""%>><%=$SH("_all")%>
-                    </option>
                     <% if (group!=null){
                         for (int userId : group.getUserIds()){
                             UserData user= UserCache.getUser(userId);
                             if (user==null)
                                 continue;%>
-<option value="<%=user.getId()%>" <%=filter.getAssignedId()==user.getId() ? "selected" : ""%>><%=$H(user.getName())%>
-</option>
+            <div class="form-check">
+                <input class="form-check-input" name="users" type="checkbox" value="<%=user.getId()%>" id="check<%=user.getId()%>" <%=filter.getWatchedIds().contains(user.getId()) ? "checked" : ""%>>
+                <label class="form-check-label" for="check<%=user.getId()%>">
+                    <%=$H(user.getName())%>
+                </label>
+            </div>
 <%
                         }
                     }%>

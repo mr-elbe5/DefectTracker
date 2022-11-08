@@ -13,13 +13,21 @@
 <%@ page import="de.elbe5.defecttracker.project.ProjectData" %>
 <%@ page import="de.elbe5.content.ContentCache" %>
 <%@ page import="de.elbe5.defecttracker.ViewFilter" %>
+<%@ page import="de.elbe5.group.GroupData" %>
+<%@ page import="de.elbe5.group.GroupBean" %>
+<%@ page import="de.elbe5.user.UserData" %>
+<%@ page import="de.elbe5.user.UserCache" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
 
     int contentId=rdata.getId();
-    String url = "/ctrl/project/setFilter/"+contentId;
+    String url = "/ctrl/project/setWatchFilter/"+contentId;
     ViewFilter filter= ViewFilter.getFilter(rdata);
+    GroupData group=null;
+    ProjectData project=ContentCache.getContent(filter.getProjectId(), ProjectData.class);
+    if (project!=null)
+        group= GroupBean.getInstance().getGroup(project.getGroupId());
 %>
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -33,25 +41,30 @@
         <form:form url="<%=url%>" name="filterform" ajax="true">
             <div class="modal-body">
                 <form:formerror/>
-                <form:select name="projectId" label="_projects" onchange="updateUsers()">
-                    <% for (int projectId : filter.getOwnProjectIds()){
-                        ProjectData project= ContentCache.getContent(projectId,ProjectData.class);
-                        if (project==null)
-                            continue;%>
-                    <option value="<%=project.getId()%>" <%=filter.getProjectId()==project.getId() ? "selected" : ""%>><%=$H(project.getName())%>
-                    </option>
-                    <%}%>
-                </form:select>
-                <% if (filter.isEditor()){%>
-                <form:select name="assignedId" label="_showUserDefects" >
-                    <!-- empty -->
-                </form:select>
-                <%} else {%>
-                    <input type="hidden" name="assignedId" value="0" />
-                <%}%>
-                <form:line label="_showClosedDefects" padded="true">
-                    <form:check name="showClosed" value="true" checked="<%=filter.isShowClosed()%>"> </form:check>
-                </form:line>
+                <div class="form-check">
+                    <% if (group!=null){
+                    int groupCount = group.getUserIds().size();
+                    %>
+                    <input class="form-check-input" type="checkbox" id="checkall" <%=filter.getWatchedIds().size() == groupCount ? "checked" : ""%> onchange="checkAll()">
+                    <label class="form-check-label" for="checkall">
+                        <%=$SH("_all")%>
+                    </label>
+                </div>
+                <hr/>
+                    <%for (int userId : group.getUserIds()){
+                        UserData user= UserCache.getUser(userId);
+                        if (user==null)
+                            continue;
+                %>
+                <div class="form-check">
+                    <input class="form-check-input usercheck" name="watchedIds" type="checkbox" value="<%=user.getId()%>" id="check<%=user.getId()%>" <%=filter.getWatchedIds().contains(user.getId()) ? "checked" : ""%>>
+                    <label class="form-check-label" for="check<%=user.getId()%>">
+                        <%=$H(user.getName())%>
+                    </label>
+                </div>
+                <%}
+
+                }%>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close")%>
@@ -62,23 +75,14 @@
         </form:form>
     </div>
 </div>
-<script type="text/javascript">
-    let $projectSelect = $('#projectId');
-    let $userSelect = $('#assignedId');
 
-    function updateUsers(){
-        if (!$userSelect)
-            return;
-        let projectId=$projectSelect.val();
-        $.ajax({
-            url: "/ctrl/project/updateFilterUsers", type: 'POST', data: {projectId: projectId}, cache: false, dataType: 'html'
-        }).success(function (html) {
-            $userSelect.html(html);
-        });
+<script type="text/javascript">
+    function checkAll(){
+        let checked = $('#checkall').prop("checked") === true;
+        $('.usercheck').prop("checked", checked);
     }
 
-    updateUsers();
-
 </script>
+
 
 

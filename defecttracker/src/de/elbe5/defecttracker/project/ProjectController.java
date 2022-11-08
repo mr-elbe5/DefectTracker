@@ -37,31 +37,20 @@ public class ProjectController extends DefectBaseController {
         return KEY;
     }
 
-    public IView openFilter(SessionRequestData rdata) {
+    public IView openWatchFilter(SessionRequestData rdata) {
         checkRights(rdata.isLoggedIn());
         int contentId=rdata.getId();
-        return new UrlView("/WEB-INF/_jsp/defecttracker/project/filter.ajax.jsp");
+        return new UrlView("/WEB-INF/_jsp/defecttracker/project/watchFilter.ajax.jsp");
     }
 
-    public IView setFilter(SessionRequestData rdata) {
+    public IView setWatchFilter(SessionRequestData rdata) {
         checkRights(rdata.isLoggedIn());
-        int contentId=rdata.getId();
         ViewFilter filter = ViewFilter.getFilter(rdata);
-        int oldProjectId = filter.getProjectId();
-        filter.setProjectId(rdata.getInt("projectId"));
-        filter.setShowClosed(rdata.getBoolean("showClosed"));
-        filter.setAssignedId(rdata.getInt("assignedId"));
-        rdata.addLoginCookie("projectId", Integer.toString(filter.getProjectId()),COOKIE_EXPIRATION_DAYS);
-        rdata.addLoginCookie("showClosed", Boolean.toString(filter.isShowClosed()),COOKIE_EXPIRATION_DAYS);
-        if (oldProjectId == filter.getProjectId()) {
-            return new CloseDialogView("/ctrl/content/show/" + contentId);
-        }
-        else{
-            return new CloseDialogView("/ctrl/content/show/" + filter.getProjectId());
-        }
+        filter.setWatchedIds(rdata.getIntegerList("watchedIds"));
+        return new CloseDialogView("/ctrl/content/show/" + filter.getProjectId());
     }
 
-    public IView updateFilterUsers(SessionRequestData rdata) {
+    public IView updateWatchedUsers(SessionRequestData rdata) {
         checkRights(rdata.isLoggedIn());
         return new UrlView("/WEB-INF/_jsp/defecttracker/project/projectUsers.ajax.jsp");
     }

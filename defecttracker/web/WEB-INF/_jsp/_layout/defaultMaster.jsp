@@ -51,10 +51,8 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
-                            <jsp:include page="/WEB-INF/_jsp/_include/_defectnav.inc.jsp" flush="true"/>
-                        </ul>
+                    <div>
+                        <jsp:include page="/WEB-INF/_jsp/_include/_filter.jsp" flush="true"/>
                     </div>
                 </nav>
             </section>
