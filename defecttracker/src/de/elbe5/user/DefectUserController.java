@@ -58,6 +58,7 @@ public class DefectUserController extends UserController {
             if (projectIds.contains(id))
                 filter.setProjectId(id);
         }
+        filter.initWatchedUsers();
         return new UrlView("/ctrl/project/showHome");
     }
 

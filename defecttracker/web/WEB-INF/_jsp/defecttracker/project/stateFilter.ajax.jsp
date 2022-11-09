@@ -22,7 +22,7 @@
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
 
     int contentId=rdata.getId();
-    String url = "/ctrl/project/setWatchFilter/"+contentId;
+    String url = "/ctrl/project/setStateFilter/"+contentId;
     ViewFilter filter= ViewFilter.getFilter(rdata);
     GroupData group=null;
     ProjectData project=ContentCache.getContent(filter.getProjectId(), ProjectData.class);
@@ -32,7 +32,7 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><%=$SH("_showUserDefects")%>
+            <h5 class="modal-title"><%=$SH("_setFilter")%>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -41,30 +41,9 @@
         <form:form url="<%=url%>" name="filterform" ajax="true">
             <div class="modal-body">
                 <form:formerror/>
-                <div class="form-check">
-                    <% if (group!=null){
-                    int groupCount = group.getUserIds().size();
-                    %>
-                    <input class="form-check-input" type="checkbox" id="checkall" <%=filter.getWatchedIds().size() == groupCount ? "checked" : ""%> onchange="checkAll()">
-                    <label class="form-check-label" for="checkall">
-                        <%=$SH("_all")%>
-                    </label>
-                </div>
-                <hr/>
-                    <%for (int userId : group.getUserIds()){
-                        UserData user= UserCache.getUser(userId);
-                        if (user==null)
-                            continue;
-                %>
-                <div class="form-check">
-                    <input class="form-check-input usercheck" name="watchedIds" type="checkbox" value="<%=user.getId()%>" id="check<%=user.getId()%>" <%=filter.getWatchedIds().contains(user.getId()) ? "checked" : ""%>>
-                    <label class="form-check-label" for="check<%=user.getId()%>">
-                        <%=$H(user.getName())%>
-                    </label>
-                </div>
-                <%}
-
-                }%>
+                <form:line label="_showClosedDefects" padded="true">
+                    <form:check name="showClosed" value="true" checked="<%=filter.isShowClosed()%>"> </form:check>
+                </form:line>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close")%>
@@ -76,13 +55,6 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    function checkAll(){
-        let checked = $('#checkall').prop("checked") === true;
-        $('.usercheck').prop("checked", checked);
-    }
-
-</script>
 
 
 

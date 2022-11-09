@@ -55,6 +55,18 @@ public class ProjectController extends DefectBaseController {
         return new UrlView("/WEB-INF/_jsp/defecttracker/project/projectUsers.ajax.jsp");
     }
 
+    public IView openStateFilter(SessionRequestData rdata) {
+        checkRights(rdata.isLoggedIn());
+        return new UrlView("/WEB-INF/_jsp/defecttracker/project/stateFilter.ajax.jsp");
+    }
+
+    public IView setStateFilter(SessionRequestData rdata) {
+        checkRights(rdata.isLoggedIn());
+        ViewFilter filter = ViewFilter.getFilter(rdata);
+        filter.setShowClosed(rdata.getBoolean("showClosed"));
+        return new CloseDialogView("/ctrl/content/show/" + filter.getProjectId());
+    }
+
     public IView selectProject(SessionRequestData rdata) {
         checkRights(rdata.isLoggedIn());
         int projectId=rdata.getId();

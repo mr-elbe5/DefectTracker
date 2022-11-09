@@ -12526,21 +12526,26 @@ header div.menu section.menu nav.navbar .dropdown-menu .dropdown-item.subitem {
 header div.menu section.menu nav.navbar .dropdown-menu .nav-item a {
   color: #343a40;
 }
-header section.bc ul.filter, header section.filter ul.filter {
-  list-style: none;
-  text-align: right;
+header section.bc .filter li, header section.filter .filter li {
+  margin-left: 1rem;
 }
-header section.bc .breadcrumb, header section.bc .filter, header section.filter .breadcrumb, header section.filter .filter {
+header section.bc .filter a, header section.filter .filter a {
+  margin: 0.25rem 0 0.25rem 1.5rem;
+  font-size: 0.8rem;
+  color: #343a40;
+  cursor: pointer;
+}
+header section.bc .breadcrumb, header section.filter .breadcrumb {
   background: transparent;
   color: #343a40;
   margin: 0;
   font-size: 0.8rem;
   padding: 0.25rem 0;
 }
-header section.bc .breadcrumb .breadcrumb-item.active, header section.bc .filter .breadcrumb-item.active, header section.filter .breadcrumb .breadcrumb-item.active, header section.filter .filter .breadcrumb-item.active {
+header section.bc .breadcrumb .breadcrumb-item.active, header section.filter .breadcrumb .breadcrumb-item.active {
   color: #343a40;
 }
-header section.bc .breadcrumb a, header section.bc .filter a, header section.filter .breadcrumb a, header section.filter .filter a {
+header section.bc .breadcrumb a, header section.filter .breadcrumb a {
   color: #343a40;
   text-decoration: none;
 }

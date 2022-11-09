@@ -11,6 +11,9 @@ package de.elbe5.defecttracker;
 import de.elbe5.content.ContentCache;
 import de.elbe5.defecttracker.defect.DefectBean;
 import de.elbe5.defecttracker.defect.DefectData;
+import de.elbe5.defecttracker.project.ProjectData;
+import de.elbe5.group.GroupBean;
+import de.elbe5.group.GroupData;
 import de.elbe5.request.SessionRequestData;
 
 import java.time.LocalDate;
@@ -104,6 +107,21 @@ public class ViewFilter implements Comparator<DefectData> {
         this.watchedIds = watchedIds;
     }
 
+    public void initWatchedUsers(){
+        watchedIds.clear();
+        if (isEditor){
+            ProjectData project=ContentCache.getContent(getProjectId(), ProjectData.class);
+            if (project!=null) {
+                GroupData group = GroupBean.getInstance().getGroup(project.getGroupId());
+                watchedIds.addAll(group.getUserIds());
+            }
+
+        }
+        if (watchedIds.isEmpty()){
+            watchedIds.add(currentUserId);
+        }
+    }
+
     public boolean isShowClosed() {
         return showClosed;
     }
@@ -139,7 +157,8 @@ public class ViewFilter implements Comparator<DefectData> {
                 break;
             case TYPE_ASSIGNED: {
                 if (o1.getAssignedId()== currentUserId && o2.getAssignedId()== currentUserId)
-                    result =  0;
+                    // 0
+                    break;
                 else if (o1.getAssignedId()== currentUserId)
                     result =  -1;
                 else if (o2.getAssignedId()== currentUserId)
@@ -150,7 +169,8 @@ public class ViewFilter implements Comparator<DefectData> {
             }
             case TYPE_NOTIFIED:
                 if (o1.isNotified() == o2.isNotified())
-                    result = 0;
+                    // 0
+                    break;
                 else
                     result = o1.isNotified() ? 1 : -1;
                 break;

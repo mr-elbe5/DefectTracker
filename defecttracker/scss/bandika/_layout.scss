@@ -167,12 +167,22 @@ header{
 
   section.bc, section.filter {
 
-    ul.filter{
-      list-style: none;
-      text-align: right;
+    .filter{
+
+      li{
+        margin-left: 1rem;
+      }
+
+      a {
+        margin: 0.25rem 0 0.25rem 1.5rem;
+        font-size: $font-size-xsm;
+        color: $dark;
+        cursor: pointer;
+      }
+
     }
 
-    .breadcrumb, .filter {
+    .breadcrumb {
       background: transparent;
       color: $dark;
       margin: 0;

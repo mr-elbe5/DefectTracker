@@ -51,8 +51,10 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div>
-                        <jsp:include page="/WEB-INF/_jsp/_include/_filter.jsp" flush="true"/>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <jsp:include page="/WEB-INF/_jsp/_include/_defectnav.inc.jsp" flush="true"/>
+                        </ul>
                     </div>
                 </nav>
             </section>
@@ -71,11 +73,7 @@
                 </ol>
             </section>
             <section class="col-6 filter">
-                <ul class="filter">
-                    <%if (contentData != null) {%>
-                    <li><a class="fa fa-filter" href="" onclick="return openModalDialog('/ctrl/project/openFilter/<%=contentData.getId()%>');">&nbsp;<%=$SH("_filter")%></a></li>
-                    <%}%>
-                </ul>
+                <jsp:include page="/WEB-INF/_jsp/_include/_filterMenu.inc.jsp" flush="true"/>
             </section>
         </div>
     </div>
