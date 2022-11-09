@@ -11,6 +11,7 @@ package de.elbe5.defecttracker.location;
 import de.elbe5.base.data.Strings;
 import de.elbe5.base.data.BinaryFile;
 import de.elbe5.base.log.Log;
+import de.elbe5.base.util.DateUtil;
 import de.elbe5.base.util.StringUtil;
 import de.elbe5.defecttracker.ViewFilter;
 import de.elbe5.defecttracker.defect.DefectData;
@@ -208,7 +209,7 @@ public class LocationData extends ContentData {
         json.put("id",getId());
         json.put("name",getDisplayName());
         json.put("description",getDescription());
-        json.put("approveDate",getApproveDate());
+        json.put("approveDate", DateUtil.asMillis(getApproveDate()));
         return json;
     }
 

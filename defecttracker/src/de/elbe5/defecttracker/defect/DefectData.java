@@ -407,6 +407,7 @@ public class DefectData extends ContentData {
         json.put("positionComment",getPositionComment());
         json.put("state", getState());
         json.put("dueDate", DateUtil.asMillis(getDueDate()));
+        json.put("phase", "DEFAULT");
         return json;
     }
 

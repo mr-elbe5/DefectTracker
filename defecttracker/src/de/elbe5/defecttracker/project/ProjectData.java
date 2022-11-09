@@ -125,6 +125,7 @@ public class ProjectData extends ContentData {
         json.put("id",getId());
         json.put("name",getDisplayName());
         json.put("description",getDescription());
+        json.put("phase", "DEFAULT");
         return json;
     }
 

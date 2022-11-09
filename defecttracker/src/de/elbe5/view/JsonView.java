@@ -41,7 +41,7 @@ public class JsonView implements IApiView {
                 out.write(bytes);
             }
             out.flush();
-            Log.error("json has been sent");
+            Log.info("json has been sent");
         } catch (IOException ioe) {
             Log.error("response error", ioe);
             return false;
