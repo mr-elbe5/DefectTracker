@@ -8,6 +8,7 @@
  */
 package de.elbe5.defecttracker.defect;
 
+import de.elbe5.application.Configuration;
 import de.elbe5.base.data.Strings;
 import de.elbe5.base.data.BinaryFile;
 import de.elbe5.base.util.StringUtil;
@@ -84,8 +85,8 @@ public class DefectPdfBean extends DefectFopBean {
         addLabeledContent(sb,Strings.string("_dueDate2"),StringUtil.toHtmlDate(data.getDueDate2()));
         addLabeledContent(sb,Strings.string("_closeDate"),StringUtil.toHtmlDate(data.getCloseDate()));
         PlanImageData plan = FileBean.getInstance().getFile(data.getPlanId(),true,PlanImageData.class);
-        byte[] redarrowBytes = FileBean.getInstance().getImageBytes("redarrow.png");
-        BinaryFile file = plan.createCroppedDefectPlan(redarrowBytes, data.getId(), data.getPositionX(), data.getPositionY());
+        byte[] arrowBytes = FileBean.getInstance().getImageBytes(Configuration.getArrowPng());
+        BinaryFile file = plan.createCroppedDefectPlan(arrowBytes, data.getId(), data.getPositionX(), data.getPositionY());
         addLabeledImage(sb,Strings.string("_position"), file,"5.0cm");
         addLabeledContent(sb,Strings.string("_positionComment"),data.getPositionComment());
         for (DefectImageData image : data.getFiles(DefectImageData.class)){

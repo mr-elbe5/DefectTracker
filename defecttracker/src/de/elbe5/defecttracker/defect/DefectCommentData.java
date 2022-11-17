@@ -31,8 +31,6 @@ public class DefectCommentData extends BaseData {
     protected String comment = "";
     protected String state="";
 
-    protected List<FileData> files = new ArrayList<>();
-
     public String getCreatorName(){
         UserData user=UserCache.getUser(getCreatorId());
         if (user!=null)
@@ -70,10 +68,6 @@ public class DefectCommentData extends BaseData {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    public List<FileData> getFiles() {
-        return files;
     }
 
     public String geTitle(){

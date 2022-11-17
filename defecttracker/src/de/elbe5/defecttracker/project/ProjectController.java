@@ -89,8 +89,9 @@ public class ProjectController extends DefectBaseController {
     }
 
     public IView getReport(SessionRequestData rdata) {
+        boolean includeComments = rdata.getBoolean("includeComments");
         int contentId = rdata.getId();
-        BinaryFile file = ProjectPdfBean.getInstance().getProjectReport(contentId, rdata);
+        BinaryFile file = ProjectPdfBean.getInstance().getProjectReport(contentId, rdata, includeComments);
         assert(file!=null);
         BinaryFileView view=new BinaryFileView(file);
         view.setForceDownload(true);

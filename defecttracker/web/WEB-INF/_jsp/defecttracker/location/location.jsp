@@ -101,6 +101,8 @@
     <div class=buttonLine>
         <button type="button" class="btn btn-outline-secondary" onclick="return linkTo('/ctrl/location/getReport/<%=location.getId()%>');"><%=$SH("_downloadPdf")%>
         </button>
+        <button type="button" class="btn btn-outline-secondary" onclick="return linkTo('/ctrl/location/getReport/<%=location.getId()%>?includeComments=true');"><%=$SH("_downloadPdfWithComments")%>
+        </button>
     </div>
 </section>
 <script type="text/javascript">

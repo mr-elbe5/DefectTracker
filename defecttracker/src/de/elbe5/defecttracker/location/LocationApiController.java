@@ -8,6 +8,7 @@
  */
 package de.elbe5.defecttracker.location;
 
+import de.elbe5.application.Configuration;
 import de.elbe5.base.data.BinaryFile;
 import de.elbe5.base.log.Log;
 import de.elbe5.content.ContentCache;
@@ -17,7 +18,6 @@ import de.elbe5.defecttracker.defect.DefectData;
 import de.elbe5.file.ImageBean;
 import de.elbe5.request.ApiRequestData;
 import de.elbe5.request.ResponseCode;
-import de.elbe5.rights.SystemZone;
 import de.elbe5.servlet.ApiControllerCache;
 import de.elbe5.user.UserData;
 import de.elbe5.view.ApiBinaryFileView;
@@ -70,9 +70,9 @@ public class LocationApiController extends BaseApiController {
         if (data.getPlan()==null)
             return new ApiResponseCodeView(ResponseCode.NOT_FOUND);
         PlanImageData plan = ImageBean.getInstance().getFile(data.getPlan().getId(),true,PlanImageData.class);
-        byte[] redarrowBytes = LocationBean.getInstance().getImageBytes("redarrow.png");
+        byte[] arrowBytes = LocationBean.getInstance().getImageBytes(Configuration.getArrowPng());
         List<DefectData> defects = filter.getLocationDefects(data.getId());
-        BinaryFile file = plan.createLocationDefectPlan(redarrowBytes,defects,((float)scalePercent)/100);
+        BinaryFile file = plan.createLocationDefectPlan(arrowBytes,defects,((float)scalePercent)/100);
         if (file==null) {
             Log.error("file is null");
             return new ApiResponseCodeView(ResponseCode.NOT_FOUND);

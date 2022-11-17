@@ -8,6 +8,7 @@
  */
 package de.elbe5.defecttracker.defect;
 
+import de.elbe5.application.Configuration;
 import de.elbe5.base.data.Strings;
 import de.elbe5.base.data.BinaryFile;
 import de.elbe5.base.data.Token;
@@ -122,8 +123,8 @@ public class DefectController extends DefectBaseController {
         int x=rdata.getInt("x",data.getPositionX());
         int y=rdata.getInt("y",data.getPositionY());
         PlanImageData plan = FileBean.getInstance().getFile(data.getPlanId(),true,PlanImageData.class);
-        byte[] redarrowBytes = FileBean.getInstance().getImageBytes("redarrow.png");
-        BinaryFile file = plan.createCroppedDefectPlan(redarrowBytes,data.getDisplayId(),x,y);
+        byte[] arrowBytes = FileBean.getInstance().getImageBytes(Configuration.getArrowPng());
+        BinaryFile file = plan.createCroppedDefectPlan(arrowBytes,data.getDisplayId(),x,y);
         assert(file!=null);
         return new BinaryFileView(file);
     }
@@ -143,8 +144,8 @@ public class DefectController extends DefectBaseController {
         int x=rdata.getInt("x",data.getPositionX());
         int y=rdata.getInt("y",data.getPositionY());
         PlanImageData plan = FileBean.getInstance().getFile(data.getPlanId(),true,PlanImageData.class);
-        byte[] redarrowBytes = FileBean.getInstance().getImageBytes("redarrow.png");
-        BinaryFile file = plan.createFullDefectPlan(redarrowBytes,data.getDisplayId(),x,y);
+        byte[] arrowBytes = FileBean.getInstance().getImageBytes(Configuration.getArrowPng());
+        BinaryFile file = plan.createFullDefectPlan(arrowBytes,data.getDisplayId(),x,y);
         assert(file!=null);
         return new BinaryFileView(file);
     }

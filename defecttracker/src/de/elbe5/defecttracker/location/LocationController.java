@@ -58,16 +58,17 @@ public class LocationController extends DefectBaseController {
         if (data.getPlan()==null)
             return new ResponseCodeView(ResponseCode.NOT_FOUND);
         PlanImageData plan = ImageBean.getInstance().getFile(data.getPlan().getId(),true,PlanImageData.class);
-        byte[] redarrowBytes = LocationBean.getInstance().getImageBytes("redarrow.png");
+        byte[] arrowBytes = LocationBean.getInstance().getImageBytes("bluearrow.png");
         List<DefectData> defects = ViewFilter.getFilter(rdata).getLocationDefects(data.getId());
-        BinaryFile file = plan.createLocationDefectPlan(redarrowBytes,defects,1);
+        BinaryFile file = plan.createLocationDefectPlan(arrowBytes,defects,1);
         assert(file!=null);
         return new BinaryFileView(file);
     }
 
     public IView getReport(SessionRequestData rdata) {
+        boolean includeComments = rdata.getBoolean("includeComments");
         int contentId = rdata.getId();
-        BinaryFile file = LocationPdfBean.getInstance().getLocationReport(contentId, rdata);
+        BinaryFile file = LocationPdfBean.getInstance().getLocationReport(contentId, rdata, includeComments);
         assert(file!=null);
         BinaryFileView view=new BinaryFileView(file);
         view.setForceDownload(true);

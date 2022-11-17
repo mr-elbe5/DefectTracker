@@ -31,6 +31,8 @@ public class Configuration {
     private static Locale defaultLocale = Locale.GERMAN;
     private static Map<String,Locale> locales = new HashMap<>();
 
+    private static String arrowColor = "blue";
+
     private static boolean showInactiveContent = false;
 
     static{
@@ -138,6 +140,22 @@ public class Configuration {
         return locales.containsKey(language);
     }
 
+    public static String getArrowColor() {
+        return arrowColor;
+    }
+
+    public static String getArrowPng(){
+        return arrowColor + "arrow.png";
+    }
+
+    public static String getArrowSvg(){
+        return arrowColor + "arrow.svg";
+    }
+
+    public static void setArrowColor(String arrowColor) {
+        Configuration.arrowColor = arrowColor;
+    }
+
     public static int getTimerInterval() {
         return timerInterval;
     }
@@ -177,6 +195,11 @@ public class Configuration {
         } catch (Exception ignore) {
         }
         System.out.println("default locale is "+ getDefaultLocale().getDisplayName());
+        String s = getSafeInitParameter(servletContext,"arrowColor");
+        if (s.isEmpty()){
+            s = "blue";
+        }
+        setArrowColor(s);
     }
 
 }

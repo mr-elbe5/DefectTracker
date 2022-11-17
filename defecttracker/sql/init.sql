@@ -155,14 +155,10 @@ VALUES ('cleanup','Cleanup Task','CONTINOUS',5,FALSE);
 INSERT INTO t_timer_task (name,display_name,execution_interval,minute,active)
 VALUES ('searchindex','Search Index Task','CONTINOUS',5,FALSE);
 
-
-CREATE TABLE IF NOT EXISTS t_project
+CREATE TABLE IF NOT EXISTS t_configuration
 (
-    id INTEGER NOT NULL,
-    group_id   INTEGER NOT NULL,
-    CONSTRAINT t_project_pk PRIMARY KEY (id),
-    CONSTRAINT t_project_fk1 FOREIGN KEY (id) REFERENCES t_content (id) ON DELETE CASCADE,
-    CONSTRAINT t_project_fk2 FOREIGN KEY (group_id) REFERENCES t_group (id)
+    marker_color    VARCHAR(20) NOT NULL DEFAULT 'red',
+    include_comments BOOLEAN    NOT NULL DEFAULT false
 );
 
 CREATE TABLE IF NOT EXISTS t_location

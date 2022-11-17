@@ -167,7 +167,7 @@
         <fo:table-column column-width="20%"/>
         <fo:table-column column-width="30%"/>
         <fo:table-body margin-left="1.5mm">
-          <xsl:apply-templates select="defectrow"/>
+          <xsl:apply-templates select="defectrow | labeledimage"/>
         </fo:table-body>
       </fo:table>
     </fo:block>

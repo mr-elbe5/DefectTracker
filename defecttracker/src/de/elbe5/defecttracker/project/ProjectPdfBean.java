@@ -8,6 +8,7 @@
  */
 package de.elbe5.defecttracker.project;
 
+import de.elbe5.application.Configuration;
 import de.elbe5.base.data.BinaryFile;
 import de.elbe5.base.data.Strings;
 import de.elbe5.base.util.StringUtil;
@@ -20,8 +21,6 @@ import de.elbe5.defecttracker.location.LocationData;
 import de.elbe5.defecttracker.location.PlanImageData;
 import de.elbe5.file.ImageBean;
 import de.elbe5.request.SessionRequestData;
-import de.elbe5.user.UserCache;
-import de.elbe5.user.UserData;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,7 +36,7 @@ public class ProjectPdfBean extends DefectFopBean {
         return instance;
     }
 
-    public BinaryFile getProjectReport(int projectId, SessionRequestData rdata){
+    public BinaryFile getProjectReport(int projectId, SessionRequestData rdata, boolean includeComments){
         LocalDateTime now=getServerTime();
         ProjectData project= ContentCache.getContent(projectId,ProjectData.class);
         if (project==null)
@@ -54,13 +53,13 @@ public class ProjectPdfBean extends DefectFopBean {
                 sb.append(": ");
                 sb.append(xml(location.getDisplayName()));
                 sb.append("</title></locationheader>");
-                addLocationDefectsXml(sb, location, defects);
+                addLocationDefectsXml(sb, location, defects, includeComments);
                 PlanImageData plan = location.getPlan();
                 if (plan != null) {
                     PlanImageData fullplan = ImageBean.getInstance().getFile(plan.getId(), true, PlanImageData.class);
-                    byte[] redarrowBytes = LocationBean.getInstance().getImageBytes("redarrow.png");
+                    byte[] arrowBytes = LocationBean.getInstance().getImageBytes(Configuration.getArrowPng());
                     defects = ViewFilter.getFilter(rdata).getLocationDefects(location.getId());
-                    BinaryFile file = fullplan.createLocationDefectPlan(redarrowBytes, defects, 1);
+                    BinaryFile file = fullplan.createLocationDefectPlan(arrowBytes, defects, 1);
                     addLocationPlanXml(sb, location, plan, file);
                 }
                 sb.append("</location>");
@@ -86,45 +85,5 @@ public class ProjectPdfBean extends DefectFopBean {
         sb.append(Strings.xml("_project")).append(" ").append(xml(project.getDisplayName())).append(" - ").append(StringUtil.toHtmlDateTime(now));
         sb.append("</docAndDate></footer>");
     }
-
-    private void addLocationDefectsXml(StringBuilder sb, LocationData data, List<DefectData> defects) {
-        for (DefectData defect : defects){
-            sb.append("<locationdefect>");
-            sb.append("<description>").append(Strings.xml("_defect")).append(": ").append(xml(defect.getDescription())).append("</description>");
-            sb.append("<defectrow>");
-            sb.append("<label1>").append(Strings.xml("_id")).append("</label1><content1>").append(defect.getDisplayId()).append("</content1>");
-            sb.append("</defectrow>");
-            sb.append("<defectrow>");
-            UserData user= UserCache.getUser(defect.getCreatorId());
-            sb.append("<label1>").append(Strings.xml("_creator")).append("</label1><content1>").append(xml(user.getName())).append("</content1>");
-            sb.append("<label2>").append(Strings.xml("_creationDate")).append("</label2><content2>").append(StringUtil.toHtmlDateTime(defect.getCreationDate())).append("</content2>");
-            sb.append("</defectrow>");
-            sb.append("<defectrow>");
-            sb.append("<label1>").append(Strings.xml("_assigned")).append("</label1><content1>").append(xml(defect.getAssignedName())).append("</content1>");
-            sb.append("<label2>").append(Strings.xml("_lot")).append("</label2><content2>").append(xml(defect.getLot())).append("</content2>");
-            sb.append("</defectrow>");
-            sb.append("<defectrow>");
-            sb.append("<label1>").append(Strings.xml("_dueDate1")).append("</label1><content1>").append(StringUtil.toHtmlDate(defect.getDueDate1())).append("</content1>");
-            sb.append("<label2>").append(Strings.xml("_dueDate2")).append("</label2><content2>").append(StringUtil.toHtmlDate(defect.getDueDate2())).append("</content2>");
-            sb.append("</defectrow>");
-            sb.append("<defectrow>");
-            sb.append("<label1>").append(Strings.xml("_state")).append("</label1><content1>").append(Strings.xml(defect.getState())).append("</content1>");
-            sb.append("<label2>").append(Strings.xml("_closeDate")).append("</label2><content2>").append(StringUtil.toHtmlDate(defect.getCloseDate())).append("</content2>");
-            sb.append("</defectrow>");
-            sb.append("<defectrow>");
-            sb.append("<label1>").append(Strings.xml("_positionComment")).append("</label1><content1>").append(xml(defect.getPositionComment())).append("</content1>");
-            sb.append("<label2>").append("</label2><content2>").append("</content2>");
-            sb.append("</defectrow>");
-            sb.append("</locationdefect>");
-        }
-    }
-
-    private void addLocationPlanXml(StringBuilder sb, LocationData data, PlanImageData plan, BinaryFile file) {
-        sb.append("<locationplan>");
-        sb.append("<name>").append(xml(plan.getDisplayName())).append("</name>");
-        sb.append("<src>").append(getBase64SrcString(file)).append("</src>");
-        sb.append("</locationplan>");
-    }
-
 
 }
