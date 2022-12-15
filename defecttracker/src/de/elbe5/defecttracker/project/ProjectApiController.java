@@ -118,6 +118,10 @@ public class ProjectApiController extends BaseApiController {
                         Log.warn("skipping inactive defect: " + defect.getDisplayId());
                         continue;
                     }
+                    if (defect.isClosed()){
+                        Log.warn("skipping closed defect: " + defect.getDisplayId());
+                        continue;
+                    }
                     JSONObject jsDefect = defect.getJson();
                     jsDefects.add(jsDefect);
                     JSONArray jsImages = new JSONArray();
