@@ -161,6 +161,15 @@ CREATE TABLE IF NOT EXISTS t_configuration
     include_comments BOOLEAN    NOT NULL DEFAULT false
 );
 
+CREATE TABLE IF NOT EXISTS t_project
+(
+    id INTEGER NOT NULL,
+    group_id   INTEGER NOT NULL,
+    CONSTRAINT t_project_pk PRIMARY KEY (id),
+    CONSTRAINT t_project_fk1 FOREIGN KEY (id) REFERENCES t_content (id) ON DELETE CASCADE,
+    CONSTRAINT t_project_fk2 FOREIGN KEY (group_id) REFERENCES t_group (id)
+);
+
 CREATE TABLE IF NOT EXISTS t_location
 (
     id                 INTEGER      NOT NULL,
