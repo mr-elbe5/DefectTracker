@@ -71,3 +71,10 @@ alter table t_location add approve_date DATE NULL;
 
 alter table t_project drop column phase;
 alter table t_defect drop column phase;
+
+---
+
+ALTER TABLE t_user add
+    current_project_id  INTEGER     NULL;
+ALTER TABLE t_user add
+    CONSTRAINT t_user_fkpr FOREIGN KEY (current_project_id) REFERENCES t_project (id) ON DELETE CASCADE;

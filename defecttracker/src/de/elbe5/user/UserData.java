@@ -62,6 +62,8 @@ public class UserData extends BaseData {
 
     protected Set<SystemZone> systemRights = new HashSet<>();
 
+    protected int currentProjectId = 0;
+
     // base data
 
     public String getTitle() {
@@ -283,6 +285,14 @@ public class UserData extends BaseData {
 
     public List<GroupData> getGroups() {
         return groups;
+    }
+
+    public int getCurrentProjectId() {
+        return currentProjectId;
+    }
+
+    public void setCurrentProjectId(int currentProjectId) {
+        this.currentProjectId = currentProjectId;
     }
 
     // multiple data

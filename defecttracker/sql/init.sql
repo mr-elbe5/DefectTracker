@@ -170,6 +170,11 @@ CREATE TABLE IF NOT EXISTS t_project
     CONSTRAINT t_project_fk2 FOREIGN KEY (group_id) REFERENCES t_group (id)
 );
 
+ALTER TABLE t_user add
+    current_project_id  INTEGER     NULL;
+ALTER TABLE t_user add
+    CONSTRAINT t_user_fkpr FOREIGN KEY (current_project_id) REFERENCES t_project (id) ON DELETE CASCADE;
+
 CREATE TABLE IF NOT EXISTS t_location
 (
     id                 INTEGER      NOT NULL,
