@@ -18,7 +18,7 @@
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
 
-    ViewFilter filter = ViewFilter.getFilter(rdata);
+    ViewFilter filter = ViewFilter.getSessionFilter(rdata);
 %>
 <form:message/>
 <section class="contentSection" id="content">

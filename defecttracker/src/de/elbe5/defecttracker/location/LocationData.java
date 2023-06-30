@@ -130,7 +130,7 @@ public class LocationData extends ContentData {
 
     @Override
     public boolean hasUserReadRight(SessionRequestData rdata) {
-        return ViewFilter.getFilter(rdata).hasProjectReadRight(getProjectId());
+        return ViewFilter.getSessionFilter(rdata).hasProjectReadRight(getProjectId());
     }
 
     public boolean hasUserReadRight(ViewFilter filter) {

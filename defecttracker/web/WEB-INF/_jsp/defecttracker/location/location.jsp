@@ -21,7 +21,7 @@
     LocationData location = rdata.getCurrentContent(LocationData.class);
     assert (location != null);
     int id=location.getId();
-    ViewFilter filter = ViewFilter.getFilter(rdata);
+    ViewFilter filter = ViewFilter.getSessionFilter(rdata);
     List<DefectData> defects = filter.getLocationDefects(id);
 %>
 <form:message/>

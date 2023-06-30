@@ -22,7 +22,7 @@
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
 
     int projectId=rdata.getInt("projectId");
-    ViewFilter filter= ViewFilter.getFilter(rdata);
+    ViewFilter filter= ViewFilter.getSessionFilter(rdata);
     GroupData group=null;
     ProjectData project=ContentCache.getContent(projectId, ProjectData.class);
     if (project!=null)

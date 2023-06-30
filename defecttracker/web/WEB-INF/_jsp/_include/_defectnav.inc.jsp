@@ -8,7 +8,7 @@
 <%@ page import="de.elbe5.defecttracker.ViewFilter" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
-    ViewFilter filter= ViewFilter.getFilter(rdata);
+    ViewFilter filter= ViewFilter.getSessionFilter(rdata);
     if (filter.getProjectId()!=0){
         ProjectData project = ContentCache.getContent(filter.getProjectId(),ProjectData.class);
         if (project!=null && project.hasUserReadRight(rdata)){%>

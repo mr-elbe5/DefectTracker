@@ -23,7 +23,7 @@
 
     int contentId=rdata.getId();
     String url = "/ctrl/project/setWatchFilter/"+contentId;
-    ViewFilter filter= ViewFilter.getFilter(rdata);
+    ViewFilter filter= ViewFilter.getSessionFilter(rdata);
     GroupData group=null;
     ProjectData project=ContentCache.getContent(filter.getProjectId(), ProjectData.class);
     if (project!=null)

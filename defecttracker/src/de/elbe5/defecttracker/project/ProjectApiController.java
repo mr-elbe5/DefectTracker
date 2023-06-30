@@ -8,7 +8,6 @@
  */
 package de.elbe5.defecttracker.project;
 
-import de.elbe5.base.log.Log;
 import de.elbe5.content.ContentCache;
 import de.elbe5.defecttracker.BaseApiController;
 import de.elbe5.defecttracker.ViewFilter;
@@ -22,7 +21,6 @@ import de.elbe5.group.GroupBean;
 import de.elbe5.group.GroupData;
 import de.elbe5.request.ApiRequestData;
 import de.elbe5.request.ResponseCode;
-import de.elbe5.rights.SystemZone;
 import de.elbe5.servlet.ApiControllerCache;
 import de.elbe5.user.UserCache;
 import de.elbe5.user.UserData;
@@ -67,10 +65,7 @@ public class ProjectApiController extends BaseApiController {
     @SuppressWarnings("unchecked")
     private JSONObject getProjectsJson(UserData user) {
         boolean isEditor = user.hasGlobalContentEditRight();
-        ViewFilter filter = new ViewFilter();
-        filter.setEditor(isEditor);
-        filter.setCurrentUserId(user.getId());
-        filter.setShowClosed(false);
+        ViewFilter filter = new ViewFilter(user);
         List<Integer> projectIds= ProjectBean.getInstance().getUserProjectIds(user.getId(),isEditor);
         //Log.log("found projectIds: " + projectIds.size());
         JSONObject json = new JSONObject();

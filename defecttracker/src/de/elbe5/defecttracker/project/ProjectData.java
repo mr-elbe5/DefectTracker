@@ -8,7 +8,6 @@
  */
 package de.elbe5.defecttracker.project;
 
-import de.elbe5.base.data.Strings;
 import de.elbe5.base.util.StringUtil;
 import de.elbe5.defecttracker.ViewFilter;
 import de.elbe5.defecttracker.location.LocationData;
@@ -67,7 +66,7 @@ public class ProjectData extends ContentData {
 
     @Override
     public boolean hasUserReadRight(SessionRequestData rdata) {
-        return ViewFilter.getFilter(rdata).hasProjectReadRight(getId());
+        return ViewFilter.getSessionFilter(rdata).hasProjectReadRight(getId());
     }
 
     @Override

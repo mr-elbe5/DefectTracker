@@ -34,11 +34,9 @@ public class ContentServlet extends WebServlet {
             if (url.endsWith(".html")) {
                 result = ContentController.getInstance().show(request.getRequestURI(), rdata);
             }
-            else{
-                result=new RedirectView(getDefaultRoute(rdata));
+            else {
+                result = new RedirectView(getDefaultRoute(rdata));
             }
-            if (rdata.hasCookies())
-                rdata.setCookies(response);
             result.processView(getServletContext(), rdata, response);
         }
         catch (CmsException ce){

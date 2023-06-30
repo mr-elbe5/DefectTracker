@@ -13,11 +13,9 @@ import de.elbe5.base.log.Log;
 import de.elbe5.defecttracker.ViewFilter;
 import de.elbe5.defecttracker.project.ProjectBean;
 import de.elbe5.request.SessionRequestData;
-import de.elbe5.rights.SystemZone;
 import de.elbe5.view.*;
 
 import java.util.List;
-import java.util.Map;
 
 public class DefectUserController extends UserController {
 
@@ -36,25 +34,19 @@ public class DefectUserController extends UserController {
             rdata.setMessage(Strings.string("_badLogin"), SessionRequestData.MESSAGE_TYPE_ERROR);
             return openLogin(rdata);
         }
-        ViewFilter filter = ViewFilter.getFilter(rdata);
-        boolean isEditor = data.hasGlobalContentEditRight();
-        filter.setEditor(isEditor);
-        filter.setCurrentUserId(data.getId());
-        Map<String,String> cookieValues = rdata.readLoginCookies();
-        if (cookieValues.containsKey("showClosed"))
-            filter.setShowClosed(Boolean.parseBoolean(cookieValues.get("showClosed")));
-        List<Integer> projectIds= ProjectBean.getInstance().getUserProjectIds(data.getId(),isEditor);
+        rdata.setSessionUser(data);
+        ViewFilter filter = ViewFilter.getSessionFilter(rdata);
+        List<Integer> projectIds= ProjectBean.getInstance().getUserProjectIds(data.getId(),filter.isEditor());
         filter.getOwnProjectIds().clear();
         filter.getOwnProjectIds().addAll(projectIds);
-        if (projectIds.isEmpty() && !isEditor){
+        if (projectIds.isEmpty() && !filter.isEditor()){
             rdata.setMessage(Strings.string("_noProject"), SessionRequestData.MESSAGE_TYPE_ERROR);
             return openLogin(rdata);
         }
-        rdata.setSessionUser(data);
         if (projectIds.size()==1){
             filter.setProjectId(projectIds.get(0));
-        } else if (cookieValues.containsKey("projectId")){
-            int id=Integer.parseInt(cookieValues.get("projectId"));
+        } else if (data.getCurrentProjectId()!=0){
+            int id=data.getCurrentProjectId();
             if (projectIds.contains(id))
                 filter.setProjectId(id);
         }

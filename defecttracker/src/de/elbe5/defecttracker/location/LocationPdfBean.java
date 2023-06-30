@@ -43,13 +43,13 @@ public class LocationPdfBean extends DefectFopBean {
         sb.append("<root>");
         addLocationHeaderXml(sb,location);
         sb.append("<location>");
-        List<DefectData> defects = ViewFilter.getFilter(rdata).getLocationDefects(location.getId());
+        List<DefectData> defects = ViewFilter.getSessionFilter(rdata).getLocationDefects(location.getId());
         addLocationDefectsXml(sb,location, defects, includeComments);
         PlanImageData plan = location.getPlan();
         if (plan!=null) {
             PlanImageData fullplan = ImageBean.getInstance().getFile(plan.getId(), true, PlanImageData.class);
             byte[] arrowBytes = LocationBean.getInstance().getImageBytes(Configuration.getArrowPng());
-            defects = ViewFilter.getFilter(rdata).getLocationDefects(location.getId());
+            defects = ViewFilter.getSessionFilter(rdata).getLocationDefects(location.getId());
             BinaryFile file = fullplan.createLocationDefectPlan(arrowBytes, defects, 1);
             addLocationPlanXml(sb, location, plan, file);
         }

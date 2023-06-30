@@ -18,7 +18,6 @@ import de.elbe5.content.ContentData;
 import de.elbe5.defecttracker.project.ProjectData;
 import de.elbe5.request.RequestData;
 import de.elbe5.request.SessionRequestData;
-import de.elbe5.rights.SystemZone;
 import de.elbe5.user.UserCache;
 import de.elbe5.user.UserData;
 import org.json.simple.JSONObject;
@@ -264,7 +263,7 @@ public class DefectData extends ContentData {
 
     @Override
     public boolean hasUserReadRight(SessionRequestData rdata) {
-        return ViewFilter.getFilter(rdata).hasProjectReadRight(getProjectId()) && (rdata.hasGlobalContentEditRight() || rdata.getUserId()==getAssignedId());
+        return ViewFilter.getSessionFilter(rdata).hasProjectReadRight(getProjectId()) && (rdata.hasGlobalContentEditRight() || rdata.getUserId()==getAssignedId());
     }
 
     public boolean hasUserReadRight(ViewFilter filter, UserData user) {

@@ -20,7 +20,7 @@ public abstract class DefectBaseController extends ContentController {
 
 
     public IView showHome(SessionRequestData rdata){
-        ViewFilter filter=ViewFilter.getFilter(rdata);
+        ViewFilter filter=ViewFilter.getSessionFilter(rdata);
         if (filter.getProjectId()!=0) {
             ProjectData data = ContentCache.getContent(filter.getProjectId(),ProjectData.class);
             return new ContentView(data);

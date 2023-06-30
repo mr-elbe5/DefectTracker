@@ -15,7 +15,6 @@ public class SessionRequestData extends RequestData {
     }
 
     private HttpSession session;
-    private Map<String, Cookie> cookies = new HashMap<>();
 
     public SessionRequestData(String method, HttpServletRequest request) {
         super(method, request);
@@ -229,35 +228,6 @@ public class SessionRequestData extends RequestData {
     public void resetSession() {
         removeAllSessionObjects();
         request.getSession(true);
-    }
-
-    /*************** cookie methods ***************/
-
-    public void addLoginCookie(String name, String value, int expirationDays){
-        Cookie cookie=new Cookie("elbe5cms_"+name,value);
-        cookie.setPath("/ctrl/user/login");
-        cookie.setMaxAge(expirationDays*24*60*60);
-        cookies.put(cookie.getName(),cookie);
-    }
-
-    public boolean hasCookies(){
-        return !(cookies.isEmpty());
-    }
-
-    public void setCookies(HttpServletResponse response){
-        for (Cookie cookie : cookies.values()){
-            response.addCookie(cookie);
-        }
-    }
-
-    public Map<String,String> readLoginCookies(){
-        Map<String, String> map=new HashMap<>();
-        for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().startsWith("elbe5cms_")) {
-                map.put(cookie.getName().substring(9), cookie.getValue());
-            }
-        }
-        return map;
     }
 
 }

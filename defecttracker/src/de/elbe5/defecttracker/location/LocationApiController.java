@@ -57,12 +57,9 @@ public class LocationApiController extends BaseApiController {
             return new ApiResponseCodeView(ResponseCode.UNAUTHORIZED);
         Log.info("loading location defect plan");
         int scalePercent = rdata.getInt("scale", 100);
-        boolean isEditor = user.hasGlobalContentEditRight();
         int id = rdata.getId();
         LocationData data= (LocationData) ContentCache.getContent(id);
-        ViewFilter filter = new ViewFilter();
-        filter.setEditor(isEditor);
-        filter.setCurrentUserId(user.getId());
+        ViewFilter filter = new ViewFilter(user);
         if (!data.hasUserReadRight(filter)) {
             Log.error("plan is null");
             return new ApiResponseCodeView(ResponseCode.NOT_FOUND);

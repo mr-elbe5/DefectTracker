@@ -10,24 +10,14 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
-<%@ page import="de.elbe5.defecttracker.project.ProjectData" %>
-<%@ page import="de.elbe5.content.ContentCache" %>
-<%@ page import="de.elbe5.defecttracker.ViewFilter" %>
-<%@ page import="de.elbe5.group.GroupData" %>
-<%@ page import="de.elbe5.group.GroupBean" %>
 <%@ page import="de.elbe5.user.UserData" %>
-<%@ page import="de.elbe5.user.UserCache" %>
 <%@ taglib uri="/WEB-INF/formtags.tld" prefix="form" %>
 <%
     SessionRequestData rdata = SessionRequestData.getRequestData(request);
 
     int contentId=rdata.getId();
-    String url = "/ctrl/project/setStateFilter/"+contentId;
-    ViewFilter filter= ViewFilter.getFilter(rdata);
-    GroupData group=null;
-    ProjectData project=ContentCache.getContent(filter.getProjectId(), ProjectData.class);
-    if (project!=null)
-        group= GroupBean.getInstance().getGroup(project.getGroupId());
+    String url = "/ctrl/project/setFilterSettings/"+contentId;
+    UserData user= rdata.getSessionUser();
 %>
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -42,7 +32,7 @@
             <div class="modal-body">
                 <form:formerror/>
                 <form:line label="_showClosedDefects" padded="true">
-                    <form:check name="showClosed" value="true" checked="<%=filter.isShowClosed()%>"> </form:check>
+                    <form:check name="showClosed" value="true" checked="<%=user.showClosed()%>"> </form:check>
                 </form:line>
             </div>
             <div class="modal-footer">

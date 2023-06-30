@@ -174,6 +174,8 @@ ALTER TABLE t_user add
     current_project_id  INTEGER     NULL;
 ALTER TABLE t_user add
     CONSTRAINT t_user_fkpr FOREIGN KEY (current_project_id) REFERENCES t_project (id) ON DELETE CASCADE;
+ALTER TABLE t_user add
+    show_closed  BOOLEAN NOT NULL DEFAULT FALSE;
 
 CREATE TABLE IF NOT EXISTS t_location
 (

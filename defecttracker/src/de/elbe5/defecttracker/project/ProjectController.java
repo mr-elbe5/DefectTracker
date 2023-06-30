@@ -12,8 +12,8 @@ import de.elbe5.base.data.BinaryFile;
 import de.elbe5.content.ContentCache;
 import de.elbe5.defecttracker.DefectBaseController;
 import de.elbe5.defecttracker.ViewFilter;
-import de.elbe5.defecttracker.location.LocationPdfBean;
 import de.elbe5.request.SessionRequestData;
+import de.elbe5.user.UserBean;
 import de.elbe5.view.*;
 
 public class ProjectController extends DefectBaseController {
@@ -45,7 +45,7 @@ public class ProjectController extends DefectBaseController {
 
     public IView setWatchFilter(SessionRequestData rdata) {
         checkRights(rdata.isLoggedIn());
-        ViewFilter filter = ViewFilter.getFilter(rdata);
+        ViewFilter filter = ViewFilter.getSessionFilter(rdata);
         filter.setWatchedIds(rdata.getIntegerList("watchedIds"));
         return new CloseDialogView("/ctrl/content/show/" + filter.getProjectId());
     }
@@ -55,24 +55,24 @@ public class ProjectController extends DefectBaseController {
         return new UrlView("/WEB-INF/_jsp/defecttracker/project/projectUsers.ajax.jsp");
     }
 
-    public IView openStateFilter(SessionRequestData rdata) {
+    public IView openFilterSettings(SessionRequestData rdata) {
         checkRights(rdata.isLoggedIn());
-        return new UrlView("/WEB-INF/_jsp/defecttracker/project/stateFilter.ajax.jsp");
+        return new UrlView("/WEB-INF/_jsp/defecttracker/project/filterSettings.ajax.jsp");
     }
 
-    public IView setStateFilter(SessionRequestData rdata) {
+    public IView setFilterSettings(SessionRequestData rdata) {
         checkRights(rdata.isLoggedIn());
-        ViewFilter filter = ViewFilter.getFilter(rdata);
-        filter.setShowClosed(rdata.getBoolean("showClosed"));
-        return new CloseDialogView("/ctrl/content/show/" + filter.getProjectId());
+        rdata.getLoginUser().setShowClosed(rdata.getBoolean("showClosed"));
+        return new CloseDialogView("/ctrl/content/show/" + rdata.getLoginUser().getCurrentProjectId());
     }
 
     public IView selectProject(SessionRequestData rdata) {
         checkRights(rdata.isLoggedIn());
         int projectId=rdata.getId();
-        ViewFilter filter = ViewFilter.getFilter(rdata);
+        ViewFilter filter = ViewFilter.getSessionFilter(rdata);
         filter.setProjectId(projectId);
-        rdata.addLoginCookie("projectId", Integer.toString(filter.getProjectId()),COOKIE_EXPIRATION_DAYS);
+        rdata.getSessionUser().setCurrentProjectId(projectId);
+        UserBean.getInstance().changeCurrentProject(rdata.getUserId(), projectId);
         ProjectData data= ContentCache.getContent(projectId,ProjectData.class);
         return new ContentView(data);
     }
@@ -100,7 +100,7 @@ public class ProjectController extends DefectBaseController {
 
     public IView sort(SessionRequestData rdata) {
         int sortType = rdata.getInt("sortType");
-        ViewFilter filter = ViewFilter.getFilter(rdata);
+        ViewFilter filter = ViewFilter.getSessionFilter(rdata);
         filter.setSortType(sortType);
         return show(rdata);
     }

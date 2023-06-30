@@ -21,7 +21,7 @@
     assert (project != null);
 
     int id=project.getId();
-    ViewFilter filter = ViewFilter.getFilter(rdata);
+    ViewFilter filter = ViewFilter.getSessionFilter(rdata);
     List<DefectData> defects = filter.getProjectDefects();
 %>
 <% if (project.hasUserReadRight(rdata)){%>

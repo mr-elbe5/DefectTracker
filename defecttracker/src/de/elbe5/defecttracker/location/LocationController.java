@@ -14,7 +14,6 @@ import de.elbe5.defecttracker.DefectBaseController;
 import de.elbe5.defecttracker.ViewFilter;
 import de.elbe5.defecttracker.defect.DefectData;
 import de.elbe5.content.ContentCache;
-import de.elbe5.defecttracker.project.ProjectData;
 import de.elbe5.file.ImageBean;
 import de.elbe5.request.*;
 import de.elbe5.servlet.ControllerCache;
@@ -59,7 +58,7 @@ public class LocationController extends DefectBaseController {
             return new ResponseCodeView(ResponseCode.NOT_FOUND);
         PlanImageData plan = ImageBean.getInstance().getFile(data.getPlan().getId(),true,PlanImageData.class);
         byte[] arrowBytes = LocationBean.getInstance().getImageBytes("bluearrow.png");
-        List<DefectData> defects = ViewFilter.getFilter(rdata).getLocationDefects(data.getId());
+        List<DefectData> defects = ViewFilter.getSessionFilter(rdata).getLocationDefects(data.getId());
         BinaryFile file = plan.createLocationDefectPlan(arrowBytes,defects,1);
         assert(file!=null);
         return new BinaryFileView(file);
@@ -77,7 +76,7 @@ public class LocationController extends DefectBaseController {
 
     public IView sort(SessionRequestData rdata) {
         int sortType = rdata.getInt("sortType");
-        ViewFilter filter = ViewFilter.getFilter(rdata);
+        ViewFilter filter = ViewFilter.getSessionFilter(rdata);
         filter.setSortType(sortType);
         return show(rdata);
     }

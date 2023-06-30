@@ -1,12 +1,12 @@
 <%response.setContentType("text/html;charset=UTF-8");%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ include file="/WEB-INF/_jsp/_include/_functions.inc.jsp" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="de.elbe5.defecttracker.ViewFilter" %>
 <%@ page import="de.elbe5.request.SessionRequestData" %>
 <%
   SessionRequestData rdata = SessionRequestData.getRequestData(request);
-  ViewFilter filter= ViewFilter.getFilter(rdata);
+  ViewFilter filter= ViewFilter.getSessionFilter(rdata);
 %>
 
 <ul class="nav filter justify-content-end">
@@ -16,6 +16,6 @@
   </li>
   <%}%>
   <li>
-    <a class="fa fa-filter" onclick="return openModalDialog('/ctrl/project/openStateFilter/<%=rdata.getId()%>');"><%=$SH("_filter")%></a>
+    <a class="fa fa-filter" onclick="return openModalDialog('/ctrl/project/openFilterSettings/<%=rdata.getId()%>');"><%=$SH("_filter")%></a>
   </li>
 </ul>

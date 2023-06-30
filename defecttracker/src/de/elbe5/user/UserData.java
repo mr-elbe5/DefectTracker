@@ -63,6 +63,7 @@ public class UserData extends BaseData {
     protected Set<SystemZone> systemRights = new HashSet<>();
 
     protected int currentProjectId = 0;
+    protected boolean showClosed = false;
 
     // base data
 
@@ -295,7 +296,14 @@ public class UserData extends BaseData {
         this.currentProjectId = currentProjectId;
     }
 
-    // multiple data
+    public boolean showClosed() {
+        return showClosed;
+    }
+
+    public void setShowClosed(boolean showClosed) {
+        this.showClosed = showClosed;
+    }
+// multiple data
 
     private void readBasicData(SessionRequestData rdata) {
         setTitle(rdata.getString("title"));

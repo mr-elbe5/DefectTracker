@@ -45,7 +45,7 @@ public class ProjectPdfBean extends DefectFopBean {
         sb.append("<root>");
         addProjectHeaderXml(sb,project);
         for (LocationData location : project.getChildren(LocationData.class)) {
-            List<DefectData> defects = ViewFilter.getFilter(rdata).getLocationDefects(location.getId());
+            List<DefectData> defects = ViewFilter.getSessionFilter(rdata).getLocationDefects(location.getId());
             if (!defects.isEmpty()) {
                 sb.append("<location>");
                 sb.append("<locationheader><title>");
@@ -58,7 +58,7 @@ public class ProjectPdfBean extends DefectFopBean {
                 if (plan != null) {
                     PlanImageData fullplan = ImageBean.getInstance().getFile(plan.getId(), true, PlanImageData.class);
                     byte[] arrowBytes = LocationBean.getInstance().getImageBytes(Configuration.getArrowPng());
-                    defects = ViewFilter.getFilter(rdata).getLocationDefects(location.getId());
+                    defects = ViewFilter.getSessionFilter(rdata).getLocationDefects(location.getId());
                     BinaryFile file = fullplan.createLocationDefectPlan(arrowBytes, defects, 1);
                     addLocationPlanXml(sb, location, plan, file);
                 }

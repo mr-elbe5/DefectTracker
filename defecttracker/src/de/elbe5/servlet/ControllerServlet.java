@@ -47,8 +47,6 @@ public class ControllerServlet extends WebServlet {
         rdata.initSession();
         try {
             IView result = getView(controller, methodName, rdata);
-            if (rdata.hasCookies())
-                rdata.setCookies(response);
             result.processView(getServletContext(), rdata, response);
         } catch (CmsException ce) {
             handleException(request, response, ce);
