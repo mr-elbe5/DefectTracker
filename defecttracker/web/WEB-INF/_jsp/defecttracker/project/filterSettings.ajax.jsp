@@ -34,6 +34,9 @@
                 <form:line label="_showClosedDefects" padded="true">
                     <form:check name="showClosed" value="true" checked="<%=user.showClosed()%>"> </form:check>
                 </form:line>
+                <form:line label="_apiCurrentProjectOnly" padded="true">
+                    <form:check name="apiCurrentProjectOnly" value="true" checked="<%=user.isApiCurrentProjectOnly()%>"> </form:check>
+                </form:line>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%=$SH("_close")%>

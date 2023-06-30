@@ -49,7 +49,7 @@ public class UserBean extends DbBean {
     }
 
 
-    private static final String SELECT_USER_SQL = "SELECT id,change_date,title,first_name,last_name,street,zipCode,city,country,email,phone,mobile,notes,(portrait IS NOT NULL) as has_portrait,login,locked,deleted,current_project_id,show_closed FROM t_user ";
+    private static final String SELECT_USER_SQL = "SELECT id,change_date,title,first_name,last_name,street,zipCode,city,country,email,phone,mobile,notes,(portrait IS NOT NULL) as has_portrait,login,locked,deleted,current_project_id,show_closed,api_current_project_only FROM t_user ";
 
     protected boolean changedUser(Connection con, UserData data) {
         return changedLogin(con, data);
@@ -103,11 +103,12 @@ public class UserBean extends DbBean {
         data.setLocked(rs.getBoolean(i++));
         data.setDeleted(rs.getBoolean(i++));
         data.setCurrentProjectId(rs.getInt(i++));
-        data.setShowClosed(rs.getBoolean(i));
+        data.setShowClosed(rs.getBoolean(i++));
+        data.setApiCurrentProjectOnly(rs.getBoolean(i));
     }
 
 
-    private static final String LOGIN_SQL = "SELECT pwd,id,change_date,first_name,last_name,email,current_project_id,show_closed FROM t_user WHERE login=? AND locked=FALSE AND deleted=FALSE";
+    private static final String LOGIN_SQL = "SELECT pwd,id,change_date,first_name,last_name,email,current_project_id,show_closed,api_current_project_only FROM t_user WHERE login=? AND locked=FALSE AND deleted=FALSE";
 
     public UserData loginUser(String login, String pwd) {
         if (VOID_PASSWORD.equals(pwd))
@@ -134,7 +135,8 @@ public class UserBean extends DbBean {
                         data.setLocked(false);
                         data.setDeleted(false);
                         data.setCurrentProjectId(rs.getInt(i++));
-                        data.setShowClosed(rs.getBoolean(i));
+                        data.setShowClosed(rs.getBoolean(i++));
+                        data.setApiCurrentProjectOnly(rs.getBoolean(i));
                         readUserGroups(con, data);
                         readUserRights(con, data);
                     }
@@ -149,7 +151,7 @@ public class UserBean extends DbBean {
         return data;
     }
 
-    private static final String API_LOGIN_SQL = "SELECT pwd,id,change_date,first_name,last_name,email,current_project_id,show_closed,token,token_expiration,now() FROM t_user WHERE login=? AND locked=FALSE AND deleted=FALSE";
+    private static final String API_LOGIN_SQL = "SELECT pwd,id,change_date,first_name,last_name,email,current_project_id,show_closed,api_current_project_only,token,token_expiration,now() FROM t_user WHERE login=? AND locked=FALSE AND deleted=FALSE";
 
     private static final String SET_TOKEN_SQL = "UPDATE t_user SET token=?,token_expiration=? WHERE id=?";
 
@@ -179,6 +181,7 @@ public class UserBean extends DbBean {
                         data.setEmail(rs.getString(i++));
                         data.setCurrentProjectId(rs.getInt(i++));
                         data.setShowClosed(rs.getBoolean(i++));
+                        data.setApiCurrentProjectOnly(rs.getBoolean(i++));
                         String token = rs.getString(i++);
                         Timestamp expiration = rs.getTimestamp(i++);
                         Timestamp now = rs.getTimestamp(i);
@@ -243,7 +246,7 @@ public class UserBean extends DbBean {
         }
     }
 
-    private static final String LOGIN_BY_TOKEN_SQL = "SELECT id,login,change_date,first_name,last_name,email,current_project_id,show_closed FROM t_user WHERE token=? AND token_expiration > now() AND locked=FALSE AND deleted=FALSE";
+    private static final String LOGIN_BY_TOKEN_SQL = "SELECT id,login,change_date,first_name,last_name,email,current_project_id,show_closed,api_current_project_only FROM t_user WHERE token=? AND token_expiration > now() AND locked=FALSE AND deleted=FALSE";
 
     public UserData loginUserByToken(String token) {
         Connection con = getConnection();
@@ -264,7 +267,8 @@ public class UserBean extends DbBean {
                     data.setLastName(rs.getString(i++));
                     data.setEmail(rs.getString(i++));
                     data.setCurrentProjectId(rs.getInt(i++));
-                    data.setShowClosed(rs.getBoolean(i));
+                    data.setShowClosed(rs.getBoolean(i++));
+                    data.setApiCurrentProjectOnly(rs.getBoolean(i));
                     data.setLocked(false);
                     data.setDeleted(false);
                     readUserGroups(con, data);
@@ -281,28 +285,6 @@ public class UserBean extends DbBean {
     }
 
     private static final String GET_PASSWORD_SQL = "SELECT pwd FROM t_user WHERE id=?";
-
-    public boolean isSystemPasswordEmpty() {
-        Connection con = getConnection();
-        PreparedStatement pst = null;
-        boolean empty = true;
-        try {
-            pst = con.prepareStatement(GET_PASSWORD_SQL);
-            pst.setInt(1, UserData.ID_ROOT);
-            try (ResultSet rs = pst.executeQuery()) {
-                if (rs.next()) {
-                    String pwd = rs.getString(1);
-                    empty = StringUtil.isNullOrEmpty(pwd);
-                }
-            }
-        } catch (SQLException se) {
-            Log.error("sql error", se);
-        } finally {
-            closeStatement(pst);
-            closeConnection(con);
-        }
-        return empty;
-    }
 
     private static final String GET_X_LOGIN_SQL = "SELECT 'x' FROM t_user WHERE login=?";
 
@@ -350,7 +332,7 @@ public class UserBean extends DbBean {
         return exists;
     }
 
-    private static final String GET_USER_SQL = "SELECT id,change_date,title,first_name,last_name,street,zipCode,city,country,email,phone,mobile,notes,portrait,login,locked,deleted,current_project_id,show_closed FROM t_user WHERE id=?";
+    private static final String GET_USER_SQL = "SELECT id,change_date,title,first_name,last_name,street,zipCode,city,country,email,phone,mobile,notes,portrait,login,locked,deleted,current_project_id,show_closed,api_current_project_only FROM t_user WHERE id=?";
 
     public UserData getUser(int id) {
         Connection con = getConnection();
@@ -383,7 +365,8 @@ public class UserBean extends DbBean {
                 data.setLocked(rs.getBoolean(i++));
                 data.setDeleted(rs.getBoolean(i++));
                 data.setCurrentProjectId(rs.getInt(i++));
-                data.setShowClosed(rs.getBoolean(i));
+                data.setShowClosed(rs.getBoolean(i++));
+                data.setApiCurrentProjectOnly(rs.getBoolean(i));
                 readUserGroups(con, data);
                 readUserRights(con,data);
             }
@@ -455,9 +438,9 @@ public class UserBean extends DbBean {
         }
     }
 
-    private static final String INSERT_USER_SQL = "insert into t_user (change_date,title,first_name,last_name,street,zipCode,city,country,email,phone,fax,mobile,notes,portrait,login,pwd,locked,deleted,current_project_id,show_closed,id) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String UPDATE_USER_PWD_SQL = "update t_user set change_date=?,title=?,first_name=?,last_name=?,street=?,zipCode=?,city=?,country=?,email=?,phone=?,fax=?,mobile=?,notes=?,portrait=?,login=?,pwd=?,locked=?,deleted=?,current_project_id=?,show_closed=? where id=?";
-    private static final String UPDATE_USER_NOPWD_SQL = "update t_user set change_date=?,title=?,first_name=?,last_name=?,street=?,zipCode=?,city=?,country=?,email=?,phone=?,fax=?,mobile=?,notes=?,portrait=?,login=?,locked=?,deleted=?,current_project_id=?,show_closed=? where id=?";
+    private static final String INSERT_USER_SQL = "insert into t_user (change_date,title,first_name,last_name,street,zipCode,city,country,email,phone,fax,mobile,notes,portrait,login,pwd,locked,deleted,current_project_id,show_closed,api_current_project_only,id) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String UPDATE_USER_PWD_SQL = "update t_user set change_date=?,title=?,first_name=?,last_name=?,street=?,zipCode=?,city=?,country=?,email=?,phone=?,fax=?,mobile=?,notes=?,portrait=?,login=?,pwd=?,locked=?,deleted=?,current_project_id=?,show_closed=?,api_current_project_only=? where id=?";
+    private static final String UPDATE_USER_NOPWD_SQL = "update t_user set change_date=?,title=?,first_name=?,last_name=?,street=?,zipCode=?,city=?,country=?,email=?,phone=?,fax=?,mobile=?,notes=?,portrait=?,login=?,locked=?,deleted=?,current_project_id=?,show_closed=?,api_current_project_only=? where id=?";
 
     protected void writeUser(Connection con, UserData data) throws SQLException {
         PreparedStatement pst = null;
@@ -492,6 +475,7 @@ public class UserBean extends DbBean {
             else
                 pst.setInt(i++, data.getCurrentProjectId());
             pst.setBoolean(i++, data.showClosed());
+            pst.setBoolean(i++, data.isApiCurrentProjectOnly());
             pst.setInt(i, data.getId());
             pst.executeUpdate();
             pst.close();
@@ -571,15 +555,16 @@ public class UserBean extends DbBean {
         }
     }
 
-    private static final String CHANGE_SHOW_CLOSED_SQL = "UPDATE t_user SET show_closed=? WHERE id=?";
+    private static final String CHANGE_FILTER_SETTINGS_SQL = "UPDATE t_user SET show_closed=?,api_current_project_only=? WHERE id=?";
 
-    public boolean changeShowClosed(int id, boolean showClosed) {
+    public boolean changeFilterSettings(int id, UserData user) {
         Connection con = startTransaction();
         PreparedStatement pst = null;
         try {
-            pst = con.prepareStatement(CHANGE_SHOW_CLOSED_SQL);
+            pst = con.prepareStatement(CHANGE_FILTER_SETTINGS_SQL);
             int i = 1;
-            pst.setBoolean(i++, showClosed);
+            pst.setBoolean(i++, user.showClosed());
+            pst.setBoolean(i++, user.isApiCurrentProjectOnly());
             pst.setInt(i, id);
             pst.executeUpdate();
             pst.close();

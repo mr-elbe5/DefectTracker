@@ -72,6 +72,8 @@ public class ProjectApiController extends BaseApiController {
         JSONArray jsProjects=new JSONArray();
         json.put("projects",jsProjects);
         for (int projectId : projectIds){
+            if (user.isApiCurrentProjectOnly() && projectId != user.getCurrentProjectId())
+                continue;
             ProjectData project = ContentCache.getContent(projectId,ProjectData.class);
             //Log.info("project is: " + (project == null ? "null" : project.getName()));
             assert(project != null);

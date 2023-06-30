@@ -64,6 +64,7 @@ public class UserData extends BaseData {
 
     protected int currentProjectId = 0;
     protected boolean showClosed = false;
+    protected boolean apiCurrentProjectOnly = false;
 
     // base data
 
@@ -302,6 +303,14 @@ public class UserData extends BaseData {
 
     public void setShowClosed(boolean showClosed) {
         this.showClosed = showClosed;
+    }
+
+    public boolean isApiCurrentProjectOnly() {
+        return apiCurrentProjectOnly;
+    }
+
+    public void setApiCurrentProjectOnly(boolean apiCurrentProjectOnly) {
+        this.apiCurrentProjectOnly = apiCurrentProjectOnly;
     }
 // multiple data
 

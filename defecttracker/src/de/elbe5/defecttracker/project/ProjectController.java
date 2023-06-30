@@ -62,8 +62,10 @@ public class ProjectController extends DefectBaseController {
 
     public IView setFilterSettings(SessionRequestData rdata) {
         checkRights(rdata.isLoggedIn());
-        rdata.getLoginUser().setShowClosed(rdata.getBoolean("showClosed"));
-        return new CloseDialogView("/ctrl/content/show/" + rdata.getLoginUser().getCurrentProjectId());
+        rdata.getSessionUser().setShowClosed(rdata.getBoolean("showClosed"));
+        rdata.getSessionUser().setApiCurrentProjectOnly(rdata.getBoolean("apiCurrentProjectOnly"));
+        UserBean.getInstance().changeFilterSettings(rdata.getUserId(), rdata.getSessionUser());
+        return new CloseDialogView("/ctrl/content/show/" + rdata.getSessionUser().getCurrentProjectId());
     }
 
     public IView selectProject(SessionRequestData rdata) {
