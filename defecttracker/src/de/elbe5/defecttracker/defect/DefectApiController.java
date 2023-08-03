@@ -49,7 +49,7 @@ public class DefectApiController extends BaseApiController {
     }
 
     public IApiView uploadNewDefect(ApiRequestData rdata) {
-        //Log.log("uploadNewDefect");
+        Log.info("uploading new defect");
         UserData user = rdata.getLoginUser();
         if (user==null)
             return new ApiResponseCodeView(ResponseCode.UNAUTHORIZED);
@@ -58,8 +58,12 @@ public class DefectApiController extends BaseApiController {
         if (location == null || !user.hasSystemRight(SystemZone.CONTENTREAD) && !location.hasUserRight(user, Right.READ)) {
             return new ApiResponseCodeView((ResponseCode.UNAUTHORIZED));
         }
+        int importId = rdata.getInt("id");
+        Log.info("incoming id = " + importId);
         DefectData data = new DefectData();
+        data.setImportId(importId);
         data.setCreateValues(location, rdata);
+        Log.info("new id = " + data.getId());
         data.readApiRequestData(rdata);
         //Log.log(data.getJson().toJSONString());
         if (!ContentBean.getInstance().saveContent(data)) {
@@ -72,7 +76,7 @@ public class DefectApiController extends BaseApiController {
     }
 
     public IApiView uploadNewDefectImage(ApiRequestData rdata) {
-        //Log.log("uploadNewDefectImage");
+        Log.info("uploading new defect image");
         UserData user = rdata.getLoginUser();
         if (user == null)
             return new ApiResponseCodeView(ResponseCode.UNAUTHORIZED);
@@ -96,7 +100,7 @@ public class DefectApiController extends BaseApiController {
     }
 
     public IApiView uploadNewComment(ApiRequestData rdata) {
-        //Log.log("uploadNewComment");
+        Log.info("uploading new comment");
         UserData user = rdata.getLoginUser();
         if (user == null)
             return new ApiResponseCodeView(ResponseCode.UNAUTHORIZED);
@@ -117,7 +121,7 @@ public class DefectApiController extends BaseApiController {
     }
 
     public IApiView uploadNewCommentImage(ApiRequestData rdata) {
-        //Log.log("uploadNewCommentImage");
+        Log.info("uploading new comment image");
         UserData user = rdata.getLoginUser();
         if (user == null)
             return new ApiResponseCodeView(ResponseCode.UNAUTHORIZED);

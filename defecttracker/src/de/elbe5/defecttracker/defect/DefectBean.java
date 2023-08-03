@@ -35,7 +35,7 @@ public class DefectBean extends ContentBean {
         return getNextId("s_defect_id");
     }
 
-    private static final String GET_CONTENT_EXTRAS_SQL = "SELECT display_id,location_id,project_id,plan_id, assigned_id, notified, lot, state, " +
+    private static final String GET_CONTENT_EXTRAS_SQL = "SELECT display_id, import_id, location_id,project_id,plan_id, assigned_id, notified, lot, state, " +
             "costs, position_x, position_y, position_comment, " +
             "due_date1, due_date2, close_date  " +
             "FROM t_defect  WHERE id=?";
@@ -59,6 +59,7 @@ public class DefectBean extends ContentBean {
                 if (rs.next()) {
                     int i=1;
                     data.setDisplayId(rs.getInt(i++));
+                    data.setImportId(rs.getInt(i++));
                     data.setLocationId(rs.getInt(i++));
                     data.setProjectId(rs.getInt(i++));
                     data.setPlanId(rs.getInt(i++));
@@ -85,10 +86,10 @@ public class DefectBean extends ContentBean {
     }
 
     private static final String INSERT_CONTENT_EXTRAS_SQL = "insert into t_defect (" +
-            "display_id,location_id,project_id,plan_id, assigned_id, notified, lot, " +
+            "display_id,import_id,location_id,project_id,plan_id, assigned_id, notified, lot, " +
             "due_date1, state, costs, " +
             "position_x, position_y,position_comment,id) " +
-            "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     @Override
     public void createContentExtras(Connection con, ContentData contentData) throws SQLException {
@@ -100,6 +101,11 @@ public class DefectBean extends ContentBean {
             pst = con.prepareStatement(INSERT_CONTENT_EXTRAS_SQL);
             int i = 1;
             pst.setInt(i++,data.getDisplayId());
+            if (data.getImportId() == 0)
+                pst.setNull(i++, Types.INTEGER);
+            else{
+                pst.setInt(i++,data.getImportId());
+            }
             pst.setInt(i++,data.getLocationId());
             pst.setInt(i++,data.getProjectId());
             pst.setInt(i++, data.getPlanId());

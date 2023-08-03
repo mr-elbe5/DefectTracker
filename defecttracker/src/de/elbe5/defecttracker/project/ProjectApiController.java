@@ -115,11 +115,11 @@ public class ProjectApiController extends BaseApiController {
                 for (DefectData defect : location.getChildren(DefectData.class)) {
                     //Log.info("defect is: " + (defect == null ? "null" : defect.getName()));
                     if (!defect.isActive()){
-                        Log.warn("skipping inactive defect: " + defect.getDisplayId());
+                        //Log.warn("skipping inactive defect: " + defect.getDisplayId());
                         continue;
                     }
                     if (defect.isClosed()){
-                        Log.warn("skipping closed defect: " + defect.getDisplayId());
+                        //Log.warn("skipping closed defect: " + defect.getDisplayId());
                         continue;
                     }
                     JSONObject jsDefect = defect.getJson();

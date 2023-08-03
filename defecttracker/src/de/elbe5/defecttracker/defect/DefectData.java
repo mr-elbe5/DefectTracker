@@ -11,6 +11,7 @@ package de.elbe5.defecttracker.defect;
 import de.elbe5.base.data.BinaryFile;
 import de.elbe5.base.log.Log;
 import de.elbe5.base.util.DateUtil;
+import de.elbe5.base.util.StringUtil;
 import de.elbe5.content.ContentCache;
 import de.elbe5.defecttracker.ViewFilter;
 import de.elbe5.defecttracker.location.LocationData;
@@ -47,6 +48,7 @@ public class DefectData extends ContentData {
         imageTypes.add(DefectImageData.class.getSimpleName());
     }
 
+    protected int importId = 0;
     protected int displayId = 0;
     protected int locationId = 0;
     protected int projectId = 0;
@@ -81,6 +83,14 @@ public class DefectData extends ContentData {
     @Override
     public String getDisplayName(){
         return "ID "+getDisplayId();
+    }
+
+    public int getImportId() {
+        return importId;
+    }
+
+    public void setImportId(int importId) {
+        this.importId = importId;
     }
 
     public int getDisplayId() {
@@ -376,12 +386,12 @@ public class DefectData extends ContentData {
 
     public void readApiRequestData(RequestData rdata) {
         setCreatorId(rdata.getInt("creatorId"));
-        setDescription(rdata.getString("description"));
+        setDescription(rdata.getString("description").trim());
         setAssignedId(rdata.getInt("assignedId"));
         setLot(rdata.getString("lot"));
         setPositionX(rdata.getInt("positionX"));
         setPositionY(rdata.getInt("positionY"));
-        setPositionComment(rdata.getString("positionComment"));
+        setPositionComment(rdata.getString("positionComment").trim());
         setState(rdata.getString("state"));
         setCreationDate(DateUtil.asLocalDateTime(rdata.getLong("creationDate")));
         setDueDate1(DateUtil.asLocalDate(rdata.getLong("dueDate")));

@@ -71,3 +71,8 @@ alter table t_location add approve_date DATE NULL;
 
 alter table t_project drop column phase;
 alter table t_defect drop column phase;
+
+--only live
+
+alter table t_defect add import_id INTEGER NULL;
+alter table t_defect add CONSTRAINT t_defect_un1 UNIQUE (import_id);
