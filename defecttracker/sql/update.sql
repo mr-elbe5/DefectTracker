@@ -75,4 +75,3 @@ alter table t_defect drop column phase;
 --only live
 
 alter table t_defect add import_id INTEGER NULL;
-alter table t_defect add CONSTRAINT t_defect_un1 UNIQUE (import_id);
