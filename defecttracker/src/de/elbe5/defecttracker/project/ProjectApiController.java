@@ -119,7 +119,7 @@ public class ProjectApiController extends BaseApiController {
                         continue;
                     }
                     if (defect.isClosed()){
-                        Log.warn("skipping closed defect: " + defect.getDisplayId());
+                        //Log.warn("skipping closed defect: " + defect.getDisplayId());
                         continue;
                     }
                     JSONObject jsDefect = defect.getJson();

@@ -63,7 +63,7 @@ public class DefectApiController extends BaseApiController {
         DefectData data = new DefectData();
         data.setImportId(importId);
         data.setCreateValues(location, rdata);
-        Log.info("new id = " + data.getId());
+        Log.info("defect id changed from " + data.getImportId() + " to " +data.getId());
         data.readApiRequestData(rdata);
         //Log.log(data.getJson().toJSONString());
         if (!ContentBean.getInstance().saveContent(data)) {
@@ -80,6 +80,8 @@ public class DefectApiController extends BaseApiController {
         UserData user = rdata.getLoginUser();
         if (user == null)
             return new ApiResponseCodeView(ResponseCode.UNAUTHORIZED);
+        //todo
+        //return new ApiResponseCodeView((ResponseCode.UNAUTHORIZED));
         int defectId = rdata.getId();
         DefectData defect=ContentCache.getContent(defectId, DefectData.class);
         assert(defect != null);
@@ -93,6 +95,7 @@ public class DefectApiController extends BaseApiController {
         if (!image.createFromBinaryFile(file, image.getMaxWidth(), image.getMaxHeight(), image.getMaxPreviewWidth(),image.getMaxPreviewHeight(), false)) {
             return new ApiResponseCodeView(ResponseCode.BAD_REQUEST);
         }
+        Log.info("image id changed from " + image.getImportId() + " to " +image.getId());
         image.setChangerId(rdata.getUserId());
         if (!ImageBean.getInstance().saveFile(image,true)) {
             return new ApiResponseCodeView(ResponseCode.BAD_REQUEST);
@@ -117,6 +120,7 @@ public class DefectApiController extends BaseApiController {
         DefectCommentData data = new DefectCommentData();
         data.setImportId(importId);
         data.setCreateValues(defect, user.getId());
+        Log.info("comment id changed from " + data.getImportId() + " to " +data.getId());
         data.readApiRequestData(rdata);
         if (!DefectBean.getInstance().saveDefectComment(data)) {
             return new ApiResponseCodeView(ResponseCode.BAD_REQUEST);
@@ -146,6 +150,7 @@ public class DefectApiController extends BaseApiController {
         if (!image.createFromBinaryFile(file, image.getMaxWidth(), image.getMaxHeight(), image.getMaxPreviewWidth(),image.getMaxPreviewHeight(), false)) {
             return new ApiResponseCodeView(ResponseCode.BAD_REQUEST);
         }
+        Log.info("image id changed from " + image.getImportId() + " to " +image.getId());
         image.setChangerId(rdata.getUserId());
         image.setCommentId(comment.getId());
         if (!ImageBean.getInstance().saveFile(image,true)) {

@@ -77,3 +77,5 @@ alter table t_defect add CONSTRAINT t_defect_un1 UNIQUE (import_id);
 
 alter table t_image add import_id INTEGER NULL;
 alter table t_image add CONSTRAINT t_image_un1 UNIQUE (import_id);
+
+--bauhaus live ok
