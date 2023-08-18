@@ -26,6 +26,7 @@ public class DefectCommentData extends BaseData {
 
     public static final String KEY_COMMENT = "commentData";
 
+    protected int importId = 0;
     protected int defectId = 0;
     protected DefectData defect =null;
     protected String comment = "";
@@ -36,6 +37,14 @@ public class DefectCommentData extends BaseData {
         if (user!=null)
             return user.getName();
         return "";
+    }
+
+    public int getImportId() {
+        return importId;
+    }
+
+    public void setImportId(int importId) {
+        this.importId = importId;
     }
 
     public int getDefectId() {

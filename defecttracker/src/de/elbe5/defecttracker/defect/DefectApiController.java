@@ -83,9 +83,12 @@ public class DefectApiController extends BaseApiController {
         int defectId = rdata.getId();
         DefectData defect=ContentCache.getContent(defectId, DefectData.class);
         assert(defect != null);
+        int importId = rdata.getInt("imageId");
+        Log.info("incoming image id = " + importId);
         BinaryFile file = rdata.getFile("file");
         assert(file!=null);
         DefectImageData image = new DefectImageData();
+        image.setImportId(importId);
         image.setCreateValues(defect, rdata);
         if (!image.createFromBinaryFile(file, image.getMaxWidth(), image.getMaxHeight(), image.getMaxPreviewWidth(),image.getMaxPreviewHeight(), false)) {
             return new ApiResponseCodeView(ResponseCode.BAD_REQUEST);
@@ -109,7 +112,10 @@ public class DefectApiController extends BaseApiController {
         if (defect == null || !user.hasSystemRight(SystemZone.CONTENTREAD) && !defect.hasUserRight(user, Right.READ)) {
             return new ApiResponseCodeView((ResponseCode.UNAUTHORIZED));
         }
+        int importId = rdata.getInt("id");
+        Log.info("incoming id = " + importId);
         DefectCommentData data = new DefectCommentData();
+        data.setImportId(importId);
         data.setCreateValues(defect, user.getId());
         data.readApiRequestData(rdata);
         if (!DefectBean.getInstance().saveDefectComment(data)) {
@@ -132,7 +138,10 @@ public class DefectApiController extends BaseApiController {
         assert(defect !=null);
         BinaryFile file = rdata.getFile("file");
         assert(file!=null);
+        int importId = rdata.getInt("imageId");
+        Log.info("incoming image id = " + importId);
         DefectCommentImageData image = new DefectCommentImageData();
+        image.setImportId(importId);
         image.setCreateValues(defect, rdata);
         if (!image.createFromBinaryFile(file, image.getMaxWidth(), image.getMaxHeight(), image.getMaxPreviewWidth(),image.getMaxPreviewHeight(), false)) {
             return new ApiResponseCodeView(ResponseCode.BAD_REQUEST);

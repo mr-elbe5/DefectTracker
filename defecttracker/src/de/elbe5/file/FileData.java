@@ -12,6 +12,7 @@ import de.elbe5.view.IView;
 
 public abstract class FileData extends BaseData {
 
+    protected int importId = 0;
     private String fileName = "";
     private String displayName = "";
     private String description = "";
@@ -36,6 +37,14 @@ public abstract class FileData extends BaseData {
         if (pos==-1)
             return;
         setFileName(StringUtil.toSafeWebName(getDisplayName())+ getFileName().substring(pos));
+    }
+
+    public int getImportId() {
+        return importId;
+    }
+
+    public void setImportId(int importId) {
+        this.importId = importId;
     }
 
     public String getFileName() {

@@ -24,8 +24,8 @@ public class ImageBean extends FileBean {
         return instance;
     }
 
-    private static String GET_CONTENT_EXTRAS_SQL = "SELECT width,height,(preview_bytes IS NOT NULL) as has_preview FROM t_image WHERE id=?";
-    private static String GET_CONTENT_EXTRAS_COMPLETE_SQL = "SELECT width,height,preview_bytes FROM t_image WHERE id=?";
+    private static String GET_CONTENT_EXTRAS_SQL = "SELECT import_id,width,height,(preview_bytes IS NOT NULL) as has_preview FROM t_image WHERE id=?";
+    private static String GET_CONTENT_EXTRAS_COMPLETE_SQL = "SELECT import_id,width,height,preview_bytes FROM t_image WHERE id=?";
 
     @Override
     public void readFileExtras(Connection con, FileData contentData, boolean complete) throws SQLException {
@@ -39,6 +39,7 @@ public class ImageBean extends FileBean {
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     int i = 1;
+                    data.setImportId(rs.getInt(i++));
                     data.setWidth(rs.getInt(i++));
                     data.setHeight(rs.getInt(i++));
                     if (complete){
@@ -54,9 +55,9 @@ public class ImageBean extends FileBean {
         }
     }
 
-    private static String INSERT_CONTENT_EXTRAS_SQL = "insert into t_image (width,height,preview_bytes,id) values(?,?,?,?)";
-    private static String UPDATE_CONTENT_EXTRAS_SQL = "update t_image set width=?,height=?,preview_bytes=? where id=?";
-    private static String UPDATE_CONTENT_EXTRAS_NOBYTES_SQL = "update t_image set width=?,height=? where id=?";
+    private static String INSERT_CONTENT_EXTRAS_SQL = "insert into t_image (import_id,width,height,preview_bytes,id) values(?,?,?,?,?)";
+    private static String UPDATE_CONTENT_EXTRAS_SQL = "update t_image set import_id=?,width=?,height=?,preview_bytes=? where id=?";
+    private static String UPDATE_CONTENT_EXTRAS_NOBYTES_SQL = "update t_image set import_id=?,width=?,height=? where id=?";
 
     @Override
     public void writeFileExtras(Connection con, FileData contentData, boolean complete) throws SQLException {
@@ -66,6 +67,11 @@ public class ImageBean extends FileBean {
         PreparedStatement pst;
         int i = 1;
         pst = con.prepareStatement(data.isNew() ? INSERT_CONTENT_EXTRAS_SQL : (complete ? UPDATE_CONTENT_EXTRAS_SQL : UPDATE_CONTENT_EXTRAS_NOBYTES_SQL));
+        if (data.getImportId() == 0)
+            pst.setNull(i++, Types.INTEGER);
+        else{
+            pst.setInt(i++,data.getImportId());
+        }
         pst.setInt(i++, data.getWidth());
         pst.setInt(i++, data.getHeight());
         if (complete) {
