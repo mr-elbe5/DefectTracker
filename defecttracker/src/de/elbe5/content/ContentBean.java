@@ -182,6 +182,7 @@ public class ContentBean extends DbBean {
         Connection con = startTransaction();
         try {
             if (!data.isNew() && changedContent(con, data)) {
+                Log.warn("data to save is not new: " + data.getId());
                 return rollbackTransaction(con);
             }
             ContentBean extrasBean = ContentFactory.getBean(data.getType());
@@ -199,6 +200,7 @@ public class ContentBean extends DbBean {
             }
             return commitTransaction(con);
         } catch (Exception se) {
+            Log.error("could not save content", se);
             return rollbackTransaction(con, se);
         }
     }

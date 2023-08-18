@@ -147,6 +147,10 @@ public class StringUtil {
         return src.replaceAll("[\\s&]+", "-").replaceAll("['\"><]+", "");
     }
 
+    public static String toSingleLine(String src) {
+        return src.replaceAll("[\n\r]+", "");
+    }
+
     public static String getIntString(List<Integer> ints) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < ints.size(); i++) {
