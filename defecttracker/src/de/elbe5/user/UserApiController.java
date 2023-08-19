@@ -68,6 +68,7 @@ public class UserApiController extends ApiController {
         json.put("token", data.getToken());
         json.put("expiration", DateUtil.asMillis(data.getTokenExpiration()));
         Log.log(json.toJSONString());
+        Log.info("sending json login for " + data.getLogin());
         return new JsonView(json.toJSONString());
     }
 

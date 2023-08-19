@@ -61,6 +61,7 @@ public class ProjectApiController extends BaseApiController {
         if (user==null)
             return new ApiResponseCodeView(ResponseCode.UNAUTHORIZED);
         JSONObject json = getProjectsJson(user);
+        Log.info("sending json projects");
         return new JsonView(json.toJSONString());
     }
 
@@ -81,7 +82,6 @@ public class ProjectApiController extends BaseApiController {
             //Log.info("project is: " + (project == null ? "null" : project.getName()));
             assert(project != null);
             if (!project.isActive()){
-                //Log.warn("skipping inactive project: " + project.getName());
                 continue;
             }
             JSONObject jsProject = project.getJson();
@@ -100,7 +100,6 @@ public class ProjectApiController extends BaseApiController {
             for (LocationData location : project.getChildren(LocationData.class)) {
                 //Log.info("location is: " + (location == null ? "null" : location.getName()));
                 if (!location.isActive()){
-                    //Log.warn("skipping inactive location: " + location.getName());
                     continue;
                 }
                 JSONObject jsLocation = location.getJson();
@@ -114,12 +113,7 @@ public class ProjectApiController extends BaseApiController {
                 jsLocation.put("defects", jsDefects);
                 for (DefectData defect : location.getChildren(DefectData.class)) {
                     //Log.info("defect is: " + (defect == null ? "null" : defect.getName()));
-                    if (!defect.isActive()){
-                        //Log.warn("skipping inactive defect: " + defect.getDisplayId());
-                        continue;
-                    }
-                    if (defect.isClosed()){
-                        //Log.warn("skipping closed defect: " + defect.getDisplayId());
+                    if (!defect.isActive() || defect.isClosed()){
                         continue;
                     }
                     JSONObject jsDefect = defect.getJson();

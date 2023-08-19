@@ -72,6 +72,7 @@ public class DefectApiController extends BaseApiController {
         data.setNew(false);
         data.setViewType(ContentData.VIEW_TYPE_SHOW);
         ContentCache.setDirty();
+        Log.info("sending defect json id " + data.getId());
         return new JsonView(getIdJson(data.getId()).toJSONString());
     }
 
@@ -102,6 +103,7 @@ public class DefectApiController extends BaseApiController {
         }
         image.setNew(false);
         ContentCache.setDirty();
+        Log.info("sending defect image json id " + image.getId());
         return new JsonView(getIdJson(image.getId()).toJSONString());
     }
 
@@ -127,6 +129,7 @@ public class DefectApiController extends BaseApiController {
         }
         data.setNew(false);
         ContentCache.setDirty();
+        Log.info("sending comment json id " + data.getId());
         return new JsonView(getIdJson(data.getId()).toJSONString());
     }
 
@@ -135,6 +138,8 @@ public class DefectApiController extends BaseApiController {
         UserData user = rdata.getLoginUser();
         if (user == null)
             return new ApiResponseCodeView(ResponseCode.UNAUTHORIZED);
+        //todo
+        //return new ApiResponseCodeView((ResponseCode.UNAUTHORIZED));
         int commentId = rdata.getId();
         DefectCommentData comment=DefectBean.getInstance().getDefectComment(commentId);
         assert(comment !=null);
@@ -158,6 +163,7 @@ public class DefectApiController extends BaseApiController {
         }
         image.setNew(false);
         ContentCache.setDirty();
+        Log.info("sending comment image json id " + image.getId());
         return new JsonView(getIdJson(image.getId()).toJSONString());
     }
 

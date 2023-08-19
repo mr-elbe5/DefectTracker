@@ -120,6 +120,7 @@ CREATE TABLE IF NOT EXISTS t_file
 CREATE TABLE IF NOT EXISTS t_image
 (
     id            INTEGER       NOT NULL,
+    import_id     INTEGER       NULL,
     width         INTEGER       NOT NULL DEFAULT 0,
     height        INTEGER       NOT NULL DEFAULT 0,
     preview_bytes BYTEA         NULL,
@@ -197,8 +198,7 @@ CREATE TABLE IF NOT EXISTS t_defect
     CONSTRAINT t_defect_fk2 FOREIGN KEY (location_id) REFERENCES t_location (id) ON DELETE CASCADE,
     CONSTRAINT t_defect_fk3 FOREIGN KEY (project_id) REFERENCES t_project (id) ON DELETE CASCADE,
     CONSTRAINT t_defect_fk4 FOREIGN KEY (plan_id) REFERENCES t_image (id) ON DELETE CASCADE,
-    CONSTRAINT t_defect_fk5 FOREIGN KEY (assigned_id) REFERENCES t_user (id),
-    CONSTRAINT t_defect_un1 UNIQUE (import_id)
+    CONSTRAINT t_defect_fk5 FOREIGN KEY (assigned_id) REFERENCES t_user (id)
 );
 
 CREATE SEQUENCE IF NOT EXISTS s_defect_comment_id START 1000;
