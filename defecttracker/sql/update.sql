@@ -77,3 +77,4 @@ alter table t_image add import_id INTEGER NULL;
 
 --bauhaus live ok
 --defecttracker elbe5 ok
+--defecttracker viertmann ok
